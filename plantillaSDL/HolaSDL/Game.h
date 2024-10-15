@@ -2,7 +2,6 @@
 #include <array>
 #include <SDL.h>
 #include "Texture.h"
-#include "Dog.h"
 
 using uint = unsigned int;
 
@@ -11,8 +10,12 @@ class Game
 public:
 	enum TextureName {
 		BACKGROUND,
-		DOG,
-		HELICOPTER,
+		MARIO,
+		SUPERMARIO,
+		BLOCKS,
+		GOOMBA,
+		KOOPA,
+		MUSHROOM,
 		NUM_TEXTURES,
 	};
 
