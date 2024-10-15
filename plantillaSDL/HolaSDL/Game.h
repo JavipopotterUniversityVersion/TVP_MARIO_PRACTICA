@@ -35,6 +35,7 @@ private:
 	std::array<Texture*, NUM_TEXTURES> textures;
 	// Interruptor para terminar el juego
 	bool seguir;
+	int mapOffset = 0;
 
 	// Objetos del juego
 	Dog* perro;
@@ -52,6 +53,8 @@ public:
 	static constexpr uint WIN_WIDTH = 800;
 	static constexpr uint WIN_HEIGHT = 600;
 	static constexpr uint FRAME_RATE = 50;
+
+	int GetMapOffset() const { return mapOffset; }
 
 	Game();
 	~Game();
