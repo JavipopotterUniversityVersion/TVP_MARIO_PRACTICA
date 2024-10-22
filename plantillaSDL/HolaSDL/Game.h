@@ -2,6 +2,7 @@
 #include <array>
 #include <SDL.h>
 #include "Texture.h"
+#include "Entity.h"
 
 using uint = unsigned int;
 
@@ -26,6 +27,7 @@ private:
 	bool seguir;
 	int mapOffset = 0;
 	bool exit = false;
+	Entity* entities;
 
 public:
 	void run();

@@ -24,6 +24,3 @@ class Vector2D
 			y = newY;
 		}
 };
-
-template <typename T>
-using Point2D = Vector2D<T>;

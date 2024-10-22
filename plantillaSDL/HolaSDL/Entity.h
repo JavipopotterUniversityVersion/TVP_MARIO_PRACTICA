@@ -1,12 +1,12 @@
 #pragma once
 #include "Vector2D.h"
 #include "Texture.h"
-#include "Game.h"
+class Game;
 
 class Entity
 {
 	private:
-		Point2D<int> position;
+		Vector2D<int> position;
 		int direction;
 		Texture* texture;
 		Game* game;

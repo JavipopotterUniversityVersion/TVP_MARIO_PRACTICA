@@ -1,4 +1,9 @@
 #pragma once
-#include "Entity.h"
+class Entity;
+class Game;
 
-class Goomba : Entity {};
+class Goomba : public Entity 
+{
+    public:
+        Goomba(Game* game, int x, int y) : Entity(game, x, y) {}
+};

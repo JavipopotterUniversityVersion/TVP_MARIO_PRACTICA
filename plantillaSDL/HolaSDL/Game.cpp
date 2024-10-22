@@ -1,6 +1,10 @@
 #include <string>
 
 #include "Game.h"
+#include "Entity.h"
+#include "Player.h"
+#include "Goomba.h"
+#include "Koopa.h"
 
 using namespace std;
 
@@ -46,10 +50,14 @@ Game::Game()
 	for (int i = 0; i < NUM_TEXTURES; ++i)
 		textures[i] = new Texture(renderer,
 		                          (textureRoot + textureSpec[i].name).c_str(),
-		                          textureSpec[i].numRows,
-					  textureSpec[i].numColumns);
+		                          textureSpec[i].numRows, textureSpec[i].numColumns);
 
 	// Crea los objetos del juego
+	entities = new Entity[3]{
+		Player(this, 100, 100),
+		Goomba(this, 200, 200),
+		Koopa(this, 300, 300),
+	};
 }
 
 Game::~Game()
@@ -59,6 +67,8 @@ Game::~Game()
 	// Elimina las texturas
 	for (Texture* texture : textures)
 		delete texture;
+
+	delete[] entities;
 
 	// Desactiva la SDL
 	SDL_DestroyRenderer(renderer);
