@@ -25,6 +25,7 @@ private:
 	std::array<Texture*, NUM_TEXTURES> textures;
 	bool seguir;
 	int mapOffset = 0;
+	bool exit = false;
 
 public:
 	void run();

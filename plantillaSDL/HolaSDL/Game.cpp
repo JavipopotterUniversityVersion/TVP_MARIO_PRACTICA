@@ -94,7 +94,6 @@ Game::render() const
 
 	// Pinta los objetos del juego
 	textures[BACKGROUND]->render();
-
 	SDL_RenderPresent(renderer);
 }
 

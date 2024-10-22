@@ -4,12 +4,20 @@
 
 void Tilemap::render(const Game& game)
 {
-	
+	for (int i = 0; i < MAP_HEIGHT; i++)
+	{
+		for (int c = 0; i < mapWidth; i++)
+		{
+			//texture->render();
+		}
+	}
 }
 
-Tilemap::Tilemap(const string& mapName)
+Tilemap::Tilemap(const string& mapName, Texture* tex)
 {
 	string path = ".../Assets/imgs" + mapName;
+	texture = tex;
+	mapWidth = 0;
 
 	ifstream file(path);
 	if (file.is_open())
@@ -24,12 +32,12 @@ Tilemap::Tilemap(const string& mapName)
 		}
 
 		file.close();
-		int width = aux.size() / MAP_HEIGHT;
+		mapWidth = aux.size() / MAP_HEIGHT;
 
 		for (int i = 0; i < MAP_HEIGHT; i++)
 		{
 			vector<int> row;
-			for (int j = 0; j < width; j++) row.push_back(aux[i * width + j]);
+			for (int j = 0; j < mapWidth; j++) row.push_back(aux[i * mapWidth + j]);
 			map.push_back(row);
 		}
 	}

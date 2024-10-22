@@ -2,21 +2,20 @@
 #include "Vector2D.h"
 #include "Texture.h"
 #include "Game.h"
-#include "Entity.h"
 
-class Player : Entity
+class Entity
 {
 	private:
 		Point2D<int> position;
 		int direction;
 		Texture* texture;
 		Game* game;
-
-		bool superMario = false;
-		int vidas = 3;
+		int vidas;
 
 	public:
-		Player(Game* game, int x, int y);
-		void handleEvent();
-
+		Entity(Game* game, int x, int y);
+		void render();
+		virtual void update();
+		virtual void hit();
 };
+
