@@ -1,10 +1,9 @@
 #pragma once
-#include "Entity.h"
 
 enum BlockType { LADRILLO, SORPRESA, VACIO, OCULTO };
 enum BlockAction { POTENCIADOR, MONEDA };
 
-class Block : Entity
+class Block
 {
 	BlockType type;
 	BlockAction action;
