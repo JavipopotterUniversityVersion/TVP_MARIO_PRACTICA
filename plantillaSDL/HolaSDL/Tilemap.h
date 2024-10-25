@@ -10,11 +10,11 @@ class Tilemap
 	vector<vector<int>> map;
 	Texture* texture;
 	const int MAP_HEIGHT = 16;
-	int mapWidth;
+	Game* game;
 
-	Tilemap(const string& mapName, Texture* tex);
+	Tilemap(const string& mapName, Game* game);
 
-	void render(const Game& game);
+	void render();
 	void update();
 	void hit();
 };

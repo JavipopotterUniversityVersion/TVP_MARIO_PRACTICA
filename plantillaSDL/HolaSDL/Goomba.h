@@ -2,8 +2,6 @@
 class Entity;
 class Game;
 
-class Goomba : public Entity 
+class Goomba 
 {
-    public:
-        Goomba(Game* game, int x, int y) : Entity(game, x, y) {}
 };

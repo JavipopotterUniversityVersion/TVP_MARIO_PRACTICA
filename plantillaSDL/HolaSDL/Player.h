@@ -1,8 +1,8 @@
 #pragma once
 #include "Vector2D.h"
 class Texture;
-class Entity;
 class Game;
+#include "Entity.h"
 
 class Player : public Entity
 {
@@ -13,6 +13,6 @@ class Player : public Entity
 		int vidas = 3;
 
 	public:
-		Player(Game* game, int x, int y) :Entity(game, x, y) {}
+		Player(Game* game, int x, int y) : Entity(game, x, y) {}
 		void handleEvent();
 };

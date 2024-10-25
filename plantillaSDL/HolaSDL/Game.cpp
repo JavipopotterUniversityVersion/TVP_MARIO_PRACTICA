@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Goomba.h"
 #include "Koopa.h"
+#include "Tilemap.h"
 
 using namespace std;
 
@@ -29,8 +30,7 @@ const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
 	TextureSpec{"mushroom.png", 1, 1},
 };
 
-Game::Game()
- : seguir(true)
+Game::Game() : seguir(true), map(new Tilemap(MAP_NAME, this))
 {
 	// Inicializa la SDL
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -53,9 +53,8 @@ Game::Game()
 		                          textureSpec[i].numRows, textureSpec[i].numColumns);
 
 	// Crea los objetos del juego
-	entities = new Entity[3]{
+	entities = new Entity[2]{
 		Player(this, 100, 100),
-		Goomba(this, 200, 200),
 		Koopa(this, 300, 300),
 	};
 }
@@ -103,7 +102,8 @@ Game::render() const
 	SDL_RenderClear(renderer);
 
 	// Pinta los objetos del juego
-	textures[BACKGROUND]->render();
+	//textures[BACKGROUND]->render();
+	map->render();
 	SDL_RenderPresent(renderer);
 }
 

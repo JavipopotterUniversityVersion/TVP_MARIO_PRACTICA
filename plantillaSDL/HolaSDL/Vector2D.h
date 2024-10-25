@@ -14,9 +14,8 @@ class Vector2D
 		Vector2D<T> operator +(Vector2D<T> other) const;
 		Vector2D<T> operator -(Vector2D<T> other) const;
 		
-		T operator *(Vector2D<T> other) const;
-		Vector2D<T> operator *(T scalar) const;
 		Vector2D<T> operator *(Vector2D<T> other) const;
+		Vector2D<T> operator *(T scalar) const;
 
 		void Set(T newX, T newY)
 		{

@@ -14,8 +14,7 @@ void Entity::hit()
 
 }
 
-Entity::Entity(Game* game, int x, int y)
+Entity::Entity(Game* game, int x, int y) : game(game)
 {
-	Entity::game = game;
 	position.Set(x, y);
 }

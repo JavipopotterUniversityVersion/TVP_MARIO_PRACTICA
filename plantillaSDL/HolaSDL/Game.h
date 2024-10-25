@@ -3,12 +3,15 @@
 #include <SDL.h>
 #include "Texture.h"
 #include "Entity.h"
+//#include "Tilemap.h"
+class Tilemap;
 
 using uint = unsigned int;
 
 class Game
 {
 public:
+	static const int TILE_SIZE = 32;
 	enum TextureName {
 		BACKGROUND,
 		MARIO,
@@ -21,6 +24,7 @@ public:
 	};
 
 private:
+	const string MAP_NAME = "map.txt";
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	std::array<Texture*, NUM_TEXTURES> textures;
@@ -28,6 +32,7 @@ private:
 	int mapOffset = 0;
 	bool exit = false;
 	Entity* entities;
+	Tilemap* map;
 
 public:
 	void run();
@@ -37,6 +42,7 @@ public:
 	void handleEvents();
 
 	Texture* getTexture(TextureName name) const;
+	int getMapOffset() { return mapOffset; }
 
 	static constexpr uint WIN_WIDTH = 800;
 	static constexpr uint WIN_HEIGHT = 600;
