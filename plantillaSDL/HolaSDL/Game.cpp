@@ -61,7 +61,7 @@ Game::Game() : seguir(true)
 		Koopa(this, 300, 300),
 	};
 
-	map = new Tilemap("world1.txt", this);
+	map = new Tilemap("world1.csv", this);
 }
 
 Game::~Game()

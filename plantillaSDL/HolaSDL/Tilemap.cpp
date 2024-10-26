@@ -17,12 +17,11 @@ void Tilemap::render()
 	rect.h = Game::TILE_SIZE;
 
 	// Pintamos los WINDOW_WIDTH + 1 (aunque se salga) x WINDOW_HEIGHT recuadros del mapa
-	for (int i = 0; i < Game::WIN_WIDTH + 2; ++i) {
-		for (int j = 0; j < Game::WIN_HEIGHT; ++j) {
+	for (int i = 0; i < map[0].size() - 1; ++i) {
+		for (int j = 0; j < map.size() - 1; ++j) {
 			// �ndice en el conjunto de patrones de la matriz de �ndices
 			//int indice = indices[x0 + i][j];
-			//int indice = map[j][i + x0];
-			int indice = 5;
+			int indice = map[j][i + x0];
 			if (indice != -1) {
 				// Separa n�mero de fila y de columna
 				int fx = indice % 9;
@@ -32,7 +31,6 @@ void Tilemap::render()
 				rect.y = j * Game::TILE_SIZE;
 
 				// Usa renderFrame para pintar la tesela
-				//background->renderFrame(rect, fy, fx);
 				texture->renderFrame(rect, fy, fx);
 			}
 
@@ -44,7 +42,7 @@ Tilemap::Tilemap(const string& mapName, Game* game) : game(game)
 {
 	string path = "../Assets/maps/" + mapName;
 
-	texture = game->getTexture(Game::BLOCKS);
+	texture = game->getTexture(Game::BACKGROUND);
 	cout << texture;
 
 	ifstream entrada(path);
