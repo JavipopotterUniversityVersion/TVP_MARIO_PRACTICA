@@ -7,15 +7,17 @@ using namespace std;
 
 class Tilemap
 {
-	vector<vector<int>> map;
-	Texture* texture;
-	const int MAP_HEIGHT = 16;
-	Game* game;
+	private:
+		vector<vector<int>> map;
+		Texture* texture;
+		const int MAP_HEIGHT = 16;
+		Game* game;
 
-	Tilemap(const string& mapName, Game* game);
+	public:
+		Tilemap(const string& mapName, Game* game);
 
-	void render();
-	void update();
-	void hit();
+		void render();
+		void update();
+		void hit();
 };
 

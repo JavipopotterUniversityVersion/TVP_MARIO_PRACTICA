@@ -24,7 +24,6 @@ public:
 	};
 
 private:
-	const string MAP_NAME = "map.txt";
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	std::array<Texture*, NUM_TEXTURES> textures;

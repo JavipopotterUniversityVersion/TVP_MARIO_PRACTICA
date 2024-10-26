@@ -30,7 +30,7 @@ const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
 	TextureSpec{"mushroom.png", 1, 1},
 };
 
-Game::Game() : seguir(true), map(new Tilemap(MAP_NAME, this))
+Game::Game() : seguir(true), map(new Tilemap("World1.txt", this))
 {
 	// Inicializa la SDL
 	SDL_Init(SDL_INIT_EVERYTHING);
