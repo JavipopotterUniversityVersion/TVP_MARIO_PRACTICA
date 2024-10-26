@@ -7,6 +7,7 @@
 #include "Koopa.h"
 #include "Tilemap.h"
 
+#include <iostream>
 using namespace std;
 
 struct TextureSpec
@@ -30,7 +31,7 @@ const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
 	TextureSpec{"mushroom.png", 1, 1},
 };
 
-Game::Game() : seguir(true), map(new Tilemap("World1.txt", this))
+Game::Game() : seguir(true)
 {
 	// Inicializa la SDL
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -48,15 +49,19 @@ Game::Game() : seguir(true), map(new Tilemap("World1.txt", this))
 
 	// Carga las texturas
 	for (int i = 0; i < NUM_TEXTURES; ++i)
+	{
 		textures[i] = new Texture(renderer,
-		                          (textureRoot + textureSpec[i].name).c_str(),
-		                          textureSpec[i].numRows, textureSpec[i].numColumns);
+			(textureRoot + textureSpec[i].name).c_str(),
+			textureSpec[i].numRows, textureSpec[i].numColumns);
+	}
 
 	// Crea los objetos del juego
 	entities = new Entity[2]{
 		Player(this, 100, 100),
 		Koopa(this, 300, 300),
 	};
+
+	map = new Tilemap("world1.txt", this);
 }
 
 Game::~Game()

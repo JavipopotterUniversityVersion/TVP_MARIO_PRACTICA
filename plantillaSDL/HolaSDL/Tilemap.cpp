@@ -21,7 +21,8 @@ void Tilemap::render()
 		for (int j = 0; j < Game::WIN_HEIGHT; ++j) {
 			// �ndice en el conjunto de patrones de la matriz de �ndices
 			//int indice = indices[x0 + i][j];
-			int indice = map[j][i + x0];
+			//int indice = map[j][i + x0];
+			int indice = 5;
 			if (indice != -1) {
 				// Separa n�mero de fila y de columna
 				int fx = indice % 9;
@@ -39,9 +40,12 @@ void Tilemap::render()
 	}
 }
 
-Tilemap::Tilemap(const string& mapName, Game* game) : game(game), texture(game->getTexture(Game::BLOCKS))
+Tilemap::Tilemap(const string& mapName, Game* game) : game(game)
 {
-	string path = ".../Assets/imgs" + mapName;
+	string path = "../Assets/maps/" + mapName;
+
+	texture = game->getTexture(Game::BLOCKS);
+	cout << texture;
 
 	ifstream entrada(path);
 	if (!entrada.is_open()) throw new exception("Error leyendo archivo");

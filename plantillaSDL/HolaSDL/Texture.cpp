@@ -4,6 +4,7 @@
 
 #include "Texture.h"
 
+#include <iostream>
 using namespace std;
 
 SDL_Texture*
@@ -34,6 +35,8 @@ Texture::Texture(SDL_Renderer* renderer, SDL_Texture* texture, int rows, int col
 
 	frameWidth = width / ncolumns;
 	frameHeight = height / nrows;
+
+	cout << "width: " << frameWidth << " height: " << frameHeight << endl;
 }
 
 Texture::Texture(SDL_Renderer* renderer, const char* filename, int rows, int columns)

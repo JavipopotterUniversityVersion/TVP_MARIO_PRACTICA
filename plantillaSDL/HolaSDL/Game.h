@@ -26,12 +26,12 @@ public:
 private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
-	std::array<Texture*, NUM_TEXTURES> textures;
 	bool seguir;
 	int mapOffset = 0;
 	bool exit = false;
 	Entity* entities;
 	Tilemap* map;
+	std::array<Texture*, NUM_TEXTURES> textures;
 
 public:
 	void run();
