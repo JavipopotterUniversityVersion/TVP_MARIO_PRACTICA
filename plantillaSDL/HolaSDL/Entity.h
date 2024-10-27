@@ -1,11 +1,9 @@
 #pragma once
-#include "Vector2D.h"
-#include "Texture.h"
 class Game;
 
 class Entity
 {
-	private:
+	protected:
 		Vector2D<int> position;
 		int direction;
 		Texture* texture;
@@ -13,7 +11,7 @@ class Entity
 		int vidas;
 
 	public:
-		Entity(Game* game, int x, int y);
+		Entity(Game* game, int x, int y, int vidas, Texture* text);
 		void render();
 		virtual void update();
 		virtual void hit();

@@ -2,6 +2,8 @@
 #include <fstream>
 #include <string>
 
+#include "Game.h"
+
 void Tilemap::render()
 {
 	int mapOffset = game->getMapOffset();

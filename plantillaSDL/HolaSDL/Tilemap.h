@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
 #include <iostream>
-#include "Game.h"
-#include "Texture.h"
+class Game;
+class Texture;
 using namespace std;
 
 class Tilemap

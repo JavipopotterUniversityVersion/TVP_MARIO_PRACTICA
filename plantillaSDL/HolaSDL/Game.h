@@ -2,9 +2,10 @@
 #include <array>
 #include <SDL.h>
 #include "Texture.h"
+#include "Tilemap.h"
+#include "Vector2D.h"
 #include "Entity.h"
-//#include "Tilemap.h"
-class Tilemap;
+#include "Player.h"
 
 using uint = unsigned int;
 
@@ -29,7 +30,7 @@ private:
 	bool seguir;
 	int mapOffset = 0;
 	bool exit = false;
-	Entity* entities;
+	Player* player;
 	Tilemap* map;
 	std::array<Texture*, NUM_TEXTURES> textures;
 

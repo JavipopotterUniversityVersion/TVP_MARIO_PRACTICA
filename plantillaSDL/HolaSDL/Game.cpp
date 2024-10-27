@@ -56,11 +56,12 @@ Game::Game() : seguir(true)
 	}
 
 	// Crea los objetos del juego
-	entities = new Entity[2]{
+	/*entities = new Entity[2]{
 		Player(this, 100, 100),
 		Koopa(this, 300, 300),
-	};
+	};*/
 
+	player = new Player(this, 100, 100);
 	map = new Tilemap("world1.csv", this);
 }
 
@@ -72,7 +73,7 @@ Game::~Game()
 	for (Texture* texture : textures)
 		delete texture;
 
-	delete[] entities;
+	//delete[] entities;
 
 	// Desactiva la SDL
 	SDL_DestroyRenderer(renderer);
@@ -109,6 +110,7 @@ Game::render() const
 	// Pinta los objetos del juego
 	//textures[BACKGROUND]->render();
 	map->render();
+	player->render();
 	SDL_RenderPresent(renderer);
 }
 
