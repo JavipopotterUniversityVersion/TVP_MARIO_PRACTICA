@@ -4,7 +4,6 @@
 #include "Texture.h"
 #include "Tilemap.h"
 #include "Vector2D.h"
-#include "Entity.h"
 #include "Player.h"
 
 using uint = unsigned int;
