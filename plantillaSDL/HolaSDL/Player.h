@@ -26,6 +26,7 @@ class Player /*: public Entity*/
 	public:
 		Player(Game* game, int x, int y);
 		void render();
+		void handleEvent(SDL_Event const& a);
 		virtual void update();
 		virtual void hit();
 };
