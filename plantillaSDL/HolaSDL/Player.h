@@ -17,8 +17,9 @@ class Player /*: public Entity*/
 		void handleEvent();*/
 
 	private:
+		static const int SPEED = 15;
 		Vector2D<int> position;
-		int direction;
+		int direction = 0;
 		Texture* texture;
 		Game* game;
 		int vidas;
@@ -26,7 +27,9 @@ class Player /*: public Entity*/
 	public:
 		Player(Game* game, int x, int y);
 		void render();
-		void handleEvent(SDL_Event const& a);
+		void handleEvent();
 		virtual void update();
 		virtual void hit();
+
+		void SetDirection(int dir) { direction = dir; }
 };

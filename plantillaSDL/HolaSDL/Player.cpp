@@ -1,7 +1,6 @@
 #include "Player.h"
 #include "Game.h"
 #include "Vector2D.h"
-#define event = SDL_Event;
 
 void Player::render()
 {
@@ -16,6 +15,7 @@ void Player::render()
 
 void Player::update()
 {
+	position.Set(position.getX() + direction * SPEED, position.getY());
 }
 
 void Player::hit()
@@ -25,21 +25,36 @@ void Player::hit()
 
 Player::Player(Game* game, int x, int y) : game(game), texture(game->getTexture(Game::MARIO))
 {
-	direction = 0;
 	vidas = 3;
 	position.Set(x, y);
 }
 
 //JODeEEEEEeEEEEEEeeeeeeEEeEEeEeeeer
-void Player::handleEvent(SDL_Event const& a)
+void Player::handleEvent()
 {
-	switch (a.key.keysym.sym)
-	{
-	case SDLK_w: ;
-		break;
-	case SDLK_a: ;
-		break;
-	case SDLK_d: ;
-		break;
+	SDL_Event evento;
+	while (SDL_PollEvent(&evento)) {
+		if (evento.type == SDL_KEYDOWN)
+		{
+			switch (evento.type)
+			{
+			case SDL_KEYDOWN:
+				switch (evento.key.keysym.sym)
+				{
+				case SDLK_LEFT:
+					Player::SetDirection(-1);
+					break;
+				case SDLK_RIGHT:
+					SetDirection(1);
+					break;
+				default:
+					break;
+				}
+			}
+		}
+		else if (evento.type == SDL_KEYUP)
+		{
+			Player::SetDirection(0);
+		}
 	}
 }

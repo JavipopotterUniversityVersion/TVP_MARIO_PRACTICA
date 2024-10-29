@@ -61,7 +61,7 @@ Game::Game() : seguir(true)
 		Koopa(this, 300, 300),
 	};*/
 
-	player = new Player(this, 100, 100);
+	player = new Player(this, 100, 416);
 	map = new Tilemap("world1.csv", this);
 }
 
@@ -117,19 +117,18 @@ Game::render() const
 void
 Game::update()
 {
-	// Actualiza los objetos del juego
+	player->update();
 }
 
 void
 Game::handleEvents()
 {
 	// Procesamiento de eventos
-	SDL_Event evento;
+	/*SDL_Event evento;
 
 	while (SDL_PollEvent(&evento)) {
 		if (evento.type == SDL_QUIT)
 			seguir = false;
-		else if (evento.type == SDL_KEYDOWN) {
-		}
-	}
+	}*/
+	player->handleEvent();
 }
