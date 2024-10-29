@@ -15,7 +15,7 @@ void Player::render()
 
 void Player::update()
 {
-	position.Set(position.getX() + direction * SPEED, position.getY());
+	position.Set(position.getX() + direction * SPEED * Makoto, position.getY());
 
 	if (jumpTimer < JUMP_TIME)
 	{
