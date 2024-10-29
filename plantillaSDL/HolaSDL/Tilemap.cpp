@@ -19,8 +19,8 @@ void Tilemap::render()
 	rect.h = Game::TILE_SIZE;
 
 	// Pintamos los WINDOW_WIDTH + 1 (aunque se salga) x WINDOW_HEIGHT recuadros del mapa
-	for (int i = 0; i < map[0].size() - 1; ++i) {
-		for (int j = 0; j < map.size() - 1; ++j) {
+	for (int i = 0; i < Game::WINDOW_WIDTH ; ++i) {
+		for (int j = 0; j < Game::WINDOW_HEIGHT ; ++j) {
 			// �ndice en el conjunto de patrones de la matriz de �ndices
 			//int indice = indices[x0 + i][j];
 			int indice = map[j][i + x0];

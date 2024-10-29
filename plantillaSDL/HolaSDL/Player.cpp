@@ -16,6 +16,7 @@ void Player::render()
 void Player::update()
 {
 	position.Set(position.getX() + direction * SPEED, position.getY());
+	
 }
 
 void Player::hit()

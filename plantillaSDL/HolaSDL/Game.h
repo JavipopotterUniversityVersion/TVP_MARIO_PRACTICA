@@ -44,7 +44,9 @@ public:
 	int getMapOffset() { return mapOffset; }
 
 	static constexpr uint WIN_WIDTH = 800;
+	static constexpr uint WINDOW_WIDTH = 26;
 	static constexpr uint WIN_HEIGHT = 600;
+	static constexpr uint WINDOW_HEIGHT = 16;
 	static constexpr uint FRAME_RATE = 50;
 
 	int GetMapOffset() const { return mapOffset; }
