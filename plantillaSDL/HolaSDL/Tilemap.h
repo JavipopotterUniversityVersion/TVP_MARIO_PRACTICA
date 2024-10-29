@@ -19,5 +19,7 @@ class Tilemap
 		void render();
 		void update();
 		void hit();
+
+		int GetMapWidth() { return map[0].size(); };
 };
 

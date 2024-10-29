@@ -31,6 +31,6 @@ class Player /*: public Entity*/
 		virtual void update();
 		virtual void hit();
 
-		int GetXPosition() { return position.getX(); }
+		int GetRectXPosition() { return position.getX(); };
 		void SetDirection(int dir) { direction = dir; }
 };

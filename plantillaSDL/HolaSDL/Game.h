@@ -41,7 +41,6 @@ public:
 	void handleEvents();
 
 	Texture* getTexture(TextureName name) const;
-	int getMapOffset() { return mapOffset; }
 
 	static constexpr uint WIN_WIDTH = 800;
 	static constexpr uint WINDOW_WIDTH = 26;

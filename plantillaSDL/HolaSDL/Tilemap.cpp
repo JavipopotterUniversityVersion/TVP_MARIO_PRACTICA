@@ -6,7 +6,7 @@
 
 void Tilemap::render()
 {
-	int mapOffset = game->getMapOffset();
+	int mapOffset = game->GetMapOffset();
 
 	// Primera columna de la matriz del mapa visible en la ventana
 	int x0 = mapOffset / Game::TILE_SIZE;

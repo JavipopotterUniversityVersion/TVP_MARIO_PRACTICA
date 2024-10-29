@@ -118,9 +118,9 @@ void
 Game::update()
 {
 	player->update();
-	if (player->GetXPosition() > (Game::WIN_WIDTH / 2))
+	if (player->GetRectXPosition() - mapOffset > (Game::WIN_WIDTH / 2))
 	{
-		mapOffset += 5;
+		mapOffset = player->GetRectXPosition() - (Game::WIN_WIDTH / 2);
 	}
 }
 
