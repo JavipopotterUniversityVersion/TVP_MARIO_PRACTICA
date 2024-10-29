@@ -42,9 +42,9 @@ public:
 
 	Texture* getTexture(TextureName name) const;
 
-	static constexpr uint WIN_WIDTH = 800;
+	static constexpr uint WIN_WIDTH = 575;
 	static constexpr uint WINDOW_WIDTH = 26;
-	static constexpr uint WIN_HEIGHT = 600;
+	static constexpr uint WIN_HEIGHT = 500;
 	static constexpr uint WINDOW_HEIGHT = 16;
 	static constexpr uint FRAME_RATE = 50;
 	static constexpr uint FLOOR_HEIGHT = 416;

@@ -25,7 +25,6 @@ class Player /*: public Entity*/
 		Texture* texture;
 		bool canJump = true;
 		float jumpTimer = 0;
-		int Makoto = 100;
 		Game* game;
 		int vidas;
 
