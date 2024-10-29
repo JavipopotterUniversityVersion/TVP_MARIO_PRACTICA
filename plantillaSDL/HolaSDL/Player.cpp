@@ -16,7 +16,24 @@ void Player::render()
 void Player::update()
 {
 	position.Set(position.getX() + direction * SPEED, position.getY());
-	
+
+	if (jumpTimer < JUMP_TIME)
+	{
+		jumpTimer += 0.1;
+		int newPos = position.getY() - Player::JUMP_FORCE;
+		position.Set(position.getX(), newPos);
+	}
+	else
+	{
+		int newPos = position.getY() + Player::JUMP_FORCE;
+
+		if (position.getY() >= Game::FLOOR_HEIGHT)
+		{
+			canJump = true;
+			newPos = Game::FLOOR_HEIGHT;
+		}
+		position.Set(position.getX(), newPos);
+	}
 }
 
 void Player::hit()
@@ -48,6 +65,13 @@ void Player::handleEvent()
 				case SDLK_RIGHT:
 					SetDirection(1);
 					break;
+				case SDLK_UP:
+					if (canJump)
+					{
+						canJump = false;
+						jumpTimer = 0;
+					}
+					break;
 				default:
 					break;
 				}
@@ -55,7 +79,20 @@ void Player::handleEvent()
 		}
 		else if (evento.type == SDL_KEYUP)
 		{
-			Player::SetDirection(0);
+			switch (evento.key.keysym.sym)
+			{
+			case SDLK_LEFT:
+				Player::SetDirection(0);
+				break;
+			case SDLK_RIGHT:
+				SetDirection(0);
+				break;
+			case SDLK_UP:
+				jumpTimer = Player::JUMP_TIME;
+				break;
+			default:
+				break;
+			}
 		}
 	}
 }

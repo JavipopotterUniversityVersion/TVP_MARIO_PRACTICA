@@ -17,10 +17,14 @@ class Player /*: public Entity*/
 		void handleEvent();*/
 
 	private:
+		static constexpr float JUMP_TIME = 0.5f;
 		static const int SPEED = 15;
+		static constexpr float JUMP_FORCE = 25;
 		Vector2D<int> position;
 		int direction = 0;
 		Texture* texture;
+		bool canJump = true;
+		float jumpTimer = 0;
 		Game* game;
 		int vidas;
 

@@ -61,7 +61,7 @@ Game::Game() : seguir(true)
 		Koopa(this, 300, 300),
 	};*/
 
-	player = new Player(this, 100, 416);
+	player = new Player(this, 100, Game::FLOOR_HEIGHT);
 	map = new Tilemap("world1.csv", this);
 }
 
@@ -118,7 +118,7 @@ void
 Game::update()
 {
 	player->update();
-	if (player->GetRectXPosition() - mapOffset > (Game::WIN_WIDTH / 2))
+	if ((player->GetRectXPosition() - mapOffset) > (Game::WIN_WIDTH / 2))
 	{
 		mapOffset = player->GetRectXPosition() - (Game::WIN_WIDTH / 2);
 	}
