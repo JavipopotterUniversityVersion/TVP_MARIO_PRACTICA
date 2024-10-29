@@ -1,7 +1,7 @@
 #pragma once
 //class Entity;
 #include "Vector2D.h"
-class Texture;
+#include "Texture.h"
 class Game;
 
 class Player /*: public Entity*/
@@ -31,7 +31,7 @@ class Player /*: public Entity*/
 	public:
 		Player(Game* game, int x, int y);
 		void render();
-		void handleEvent();
+		void handleEvent(SDL_Event& evento);
 		virtual void update();
 		virtual void hit();
 

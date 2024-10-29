@@ -129,11 +129,14 @@ void
 Game::handleEvents()
 {
 	// Procesamiento de eventos
-	/*SDL_Event evento;
+	SDL_Event evento;
 
 	while (SDL_PollEvent(&evento)) {
-		if (evento.type == SDL_QUIT)
-			seguir = false;
-	}*/
-	player->handleEvent();
+		if (evento.type == SDL_QUIT) seguir = false;
+		else
+		{
+			player->handleEvent(evento);
+		}
+	}
+	//player->handleEvent();
 }

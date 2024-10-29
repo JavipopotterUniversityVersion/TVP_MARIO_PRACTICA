@@ -47,11 +47,8 @@ Player::Player(Game* game, int x, int y) : game(game), texture(game->getTexture(
 	position.Set(x, y);
 }
 
-//JODeEEEEEeEEEEEEeeeeeeEEeEEeEeeeer
-void Player::handleEvent()
+void Player::handleEvent(SDL_Event& evento)
 {
-	SDL_Event evento;
-	while (SDL_PollEvent(&evento)) {
 		if (evento.type == SDL_KEYDOWN)
 		{
 			switch (evento.type)
@@ -94,5 +91,4 @@ void Player::handleEvent()
 				break;
 			}
 		}
-	}
 }
