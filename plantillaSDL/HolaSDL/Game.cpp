@@ -6,6 +6,7 @@
 #include "Goomba.h"
 #include "Koopa.h"
 #include "Tilemap.h"
+#include "Block.h"
 
 #include <iostream>
 #include <fstream>
@@ -99,6 +100,11 @@ Game::Game() : seguir(true)
 				Block* aux = new Block(this, x, y, BlockType(type), BlockAction(action));
 				break;
 			case 'K':
+			{
+				Koopa* aux = new Koopa(this, x, y);
+				koopas.push_back(aux);
+				break;
+			}
 				break;
 			default:
 				break;
@@ -158,6 +164,11 @@ Game::render() const
 		goomba->render();
 	}
 
+	for (Koopa* koopa : koopas)
+	{
+		koopa->render();
+	}
+
 	SDL_RenderPresent(renderer);
 }
 
@@ -173,6 +184,11 @@ Game::update()
 	for (Goomba* goomba : goombas)
 	{
 		goomba->update();
+	}
+
+	for (Koopa* koopa : koopas)
+	{
+		koopa->update();
 	}
 }
 

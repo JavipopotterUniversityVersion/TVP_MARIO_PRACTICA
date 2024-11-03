@@ -7,6 +7,7 @@
 #include "Vector2D.h"
 #include "Player.h"
 #include "Goomba.h"
+#include "Koopa.h"
 #include "Block.h"
 
 using uint = unsigned int;
@@ -34,6 +35,7 @@ private:
 	bool exit = false;
 	Player* player;
 	vector<Goomba*> goombas;
+	vector<Koopa*> koopas;
 	vector<Block*> blocks;
 	Tilemap* map;
 	std::array<Texture*, NUM_TEXTURES> textures;
