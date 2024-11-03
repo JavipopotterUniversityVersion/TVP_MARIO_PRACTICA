@@ -4,7 +4,6 @@
 Goomba::Goomba(Game* game, int x, int y) : game(game), texture(game->getTexture(Game::GOOMBA))
 {
 	position.Set(x, y);
-	cout << endl << position.getX() << " " << position.getY();
 }
 
 void Goomba::render()
@@ -23,7 +22,6 @@ void Goomba::update()
 
 	if (position.getY() >= 13)
 	{
-		cout << endl << position.getX() << " " << position.getY();
 		newPos = 13;
 	}
 	position.Set(position.getX(), newPos);

@@ -3,7 +3,7 @@
 #include "Texture.h"
 #include "Game.h"
 
-enum BlockType { LADRILLO, SORPRESA, VACIO, OCULTO };
+enum BlockType { SORPRESA = 0, OCULTO, VACIO = 4, LADRILLO = 5};
 enum BlockAction { POTENCIADOR, MONEDA };
 
 class Block
@@ -16,9 +16,8 @@ class Block
 		Texture* texture;
 
 	public:
-		Block(Game* game, int x, int y, BlockType type, BlockAction action = MONEDA) :
-			game(game), texture(game->getTexture(Game::BLOCKS)), type(type), action(action) {};
+		Block(Game* game, int x, int y, BlockType type, BlockAction action);
 		void render();
-		virtual void update();
-		virtual void hit();
+		void update();
+		void hit();
 };

@@ -74,9 +74,10 @@ Game::Game() : seguir(true)
 		char type;
 		entrada >> type;
 
-		int x, y;
+		float x, y;
 		entrada >> x >> y;
-		char dump;
+
+		cout << "El tipo de entidad es: " << type << endl;
 
 		switch (type)
 		{
@@ -86,6 +87,12 @@ Game::Game() : seguir(true)
 
 				player = new Player(this, x, y, vidas);
 				break;
+			case 'K':
+			{
+				Koopa* aux = new Koopa(this, x, y);
+				koopas.push_back(aux);
+				break;
+			}
 			case 'G':
 			{
 				Goomba* aux = new Goomba(this, x, y);
@@ -93,23 +100,41 @@ Game::Game() : seguir(true)
 				break;
 			}
 			case 'B':
-				int type, action = 0;
+				char type, action;
 				entrada >> type;
-				if (dump == '?') entrada >> action;
 
-				Block* aux = new Block(this, x, y, BlockType(type), BlockAction(action));
+				BlockType blockType;
+				BlockAction blockAction = POTENCIADOR;
+
+				switch(type)
+				{
+					case 'B':
+						blockType = LADRILLO;
+						break;
+					case '0':
+						blockType = VACIO;
+						break;
+					case 'H':
+						blockType = OCULTO;
+						entrada >> action;
+
+						if (action == 'C') blockAction = MONEDA;
+						break;
+					case '?':
+						entrada >> action;
+						blockType = SORPRESA;
+
+						if (action == 'C') blockAction = MONEDA;
+					break;
+				}
+
+				Block* aux = new Block(this, x, y, blockType, blockAction);
+				blocks.push_back(aux);
 				break;
-			/*case 'K':
-			{
-				Koopa* aux = new Koopa(this, x, y);
-				koopas.push_back(aux);
-				break;
-			}
-				break;
-			default:
-				break;*/
 		}
 	}
+
+	cout << endl << blocks.size();
 }
 
 Game::~Game()
@@ -169,6 +194,11 @@ Game::render() const
 		koopa->render();
 	}
 
+	for (Block* block : blocks)
+	{
+		block->render();
+	}
+
 	SDL_RenderPresent(renderer);
 }
 
@@ -189,6 +219,11 @@ Game::update()
 	for (Koopa* koopa : koopas)
 	{
 		koopa->update();
+	}
+
+	for (Block* block : blocks)
+	{
+		block->update();
 	}
 }
 

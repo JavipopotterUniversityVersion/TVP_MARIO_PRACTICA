@@ -4,7 +4,6 @@
 Koopa::Koopa(Game* game, int x, int y) : game(game), texture(game->getTexture(Game::KOOPA))
 {
     position.Set(x, y);
-    cout << endl << position.getX() << " " << position.getY();
 }
 
 void Koopa::render()
@@ -21,10 +20,9 @@ void Koopa::update()
 {
     int newPos = position.getY() + 5;
 
-    if (position.getY() >= 13)
+    if (position.getY() >= Game::FLOOR_HEIGHT)
     {
-        cout << endl << position.getX() << " " << position.getY();
-        newPos = 13;
+        newPos = Game::FLOOR_HEIGHT;
     }
     position.Set(position.getX(), newPos);
 }
