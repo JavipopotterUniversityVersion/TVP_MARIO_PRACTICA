@@ -8,7 +8,8 @@
 #include "Player.h"
 #include "Goomba.h"
 #include "Koopa.h"
-#include "Block.h"
+//#include "Block.h"
+class Block;
 
 using uint = unsigned int;
 

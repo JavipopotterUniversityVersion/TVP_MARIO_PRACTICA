@@ -1,7 +1,7 @@
 #pragma once
 #include "Vector2D.h"
 #include "Texture.h"
-class Game;
+#include "Game.h"
 
 enum BlockType { LADRILLO, SORPRESA, VACIO, OCULTO };
 enum BlockAction { POTENCIADOR, MONEDA };

@@ -99,7 +99,7 @@ Game::Game() : seguir(true)
 
 				Block* aux = new Block(this, x, y, BlockType(type), BlockAction(action));
 				break;
-			case 'K':
+			/*case 'K':
 			{
 				Koopa* aux = new Koopa(this, x, y);
 				koopas.push_back(aux);
@@ -107,7 +107,7 @@ Game::Game() : seguir(true)
 			}
 				break;
 			default:
-				break;
+				break;*/
 		}
 	}
 }
