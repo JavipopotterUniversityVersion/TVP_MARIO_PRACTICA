@@ -92,8 +92,11 @@ Game::Game() : seguir(true)
 				break;
 			}
 			case 'B':
-				entrada >> dump;
-				if (dump == '?') entrada >> dump;
+				int type, action = 0;
+				entrada >> type;
+				if (dump == '?') entrada >> action;
+
+				Block* aux = new Block(this, x, y, BlockType(type), BlockAction(action));
 				break;
 			case 'K':
 				break;
