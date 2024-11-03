@@ -37,4 +37,6 @@ class Player /*: public Entity*/
 
 		int GetRectXPosition() { return position.getX() * 32; };
 		void SetDirection(int dir) { direction = dir; }
+
+		SDL_Rect getRect();
 };

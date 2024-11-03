@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Goomba.h"
 #include "Koopa.h"
+#include "Collision.h"
 //#include "Block.h"
 class Block;
 
@@ -47,7 +48,7 @@ public:
 	void update();
 	void render() const;
 	void handleEvents();
-	void checkPlayerCollision();
+	Collision checkCollision(SDL_Rect& rect, bool fromPlayer);
 
 	Texture* getTexture(TextureName name) const;
 

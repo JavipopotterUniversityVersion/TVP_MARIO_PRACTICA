@@ -17,4 +17,6 @@ class Goomba
 		void handleEvent(SDL_Event& evento);
 		void update();
 		void hit();
+
+		SDL_Rect getRect();
 };

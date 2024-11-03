@@ -20,4 +20,6 @@ class Block
 		void render();
 		void update();
 		void hit();
+
+		SDL_Rect getRect();
 };

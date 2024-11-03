@@ -7,6 +7,7 @@
 #include "Koopa.h"
 #include "Tilemap.h"
 #include "Block.h"
+#include "Collision.h"
 
 #include <iostream>
 #include <fstream>
@@ -243,7 +244,34 @@ Game::handleEvents()
 	//player->handleEvent();
 }
 
-void Game::checkPlayerCollision()
+Collision Game::checkCollision(SDL_Rect& rect, bool fromPlayer)
 {
+	Collision col;
+	col.collides = false;
+	col.damages = false;
 
+	if (fromPlayer)
+	{
+		for (Block* block : blocks)
+		{
+			SDL_Rect blockRect = block->getRect();
+			if (SDL_HasIntersection(&rect, &blockRect))
+			{
+				block->hit();
+				col.collides = true;
+			}
+		}
+
+		for (Goomba* goomba : goombas)
+		{
+			SDL_Rect blockRect = goomba->getRect();
+			if (SDL_HasIntersection(&rect, &blockRect));
+			{
+				goomba->hit();
+				col.damages = true;
+			}
+		}
+	}
+
+	return col;
 }

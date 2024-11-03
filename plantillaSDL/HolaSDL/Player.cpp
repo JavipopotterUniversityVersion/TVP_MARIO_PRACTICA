@@ -1,39 +1,58 @@
 #include "Player.h"
 #include "Game.h"
 #include "Vector2D.h"
+#include "Collision.h"
 
-void Player::render()
+SDL_Rect Player::getRect()
 {
 	SDL_Rect rect;
 	rect.w = 32;
 	rect.h = 32;
 	rect.x = (position.getX() * Game::TILE_SIZE) - game->GetMapOffset();
 	rect.y = position.getY() * Game::TILE_SIZE;
-	texture->renderFrame(rect, 0, 0);
+	return rect;
+}
+
+void Player::render()
+{
+	texture->renderFrame(getRect(), 0, 0);
 	//LETS FAKIN GOOOOO
 }
 
 void Player::update()
 {
-	position.Set(position.getX() + direction * SPEED, position.getY());
+	Vector2D<float> newPosition;
+	newPosition.Set(position.getX(), position.getY());
 
 	if (jumpTimer < JUMP_TIME)
 	{
 		jumpTimer += 0.1;
-		int newPos = position.getY() - Player::JUMP_FORCE;
-		position.Set(position.getX(), newPos);
+		int newPos = newPosition.getY() - Player::JUMP_FORCE;
+		newPosition.Set(newPosition.getX(), newPos);
 	}
 	else
 	{
-		int newPos = position.getY() + Player::JUMP_FORCE;
+		int newPos = newPosition.getY() + Player::JUMP_FORCE;
 
-		if (position.getY() >= Game::FLOOR_HEIGHT)
+		if (newPosition.getY() >= Game::FLOOR_HEIGHT)
 		{
 			canJump = true;
 			newPos = Game::FLOOR_HEIGHT;
 		}
-		position.Set(position.getX(), newPos);
+		newPosition.Set(newPosition.getX(), newPos);
 	}
+
+	SDL_Rect rect = getRect();
+	Collision col = game->checkCollision(rect, true);
+
+	if (col.damages) vidas--;
+	if (col.collides == false)
+	{
+		position.Set(newPosition.getX(), newPosition.getY());
+	}
+
+	newPosition.Set(position.getX() + direction * SPEED, position.getY());
+	position.Set(newPosition.getX(), newPosition.getY());
 }
 
 void Player::hit()
