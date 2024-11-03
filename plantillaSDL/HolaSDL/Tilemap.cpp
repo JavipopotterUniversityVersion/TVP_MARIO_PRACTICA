@@ -45,7 +45,6 @@ Tilemap::Tilemap(const string& mapName, Game* game) : game(game)
 	string path = "../Assets/maps/" + mapName;
 
 	texture = game->getTexture(Game::BACKGROUND);
-	cout << texture;
 
 	ifstream entrada(path);
 	if (!entrada.is_open()) throw new exception("Error leyendo archivo");

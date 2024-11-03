@@ -8,6 +8,7 @@
 #include "Tilemap.h"
 
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 struct TextureSpec
@@ -62,8 +63,43 @@ Game::Game() : seguir(true)
 		Koopa(this, 300, 300),
 	};*/
 
-	player = new Player(this, 100, Game::FLOOR_HEIGHT);
 	map = new Tilemap("world1.csv", this);
+
+	string path = "../Assets/maps/world1.txt";
+
+	ifstream entrada(path);
+	if (!entrada.is_open()) throw new exception("Error leyendo archivo");
+	while (entrada) {
+		char type;
+		entrada >> type;
+
+		int x, y;
+		entrada >> x >> y;
+		char dump;
+
+
+		switch (type)
+		{
+			case 'M':
+				player = new Player(this, x, y);
+				entrada >> dump;
+				break;
+			case 'G':
+			{
+				Goomba* aux = new Goomba(this, x, y);
+				goombas.push_back(aux);
+				break;
+			}
+			case 'B':
+				entrada >> dump;
+				if (dump == '?') entrada >> dump;
+				break;
+			case 'K':
+				break;
+			default:
+				break;
+		}
+	}
 }
 
 Game::~Game()
@@ -112,6 +148,12 @@ Game::render() const
 	//textures[BACKGROUND]->render();
 	map->render();
 	player->render();
+
+	for (Goomba* goomba : goombas)
+	{
+		goomba->render();
+	}
+
 	SDL_RenderPresent(renderer);
 }
 
@@ -122,6 +164,11 @@ Game::update()
 	if ((player->GetRectXPosition() - mapOffset) > (Game::WIN_WIDTH / 2))
 	{
 		mapOffset = player->GetRectXPosition() - (Game::WIN_WIDTH / 2);
+	}
+
+	for (Goomba* goomba : goombas)
+	{
+		goomba->update();
 	}
 }
 

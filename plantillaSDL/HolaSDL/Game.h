@@ -1,10 +1,12 @@
 #pragma once
 #include <array>
 #include <SDL.h>
+#include <vector>
 #include "Texture.h"
 #include "Tilemap.h"
 #include "Vector2D.h"
 #include "Player.h"
+#include "Goomba.h"
 
 using uint = unsigned int;
 
@@ -30,6 +32,7 @@ private:
 	int mapOffset = 0;
 	bool exit = false;
 	Player* player;
+	vector<Goomba*> goombas;
 	Tilemap* map;
 	std::array<Texture*, NUM_TEXTURES> textures;
 
