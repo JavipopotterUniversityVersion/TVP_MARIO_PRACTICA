@@ -13,9 +13,12 @@ class Block
 		BlockType type;
 		BlockAction action;
 		Game* game;
-		Texture* tecture;
+		Texture* texture;
 
 	public:
 		Block(Game* game, int x, int y, BlockType type, BlockAction action = MONEDA) :
-			game(game), type(type), action(action) {};
+			game(game), texture(game->getTexture(Game::BLOCKS)), type(type), action(action) {};
+		void render();
+		virtual void update();
+		virtual void hit();
 };
