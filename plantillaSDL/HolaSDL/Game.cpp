@@ -77,12 +77,13 @@ Game::Game() : seguir(true)
 		entrada >> x >> y;
 		char dump;
 
-
 		switch (type)
 		{
 			case 'M':
-				player = new Player(this, x, y);
-				entrada >> dump;
+				int vidas;
+				entrada >> vidas;
+
+				player = new Player(this, x, y, vidas);
 				break;
 			case 'G':
 			{
@@ -186,4 +187,9 @@ Game::handleEvents()
 		}
 	}
 	//player->handleEvent();
+}
+
+void Game::checkPlayerCollision()
+{
+
 }

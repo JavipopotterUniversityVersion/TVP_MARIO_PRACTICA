@@ -29,7 +29,7 @@ class Player /*: public Entity*/
 		int vidas;
 
 	public:
-		Player(Game* game, int x, int y);
+		Player(Game* game, int x, int y, int vidas);
 		void render();
 		void handleEvent(SDL_Event& evento);
 		virtual void update();

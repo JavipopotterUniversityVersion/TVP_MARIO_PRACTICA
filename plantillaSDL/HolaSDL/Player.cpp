@@ -41,9 +41,8 @@ void Player::hit()
 
 }
 
-Player::Player(Game* game, int x, int y) : game(game), texture(game->getTexture(Game::MARIO))
+Player::Player(Game* game, int x, int y, int vidas) : game(game), texture(game->getTexture(Game::MARIO)), vidas(vidas)
 {
-	vidas = 3;
 	position.Set(x, y);
 }
 
