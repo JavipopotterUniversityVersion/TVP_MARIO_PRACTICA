@@ -18,9 +18,9 @@ class Player /*: public Entity*/
 
 	private:
 		static constexpr float JUMP_TIME = 0.5f;
-		static const int SPEED = 15;
-		static constexpr float JUMP_FORCE = 25;
-		Vector2D<int> position;
+		static constexpr float SPEED = 0.35f;
+		static constexpr float JUMP_FORCE = 1;
+		Vector2D<float> position;
 		int direction = 0;
 		Texture* texture;
 		bool canJump = true;
@@ -35,6 +35,6 @@ class Player /*: public Entity*/
 		virtual void update();
 		virtual void hit();
 
-		int GetRectXPosition() { return position.getX(); };
+		int GetRectXPosition() { return position.getX() * 32; };
 		void SetDirection(int dir) { direction = dir; }
 };

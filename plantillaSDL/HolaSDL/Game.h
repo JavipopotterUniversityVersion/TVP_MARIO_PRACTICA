@@ -50,7 +50,7 @@ public:
 	static constexpr uint WIN_HEIGHT = 500;
 	static constexpr uint WINDOW_HEIGHT = 16;
 	static constexpr uint FRAME_RATE = 50;
-	static constexpr uint FLOOR_HEIGHT = 416;
+	static constexpr uint FLOOR_HEIGHT = 13;
 
 	int GetMapOffset() const { return mapOffset; }
 
