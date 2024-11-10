@@ -3,66 +3,75 @@
 #include "Vector2D.h"
 #include "Collision.h"
 
-SDL_Rect Player::getRect()
+void Player::updateRect()
 {
-	SDL_Rect rect;
-	rect.w = 32;
-	rect.h = 32;
-	rect.x = (position.getX() * Game::TILE_SIZE) - game->GetMapOffset();
-	rect.y = position.getY() * Game::TILE_SIZE;
-	return rect;
+	Vector2D<float> screenPosition = game->WorldToScreen(position);
+	rect->x = screenPosition.getX();
+	rect->y = screenPosition.getY();
 }
 
 void Player::render()
 {
-	texture->renderFrame(getRect(), 0, 0);
-	//LETS FAKIN GOOOOO
+	texture->renderFrame(*rect, 0, 0);
 }
 
 void Player::update()
 {
-	Vector2D<float> newPosition;
-	newPosition.Set(position.getX(), position.getY());
+	position.Set(position.getX(), position.getY());
+	SDL_Rect futureRect;
 
 	if (jumpTimer < JUMP_TIME)
 	{
 		jumpTimer += 0.1;
-		int newPos = newPosition.getY() - Player::JUMP_FORCE;
-		newPosition.Set(newPosition.getX(), newPos);
+		int newPos = position.getY() - Player::JUMP_FORCE;
+		position.Set(position.getX(), newPos);
+		futureRect.y = rect->y - Player::JUMP_FORCE;
 	}
 	else
 	{
-		int newPos = newPosition.getY() + Player::JUMP_FORCE;
-
-		if (newPosition.getY() >= Game::FLOOR_HEIGHT)
-		{
-			canJump = true;
-			newPos = Game::FLOOR_HEIGHT;
-		}
-		newPosition.Set(newPosition.getX(), newPos);
+		int newPos = position.getY() + Player::JUMP_FORCE;
+		position.Set(position.getX(), newPos);
+		futureRect.y = rect->y + Player::JUMP_FORCE;
 	}
 
-	SDL_Rect rect = getRect();
-	Collision col = game->checkCollision(rect, true);
+	futureRect.x = rect->x;
+	futureRect.w = rect->w;
+	futureRect.h = rect->h;
 
-	if (col.damages) vidas--;
-	if (col.collides == false)
+	if (game->checkCollision(futureRect, Collision::MARIO))
 	{
-		position.Set(newPosition.getX(), newPosition.getY());
+		if (jumpTimer < JUMP_TIME)
+		{
+			jumpTimer = JUMP_TIME;
+			position.Set(position.getX(), position.getY() + Player::JUMP_FORCE);
+		}
+		else
+		{
+			position.Set(position.getX(), position.getY() - Player::JUMP_FORCE);
+			canJump = true;
+		}
 	}
 
-	newPosition.Set(position.getX() + direction * SPEED, position.getY());
-	position.Set(newPosition.getX(), newPosition.getY());
-}
+	futureRect.y = rect->y;
+	position.Set(position.getX() + (direction * SPEED), position.getY());
+	futureRect.x = rect->x + (direction * SPEED);
 
-void Player::hit()
-{
+	if (game->checkCollision(futureRect, Collision::MARIO))
+	{
+		position.Set(position.getX() - (lastDirection * SPEED), position.getY());
+	}
 
+	if (direction != 0) lastDirection = direction;
+	updateRect();
 }
 
 Player::Player(Game* game, int x, int y, int vidas) : game(game), texture(game->getTexture(Game::MARIO)), vidas(vidas)
 {
 	position.Set(x, y);
+	rect = new SDL_Rect();
+	rect->w = 32;
+	rect->h = 32;
+	updateRect();
 }
 
 void Player::handleEvent(SDL_Event& evento)
@@ -109,4 +118,9 @@ void Player::handleEvent(SDL_Event& evento)
 				break;
 			}
 		}
+}
+
+void Player::hit()
+{
+	vidas--;
 }

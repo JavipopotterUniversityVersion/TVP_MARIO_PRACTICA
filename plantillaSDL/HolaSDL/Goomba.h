@@ -6,17 +6,20 @@ class Game;
 class Goomba 
 {
 	private:
-		Vector2D<int> position;
+		Vector2D<float> position;
+		static constexpr float SPEED = 0.05f;
+		static constexpr float GRAVITY = 1.0f;
 		int direction = 0;
+		int lastDirection = 1;
 		Texture* texture;
 		Game* game;
+		SDL_Rect* rect;
+		void updateRect();
 
 	public:
 		Goomba(Game* game, int x, int y);
 		void render();
-		void handleEvent(SDL_Event& evento);
 		void update();
 		void hit();
-
-		SDL_Rect getRect();
+		SDL_Rect getRect() { return *rect; }
 };

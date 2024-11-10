@@ -78,8 +78,6 @@ Game::Game() : seguir(true)
 		float x, y;
 		entrada >> x >> y;
 
-		cout << "El tipo de entidad es: " << type << endl;
-
 		switch (type)
 		{
 			case 'M':
@@ -175,6 +173,16 @@ Game::run()
 	}
 }
 
+Vector2D<float> Game::ScreenToWorld(Vector2D<float> position) const
+{
+	return Vector2D<float>((position.getX() + mapOffset) / TILE_SIZE, position.getY() / TILE_SIZE);
+}
+
+Vector2D<float> Game::WorldToScreen(Vector2D<float> position) const
+{
+	return Vector2D<float>((position.getX() * TILE_SIZE) - mapOffset, position.getY() * TILE_SIZE);
+}
+
 void
 Game::render() const
 {
@@ -207,10 +215,6 @@ void
 Game::update()
 {
 	player->update();
-	if ((player->GetRectXPosition() - mapOffset) > (Game::WIN_WIDTH / 2))
-	{
-		mapOffset = player->GetRectXPosition() - (Game::WIN_WIDTH / 2);
-	}
 
 	for (Goomba* goomba : goombas)
 	{
@@ -225,6 +229,11 @@ Game::update()
 	for (Block* block : blocks)
 	{
 		block->update();
+	}
+
+	if ((player->GetRectXPosition() - mapOffset) > (Game::WIN_WIDTH / 2))
+	{
+		mapOffset = player->GetRectXPosition() - (Game::WIN_WIDTH / 2);
 	}
 }
 
@@ -244,34 +253,40 @@ Game::handleEvents()
 	//player->handleEvent();
 }
 
-Collision Game::checkCollision(SDL_Rect& rect, bool fromPlayer)
+bool Game::checkCollision(SDL_Rect& rect, Collision::Tag tag)
 {
-	Collision col;
-	col.collides = false;
-	col.damages = false;
-
-	if (fromPlayer)
+	bool fixPosition = false;
+	if (tag == Collision::MARIO || tag == Collision::ENEMY)
 	{
 		for (Block* block : blocks)
 		{
 			SDL_Rect blockRect = block->getRect();
 			if (SDL_HasIntersection(&rect, &blockRect))
 			{
-				block->hit();
-				col.collides = true;
+				if (rect.y > blockRect.y) block->hit();
+				fixPosition = true;
 			}
 		}
 
-		for (Goomba* goomba : goombas)
+		if (tag == Collision::MARIO)
 		{
-			SDL_Rect blockRect = goomba->getRect();
-			if (SDL_HasIntersection(&rect, &blockRect));
+			for (Goomba* goomba : goombas)
 			{
-				goomba->hit();
-				col.damages = true;
+				SDL_Rect blockRect = goomba->getRect();
+				if (SDL_HasIntersection(&rect, &blockRect));
+				{
+					if (rect.y < blockRect.y) goomba->hit();
+					else player->hit();
+				}
 			}
+
+			if (player->getRect().x <= 10) fixPosition = true;
+		}
+
+		if (map->collides(rect))
+		{
+			fixPosition = true;
 		}
 	}
-
-	return col;
+	return fixPosition;
 }

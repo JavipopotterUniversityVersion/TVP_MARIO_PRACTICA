@@ -1,40 +1,61 @@
 #include "Goomba.h"
 #include "Game.h"
 #include "Collision.h"
+#include "Vector2D.h"
 
-Goomba::Goomba(Game* game, int x, int y) : game(game), texture(game->getTexture(Game::GOOMBA))
+void Goomba::updateRect()
 {
-	position.Set(x, y);
+	Vector2D<float> screenPosition = game->WorldToScreen(position);
+	rect->x = screenPosition.getX();
+	rect->y = screenPosition.getY();
 }
 
 void Goomba::render()
 {
-	SDL_Rect rect = getRect();
-	texture->renderFrame(rect, 0, 0);
+	texture->renderFrame(*rect, 0, 0);
 }
 
 void Goomba::update()
 {
-	int newPos = position.getY() + 5;
+	position.Set(position.getX(), position.getY());
+	SDL_Rect futureRect;
 
-	if (position.getY() >= Game::FLOOR_HEIGHT)
+	position.Set(position.getX(), position.getY() + GRAVITY);
+	futureRect.y = rect->y + GRAVITY;
+
+	futureRect.x = rect->x;
+	futureRect.w = rect->w;
+	futureRect.h = rect->h;
+
+	if (game->checkCollision(futureRect, Collision::ENEMY))
 	{
-		newPos = Game::FLOOR_HEIGHT;
+		position.Set(position.getX(), position.getY() - GRAVITY);
 	}
-	position.Set(position.getX(), newPos);
+
+	futureRect.y = rect->y;
+	position.Set(position.getX() + (direction * SPEED), position.getY());
+	futureRect.x = rect->x + (direction * SPEED);
+
+	if (game->checkCollision(futureRect, Collision::ENEMY))
+	{
+		position.Set(position.getX() - (lastDirection * SPEED), position.getY());
+		direction *= -1;
+	}
+
+	if (direction != 0) lastDirection = direction;
+	updateRect();
 }
 
-SDL_Rect Goomba::getRect()
+Goomba::Goomba(Game* game, int x, int y) : game(game), texture(game->getTexture(Game::GOOMBA))
 {
-	SDL_Rect rect;
-	rect.w = 32;
-	rect.h = 32;
-	rect.x = (position.getX() * Game::TILE_SIZE) - game->GetMapOffset();
-	rect.y = position.getY() * Game::TILE_SIZE;
-	return rect;
+	position.Set(x, y);
+	rect = new SDL_Rect();
+	rect->w = Game::TILE_SIZE;
+	rect->h = Game::TILE_SIZE;
+	updateRect();
 }
 
 void Goomba::hit()
 {
-
+	
 }

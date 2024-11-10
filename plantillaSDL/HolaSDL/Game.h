@@ -41,6 +41,7 @@ private:
 	vector<Block*> blocks;
 	Tilemap* map;
 	std::array<Texture*, NUM_TEXTURES> textures;
+	void FixPosition(SDL_Rect& rectToFix, SDL_Rect& other);
 
 public:
 	void run();
@@ -48,7 +49,10 @@ public:
 	void update();
 	void render() const;
 	void handleEvents();
-	Collision checkCollision(SDL_Rect& rect, bool fromPlayer);
+	bool checkCollision(SDL_Rect& rect, Collision::Tag tag);
+
+	Vector2D<float> ScreenToWorld(Vector2D<float> position) const;
+	Vector2D<float> WorldToScreen(Vector2D<float> position) const;
 
 	Texture* getTexture(TextureName name) const;
 
@@ -57,8 +61,6 @@ public:
 	static constexpr uint WIN_HEIGHT = 500;
 	static constexpr uint WINDOW_HEIGHT = 16;
 	static constexpr uint FRAME_RATE = 50;
-	static constexpr uint FLOOR_HEIGHT = 13;
-
 	int GetMapOffset() const { return mapOffset; }
 
 	Game();

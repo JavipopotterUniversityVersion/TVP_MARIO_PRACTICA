@@ -21,22 +21,26 @@ class Player /*: public Entity*/
 		static constexpr float SPEED = 0.35f;
 		static constexpr float JUMP_FORCE = 1;
 		Vector2D<float> position;
+		int lastDirection = 1;
 		int direction = 0;
 		Texture* texture;
 		bool canJump = true;
-		float jumpTimer = 0;
+		float jumpTimer = JUMP_TIME;
 		Game* game;
 		int vidas;
+		SDL_Rect* rect;
 
 	public:
 		Player(Game* game, int x, int y, int vidas);
 		void render();
 		void handleEvent(SDL_Event& evento);
-		virtual void update();
-		virtual void hit();
+
+		void update();
+		void hit();
 
 		int GetRectXPosition() { return position.getX() * 32; };
 		void SetDirection(int dir) { direction = dir; }
 
-		SDL_Rect getRect();
+		void updateRect();
+		SDL_Rect getRect() { return *rect; }
 };

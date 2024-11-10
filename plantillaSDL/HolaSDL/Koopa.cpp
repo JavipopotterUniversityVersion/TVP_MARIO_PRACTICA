@@ -20,9 +20,5 @@ void Koopa::update()
 {
     int newPos = position.getY() + 5;
 
-    if (position.getY() >= Game::FLOOR_HEIGHT)
-    {
-        newPos = Game::FLOOR_HEIGHT;
-    }
     position.Set(position.getX(), newPos);
 }
