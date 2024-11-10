@@ -9,6 +9,7 @@
 #include "Goomba.h"
 #include "Koopa.h"
 #include "Collision.h"
+#include "Mushroom.h"
 //#include "Block.h"
 class Block;
 
@@ -36,6 +37,7 @@ private:
 	int mapOffset = 0;
 	bool exit = false;
 	Player* player;
+	Mushroom* mushroom;
 	vector<Goomba*> goombas;
 	vector<Koopa*> koopas;
 	vector<Block*> blocks;
@@ -61,6 +63,8 @@ public:
 	static constexpr uint WINDOW_HEIGHT = 16;
 	static constexpr uint FRAME_RATE = 50;
 	int GetMapOffset() const { return mapOffset; }
+
+	void placeMushroom(int x, int y) { mushroom->place(x, y); }
 
 	Game();
 	~Game();

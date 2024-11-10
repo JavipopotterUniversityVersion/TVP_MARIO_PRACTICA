@@ -78,6 +78,8 @@ Game::Game() : seguir(true)
 		float x, y;
 		entrada >> x >> y;
 
+		mushroom = new Mushroom(x, y, this);
+
 		switch (type)
 		{
 			case 'M':
@@ -197,6 +199,7 @@ Game::render() const
 	//textures[BACKGROUND]->render();
 	map->render();
 	player->render();
+	mushroom->render();
 
 	for (Goomba* goomba : goombas)
 	{
@@ -220,6 +223,7 @@ void
 Game::update()
 {
 	player->update();
+	mushroom->update();
 
 	for (Goomba* goomba : goombas)
 	{
@@ -288,6 +292,16 @@ bool Game::checkCollision(SDL_Rect& rect, Collision::Tag tag)
 						player->defeatedEnemy();
 					}
 					else player->hit();
+				}
+			}
+
+			if (mushroom->isActive())
+			{
+				SDL_Rect blockRect = mushroom->getRect();
+				if (SDL_HasIntersection(&rect, &blockRect))
+				{
+					mushroom->hit();
+					player->goSuperMario();
 				}
 			}
 

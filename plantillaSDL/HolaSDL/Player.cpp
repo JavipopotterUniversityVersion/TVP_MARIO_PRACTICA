@@ -140,9 +140,25 @@ void Player::handleEvent(SDL_Event& evento)
 		}
 }
 
+void Player::goSuperMario()
+{
+	superMario = true;
+	rect->h = Game::TILE_SIZE * 2;
+	texture = game->getTexture(Game::SUPERMARIO);
+}
+
 void Player::hit()
 {
-	vidas--;
+	if (superMario)
+	{
+		superMario = false;
+		rect->h = Game::TILE_SIZE;
+		texture = game->getTexture(Game::MARIO);
+	}
+	else
+	{
+		vidas--;
+	}
 }
 
 void Player::defeatedEnemy()

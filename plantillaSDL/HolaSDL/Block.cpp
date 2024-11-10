@@ -51,6 +51,7 @@ void Block::hit()
 			else if (action == POTENCIADOR)
 			{
 				//game->addEntity(new Mushroom(game, position.getX(), position.getY()));
+				game->placeMushroom(position.getX(), position.getY() - 1);
 				type = VACIO;
 			}
 			frameRange.Set(0, 0);

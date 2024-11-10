@@ -32,6 +32,7 @@ class Player /*: public Entity*/
 		bool flipped = false;
 		int currentFrame = 0;
 		Vector2D<int> frameRange;
+		bool superMario = false;
 
 		void SetFrameRange(int x, int y) { frameRange.Set(x, y); }
 
@@ -49,4 +50,6 @@ class Player /*: public Entity*/
 
 		void updateRect();
 		SDL_Rect getRect() { return *rect; }
+
+		void goSuperMario();
 };
