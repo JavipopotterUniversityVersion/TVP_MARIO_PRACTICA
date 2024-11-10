@@ -6,12 +6,19 @@ Block::Block(Game* game, int x, int y, BlockType type, BlockAction action) :
 	game(game), texture(game->getTexture(Game::BLOCKS)), type(type), action(action)
 {
 	position.Set(x, y);
+	if (type == SORPRESA) frameRange.Set(0, 3);
+	else frameRange.Set(0, 0);
 }
 
 void Block::render()
 {
 	SDL_Rect rect = getRect();
-	texture->renderFrame(rect, 0, int(type));
+
+	currentFrame += 1;
+	if (currentFrame > frameRange.getY() || currentFrame < frameRange.getX()) currentFrame = frameRange.getX();
+	int frame = int(type) + currentFrame;
+
+	if(type != OCULTO) texture->renderFrame(rect, 0, frame);
 	//LETS FAKIN GOOOOO
 }
 
@@ -46,6 +53,7 @@ void Block::hit()
 				//game->addEntity(new Mushroom(game, position.getX(), position.getY()));
 				type = VACIO;
 			}
+			frameRange.Set(0, 0);
 		}
 			break;
 		case OCULTO:

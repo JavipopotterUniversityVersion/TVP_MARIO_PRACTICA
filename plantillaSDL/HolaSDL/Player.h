@@ -30,6 +30,10 @@ class Player /*: public Entity*/
 		int vidas;
 		SDL_Rect* rect;
 		bool flipped = false;
+		int currentFrame = 0;
+		Vector2D<int> frameRange;
+
+		void SetFrameRange(int x, int y) { frameRange.Set(x, y); }
 
 	public:
 		Player(Game* game, int x, int y, int vidas);
@@ -38,6 +42,7 @@ class Player /*: public Entity*/
 
 		void update();
 		void hit();
+		void defeatedEnemy();
 
 		int GetRectXPosition() { return position.getX() * 32; };
 		void SetDirection(int dir) { direction = dir; }

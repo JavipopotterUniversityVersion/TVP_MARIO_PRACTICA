@@ -14,6 +14,8 @@ class Block
 		BlockAction action;
 		Game* game;
 		Texture* texture;
+		int currentFrame = 0;
+		Vector2D<int> frameRange;
 
 	public:
 		Block(Game* game, int x, int y, BlockType type, BlockAction action);

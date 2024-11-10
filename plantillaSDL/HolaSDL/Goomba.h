@@ -15,6 +15,9 @@ class Goomba
 		Game* game;
 		SDL_Rect* rect;
 		void updateRect();
+		bool active = true;
+		int currentFrame = 0;
+		Vector2D<int> frameRange;
 
 	public:
 		Goomba(Game* game, int x, int y);
@@ -22,4 +25,5 @@ class Goomba
 		void update();
 		void hit();
 		SDL_Rect getRect() { return *rect; }
+		bool isActive() { return active; }
 };

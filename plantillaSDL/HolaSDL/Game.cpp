@@ -132,8 +132,6 @@ Game::Game() : seguir(true)
 				break;
 		}
 	}
-
-	cout << endl << blocks.size();
 }
 
 Game::~Game()
@@ -144,7 +142,14 @@ Game::~Game()
 	for (Texture* texture : textures)
 		delete texture;
 
-	//delete[] entities;
+	delete player;
+	for (Goomba* goomba : goombas)
+		delete goomba;
+	for (Koopa* koopa : koopas)
+		delete koopa;
+	for (Block* block : blocks)
+		delete block;
+
 
 	// Desactiva la SDL
 	SDL_DestroyRenderer(renderer);
@@ -275,14 +280,18 @@ bool Game::checkCollision(SDL_Rect& rect, Collision::Tag tag)
 			for (Goomba* goomba : goombas)
 			{
 				SDL_Rect blockRect = goomba->getRect();
-				if (SDL_HasIntersection(&rect, &blockRect));
+				if (goomba->isActive() && SDL_HasIntersection(&rect, &blockRect))
 				{
-					if (rect.y < blockRect.y) goomba->hit();
+					if (rect.y < blockRect.y)
+					{
+						goomba->hit();
+						player->defeatedEnemy();
+					}
 					else player->hit();
 				}
 			}
 
-			if (player->getRect().x <= 10) fixPosition = true;
+			if (rect.x <= 10) fixPosition = true;
 		}
 
 		if (map->collides(rect))

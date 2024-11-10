@@ -14,7 +14,11 @@ void Player::render()
 {
 	SDL_RendererFlip flip;
 	flip = flipped ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-	texture->renderFrame(*rect, 0, 0, flip);
+
+	currentFrame += 1;
+	if (currentFrame > frameRange.getY() || currentFrame < frameRange.getX()) currentFrame = frameRange.getX();
+
+	texture->renderFrame(*rect, 0, currentFrame, flip);
 }
 
 void Player::update()
@@ -27,6 +31,7 @@ void Player::update()
 		int newPos = position.getY() - Player::JUMP_FORCE;
 		position.Set(position.getX(), newPos);
 		futureRect.y = rect->y - Player::JUMP_FORCE;
+		frameRange.Set(6, 6);
 	}
 	else
 	{
@@ -64,9 +69,19 @@ void Player::update()
 
 	if (direction != 0)
 	{
-		if (lastDirection != direction) flipped = !flipped;
+		if (lastDirection != direction)
+		{
+			flipped = !flipped;
+		}
+
+		if(canJump) frameRange.Set(2, 4);
 		lastDirection = direction;
 	}
+	else
+	{
+		if(canJump) frameRange.Set(0, 0);
+	}
+
 	updateRect();
 }
 
@@ -74,8 +89,8 @@ Player::Player(Game* game, int x, int y, int vidas) : game(game), texture(game->
 {
 	position.Set(x, y);
 	rect = new SDL_Rect();
-	rect->w = 32;
-	rect->h = 32;
+	rect->w = Game::TILE_SIZE;
+	rect->h = Game::TILE_SIZE;
 	updateRect();
 }
 
@@ -128,4 +143,9 @@ void Player::handleEvent(SDL_Event& evento)
 void Player::hit()
 {
 	vidas--;
+}
+
+void Player::defeatedEnemy()
+{
+	jumpTimer = JUMP_TIME / 2;
 }
