@@ -9,7 +9,7 @@ class Goomba
 		Vector2D<float> position;
 		static constexpr float SPEED = 0.05f;
 		static constexpr float GRAVITY = 1.0f;
-		int direction = 0;
+		int direction = -1;
 		int lastDirection = 1;
 		Texture* texture;
 		Game* game;

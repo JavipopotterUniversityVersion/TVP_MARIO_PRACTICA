@@ -12,12 +12,13 @@ void Player::updateRect()
 
 void Player::render()
 {
-	texture->renderFrame(*rect, 0, 0);
+	SDL_RendererFlip flip;
+	flip = flipped ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+	texture->renderFrame(*rect, 0, 0, flip);
 }
 
 void Player::update()
 {
-	position.Set(position.getX(), position.getY());
 	SDL_Rect futureRect;
 
 	if (jumpTimer < JUMP_TIME)
@@ -61,7 +62,11 @@ void Player::update()
 		position.Set(position.getX() - (lastDirection * SPEED), position.getY());
 	}
 
-	if (direction != 0) lastDirection = direction;
+	if (direction != 0)
+	{
+		if (lastDirection != direction) flipped = !flipped;
+		lastDirection = direction;
+	}
 	updateRect();
 }
 

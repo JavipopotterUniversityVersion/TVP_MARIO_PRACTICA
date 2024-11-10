@@ -88,7 +88,7 @@ vector<SDL_Rect> Tilemap::getNearestTiles(Vector2D<float> position)
 			Vector2D<float> screenPos = game->WorldToScreen(Vector2D<float>(tilePos.getX(), tilePos.getY()));
 			tile.x = screenPos.getX();
 			tile.y = screenPos.getY();
-			tile.w = Game::TILE_SIZE;
+			tile.w = Game::TILE_SIZE /*+ 8*/;
 			tile.h = Game::TILE_SIZE;
 			tiles.push_back(tile);
 		}

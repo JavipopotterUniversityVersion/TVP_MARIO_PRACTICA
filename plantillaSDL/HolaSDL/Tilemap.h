@@ -21,7 +21,6 @@ class Tilemap
 		Tilemap(const string& mapName, Game* game);
 
 		void render();
-		void update();
 		bool collides(SDL_Rect& rectToCheck);
 
 		int GetMapWidth() { return map[0].size(); };

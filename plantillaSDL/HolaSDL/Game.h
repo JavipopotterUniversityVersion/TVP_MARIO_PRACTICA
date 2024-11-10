@@ -41,7 +41,6 @@ private:
 	vector<Block*> blocks;
 	Tilemap* map;
 	std::array<Texture*, NUM_TEXTURES> textures;
-	void FixPosition(SDL_Rect& rectToFix, SDL_Rect& other);
 
 public:
 	void run();

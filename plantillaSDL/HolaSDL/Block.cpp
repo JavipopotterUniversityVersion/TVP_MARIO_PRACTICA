@@ -32,5 +32,30 @@ SDL_Rect Block::getRect()
 
 void Block::hit()
 {
-
+	switch (type)
+	{
+		case SORPRESA:
+		{
+			if (action == MONEDA)
+			{
+				//game->addEntity(new Coin(game, position.getX(), position.getY()));
+				type = VACIO;
+			}
+			else if (action == POTENCIADOR)
+			{
+				//game->addEntity(new Mushroom(game, position.getX(), position.getY()));
+				type = VACIO;
+			}
+		}
+			break;
+		case OCULTO:
+			type = VACIO;
+			break;
+		case VACIO:
+			break;
+		case LADRILLO:
+			break;
+		default:
+			break;
+	}
 }

@@ -29,6 +29,7 @@ class Player /*: public Entity*/
 		Game* game;
 		int vidas;
 		SDL_Rect* rect;
+		bool flipped = false;
 
 	public:
 		Player(Game* game, int x, int y, int vidas);

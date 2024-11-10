@@ -17,7 +17,6 @@ void Goomba::render()
 
 void Goomba::update()
 {
-	position.Set(position.getX(), position.getY());
 	SDL_Rect futureRect;
 
 	position.Set(position.getX(), position.getY() + GRAVITY);
@@ -48,7 +47,7 @@ void Goomba::update()
 
 Goomba::Goomba(Game* game, int x, int y) : game(game), texture(game->getTexture(Game::GOOMBA))
 {
-	position.Set(x, y);
+	position.Set(x, y - 1);
 	rect = new SDL_Rect();
 	rect->w = Game::TILE_SIZE;
 	rect->h = Game::TILE_SIZE;
