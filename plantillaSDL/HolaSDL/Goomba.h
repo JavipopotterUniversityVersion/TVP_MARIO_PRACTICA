@@ -20,7 +20,7 @@ class Goomba
 		Vector2D<int> frameRange;
 
 	public:
-		Goomba(Game* game, int x, int y);
+		Goomba(Game* game, int x, int y, bool isKoopa);
 		void render();
 		void update();
 		void hit();

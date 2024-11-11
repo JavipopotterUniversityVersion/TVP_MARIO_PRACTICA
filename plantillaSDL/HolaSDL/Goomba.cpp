@@ -51,7 +51,7 @@ void Goomba::update()
 	updateRect();
 }
 
-Goomba::Goomba(Game* game, int x, int y) : game(game), texture(game->getTexture(Game::GOOMBA))
+Goomba::Goomba(Game* game, int x, int y, bool isKoopa = false) : game(game), texture(game->getTexture(isKoopa ? Game::KOOPA : Game::GOOMBA))
 {
 	frameRange.Set(0, 1);
 	position.Set(x, y - 1);

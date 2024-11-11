@@ -88,6 +88,7 @@ void Player::update()
 Player::Player(Game* game, int x, int y, int vidas) : game(game), texture(game->getTexture(Game::MARIO)), vidas(vidas)
 {
 	position.Set(x, y);
+	initialPosition.Set(x, y);
 	rect = new SDL_Rect();
 	rect->w = Game::TILE_SIZE;
 	rect->h = Game::TILE_SIZE;
@@ -158,6 +159,9 @@ void Player::hit()
 	else
 	{
 		vidas--;
+		if (vidas <= 0) game->endgame();
+		game->reset();
+		position.Set(initialPosition.getX(), initialPosition.getY());
 	}
 }
 

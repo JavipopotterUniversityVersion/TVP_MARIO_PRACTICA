@@ -60,8 +60,6 @@ void Block::hit()
 		case OCULTO:
 			type = VACIO;
 			break;
-		case VACIO:
-			break;
 		case LADRILLO:
 			break;
 		default:

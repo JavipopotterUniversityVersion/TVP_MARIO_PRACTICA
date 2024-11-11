@@ -39,14 +39,13 @@ private:
 	Player* player;
 	Mushroom* mushroom;
 	vector<Goomba*> goombas;
-	vector<Koopa*> koopas;
 	vector<Block*> blocks;
 	Tilemap* map;
 	std::array<Texture*, NUM_TEXTURES> textures;
 
 public:
 	void run();
-
+	void reset();
 	void update();
 	void render() const;
 	void handleEvents();
@@ -65,6 +64,7 @@ public:
 	int GetMapOffset() const { return mapOffset; }
 
 	void placeMushroom(int x, int y) { mushroom->place(x, y); }
+	void endgame() { seguir = false; }
 
 	Game();
 	~Game();

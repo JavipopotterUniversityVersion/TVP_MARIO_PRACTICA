@@ -4,7 +4,6 @@
 #include "Entity.h"
 #include "Player.h"
 #include "Goomba.h"
-#include "Koopa.h"
 #include "Tilemap.h"
 #include "Block.h"
 #include "Collision.h"
@@ -90,13 +89,13 @@ Game::Game() : seguir(true)
 				break;
 			case 'K':
 			{
-				Koopa* aux = new Koopa(this, x, y);
-				koopas.push_back(aux);
+				Goomba* aux = new Goomba(this, x, y, true);
+				goombas.push_back(aux);
 				break;
 			}
 			case 'G':
 			{
-				Goomba* aux = new Goomba(this, x, y);
+				Goomba* aux = new Goomba(this, x, y, false);
 				goombas.push_back(aux);
 				break;
 			}
@@ -147,8 +146,6 @@ Game::~Game()
 	delete player;
 	for (Goomba* goomba : goombas)
 		delete goomba;
-	for (Koopa* koopa : koopas)
-		delete koopa;
 	for (Block* block : blocks)
 		delete block;
 
@@ -206,11 +203,6 @@ Game::render() const
 		goomba->render();
 	}
 
-	for (Koopa* koopa : koopas)
-	{
-		koopa->render();
-	}
-
 	for (Block* block : blocks)
 	{
 		block->render();
@@ -228,11 +220,6 @@ Game::update()
 	for (Goomba* goomba : goombas)
 	{
 		goomba->update();
-	}
-
-	for (Koopa* koopa : koopas)
-	{
-		koopa->update();
 	}
 
 	for (Block* block : blocks)
@@ -274,7 +261,10 @@ bool Game::checkCollision(SDL_Rect& rect, Collision::Tag tag)
 			SDL_Rect blockRect = block->getRect();
 			if (SDL_HasIntersection(&rect, &blockRect))
 			{
-				if (rect.y > blockRect.y) block->hit();
+				float xDifference = rect.x - blockRect.x;
+				if (xDifference < 0) xDifference *= -1;
+
+				if (rect.y > blockRect.y && xDifference < Game::TILE_SIZE / 2) block->hit();
 				fixPosition = true;
 			}
 		}
@@ -314,4 +304,9 @@ bool Game::checkCollision(SDL_Rect& rect, Collision::Tag tag)
 		}
 	}
 	return fixPosition;
+}
+
+void Game::reset()
+{
+	mapOffset = 0;
 }

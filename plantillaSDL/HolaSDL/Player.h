@@ -21,6 +21,7 @@ class Player /*: public Entity*/
 		static constexpr float SPEED = 0.35f;
 		static constexpr float JUMP_FORCE = 1;
 		Vector2D<float> position;
+		Vector2D<float> initialPosition;
 		int lastDirection = 1;
 		int direction = 0;
 		Texture* texture;
