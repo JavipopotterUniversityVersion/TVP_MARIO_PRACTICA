@@ -75,6 +75,7 @@
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Moneda.cpp" />
     <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="Koopa.h" />
+    <ClInclude Include="Moneda.h" />
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Texture.h" />

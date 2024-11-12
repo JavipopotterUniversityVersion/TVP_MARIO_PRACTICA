@@ -223,7 +223,7 @@ Game::update()
 		goomba->update();
 	}
 
-	int maxOffset = map->GetMapWidth() * TILE_SIZE - WIN_WIDTH;
+	int maxOffset = map->GetMapWidth() * TILE_SIZE - WIN_WIDTH * 1.5f;
 	if ((player->GetRectXPosition() - mapOffset) > (Game::WIN_WIDTH / 2))
 	{
 		mapOffset = player->GetRectXPosition() - (Game::WIN_WIDTH / 2);
