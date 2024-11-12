@@ -20,7 +20,7 @@ struct TextureSpec
 };
 
 // Directorio raíz de los archivos de textura
-const string textureRoot = "../Assets/imgs/";
+const string textureRoot = "../Assets/images/";
 
 // Especificación de las texturas del juego
 const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
@@ -149,6 +149,7 @@ Game::~Game()
 	for (Block* block : blocks)
 		delete block;
 
+	delete map;
 
 	// Desactiva la SDL
 	SDL_DestroyRenderer(renderer);
@@ -222,11 +223,6 @@ Game::update()
 		goomba->update();
 	}
 
-	for (Block* block : blocks)
-	{
-		block->update();
-	}
-
 	int maxOffset = map->GetMapWidth() * TILE_SIZE - WIN_WIDTH;
 	if ((player->GetRectXPosition() - mapOffset) > (Game::WIN_WIDTH / 2))
 	{
@@ -251,7 +247,7 @@ Game::handleEvents()
 	//player->handleEvent();
 }
 
-bool Game::checkCollision(SDL_Rect& rect, Collision::Tag tag)
+bool Game::checkCollision(SDL_Rect& rect, Collision::Tag tag, bool superMario)
 {
 	bool fixPosition = false;
 	if (tag == Collision::MARIO || tag == Collision::ENEMY)
@@ -259,12 +255,12 @@ bool Game::checkCollision(SDL_Rect& rect, Collision::Tag tag)
 		for (Block* block : blocks)
 		{
 			SDL_Rect blockRect = block->getRect();
-			if (SDL_HasIntersection(&rect, &blockRect))
+			if (block->isActive() && SDL_HasIntersection(&rect, &blockRect))
 			{
 				float xDifference = rect.x - blockRect.x;
 				if (xDifference < 0) xDifference *= -1;
 
-				if (rect.y > blockRect.y && xDifference < Game::TILE_SIZE / 2) block->hit();
+				if (rect.y > blockRect.y && xDifference < Game::TILE_SIZE / 2) block->hit(superMario);
 				fixPosition = true;
 			}
 		}

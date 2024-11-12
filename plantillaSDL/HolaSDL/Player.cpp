@@ -25,6 +25,14 @@ void Player::update()
 {
 	SDL_Rect futureRect;
 
+	if (rect->y > Game::WIN_HEIGHT)
+	{
+		if (superMario) hit();
+		hit();
+	}
+
+	if (inmuneTimer < INMUNE_TIME) inmuneTimer += 0.1;
+
 	if (jumpTimer < JUMP_TIME)
 	{
 		jumpTimer += 0.1;
@@ -44,7 +52,7 @@ void Player::update()
 	futureRect.w = rect->w;
 	futureRect.h = rect->h;
 
-	if (game->checkCollision(futureRect, Collision::MARIO))
+	if (game->checkCollision(futureRect, Collision::MARIO, superMario))
 	{
 		if (jumpTimer < JUMP_TIME)
 		{
@@ -62,7 +70,7 @@ void Player::update()
 	position.Set(position.getX() + (direction * SPEED), position.getY());
 	futureRect.x = rect->x + (direction * SPEED);
 
-	if (game->checkCollision(futureRect, Collision::MARIO))
+	if (game->checkCollision(futureRect, Collision::MARIO, superMario))
 	{
 		position.Set(position.getX() - (lastDirection * SPEED), position.getY());
 	}
@@ -150,18 +158,23 @@ void Player::goSuperMario()
 
 void Player::hit()
 {
-	if (superMario)
+	if (inmuneTimer >= INMUNE_TIME)
 	{
-		superMario = false;
-		rect->h = Game::TILE_SIZE;
-		texture = game->getTexture(Game::MARIO);
-	}
-	else
-	{
-		vidas--;
-		if (vidas <= 0) game->endgame();
-		game->reset();
-		position.Set(initialPosition.getX(), initialPosition.getY());
+		inmuneTimer = 0;
+
+		if (superMario)
+		{
+			superMario = false;
+			rect->h = Game::TILE_SIZE;
+			texture = game->getTexture(Game::MARIO);
+		}
+		else
+		{
+			vidas--;
+			if (vidas <= 0) game->endgame();
+			game->reset();
+			position.Set(initialPosition.getX(), initialPosition.getY());
+		}
 	}
 }
 

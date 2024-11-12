@@ -12,6 +12,8 @@ Block::Block(Game* game, int x, int y, BlockType type, BlockAction action) :
 
 void Block::render()
 {
+	if (!active) return;
+
 	SDL_Rect rect = getRect();
 
 	currentFrame += 1;
@@ -20,11 +22,6 @@ void Block::render()
 
 	if(type != OCULTO) texture->renderFrame(rect, 0, frame);
 	//LETS FAKIN GOOOOO
-}
-
-void Block::update()
-{
-
 }
 
 SDL_Rect Block::getRect()
@@ -37,7 +34,7 @@ SDL_Rect Block::getRect()
 	return rect;
 }
 
-void Block::hit()
+void Block::hit(bool superMario)
 {
 	switch (type)
 	{
@@ -61,6 +58,7 @@ void Block::hit()
 			type = VACIO;
 			break;
 		case LADRILLO:
+			if(superMario) active = false;
 			break;
 		default:
 			break;

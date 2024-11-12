@@ -20,13 +20,16 @@ class Player /*: public Entity*/
 		static constexpr float JUMP_TIME = 0.5f;
 		static constexpr float SPEED = 0.35f;
 		static constexpr float JUMP_FORCE = 1;
+		static constexpr float INMUNE_TIME = 1.5f;
+
 		Vector2D<float> position;
 		Vector2D<float> initialPosition;
 		int lastDirection = 1;
 		int direction = 0;
 		Texture* texture;
-		bool canJump = true;
+		bool canJump = false;
 		float jumpTimer = JUMP_TIME;
+		float inmuneTimer = INMUNE_TIME;
 		Game* game;
 		int vidas;
 		SDL_Rect* rect;

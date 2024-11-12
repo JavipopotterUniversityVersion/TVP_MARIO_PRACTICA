@@ -16,12 +16,13 @@ class Block
 		Texture* texture;
 		int currentFrame = 0;
 		Vector2D<int> frameRange;
+		bool active = true;
 
 	public:
 		Block(Game* game, int x, int y, BlockType type, BlockAction action);
 		void render();
-		void update();
-		void hit();
+		void hit(bool superMario);
+		bool isActive() { return active; }
 
 		SDL_Rect getRect();
 };
