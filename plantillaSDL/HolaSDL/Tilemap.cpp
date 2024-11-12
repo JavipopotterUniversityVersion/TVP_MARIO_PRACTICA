@@ -75,9 +75,10 @@ bool Tilemap::isTileCollidable(int x, int y)
 vector<SDL_Rect> Tilemap::getNearestTiles(Vector2D<float> position)
 {
 	vector<SDL_Rect> tiles;
-	Vector2D<float> offsets[6] = { Vector2D<float>(0, 0), Vector2D<float>(1, 0), Vector2D<float>(1, 1), Vector2D<float>(0, -1), Vector2D<float>(0, 1), Vector2D<float>(-1, 0) };
+	Vector2D<float> offsets[8] = { Vector2D<float>(0, 0), Vector2D<float>(1, 0), Vector2D<float>(1, 1), Vector2D<float>(0, -1), Vector2D<float>(0, 1), Vector2D<float>(-1, 0),
+	Vector2D<float>(0, 2), Vector2D<float>(1, 2) };
 
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 8; i++)
 	{
 		Vector2D<int> tilePos = Vector2D<int>(position.getX() + offsets[i].getX(), position.getY() + offsets[i].getY());
 

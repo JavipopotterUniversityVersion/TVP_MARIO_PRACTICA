@@ -8,6 +8,7 @@ void Player::updateRect()
 	Vector2D<float> screenPosition = game->WorldToScreen(position);
 	rect->x = screenPosition.getX();
 	rect->y = screenPosition.getY();
+	if (superMario) rect->y -= Game::TILE_SIZE;
 }
 
 void Player::render()
