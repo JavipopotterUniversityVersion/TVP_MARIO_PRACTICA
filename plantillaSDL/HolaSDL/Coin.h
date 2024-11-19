@@ -1,5 +1,6 @@
 #pragma once
-class Moneda
+class Coin
 {
+
 };
 
