@@ -12,6 +12,7 @@ class Vector2D
 		T getY() const { return y; }
 
 		Vector2D<T> operator +(Vector2D<T> other) const;
+		Vector2D<T> operator +=(Vector2D<T> other) const;
 		Vector2D<T> operator -(Vector2D<T> other) const;
 		
 		Vector2D<T> operator *(Vector2D<T> other) const;
@@ -20,6 +21,16 @@ class Vector2D
 		void Set(T newX, T newY)
 		{
 			x = newX;
+			y = newY;
+		}
+
+		void setX(T newX)
+		{
+			x = newX;
+		}
+
+		void setY(T newY)
+		{
 			y = newY;
 		}
 };

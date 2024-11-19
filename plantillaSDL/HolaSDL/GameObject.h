@@ -3,10 +3,10 @@ class Game;
 
 class GameObject
 {
-	private:
+	protected:
 		Game* game;
 	public:
-		void render();
-		void update();
+		virtual void render();
+		virtual void update();
 };
 

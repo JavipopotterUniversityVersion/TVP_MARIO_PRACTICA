@@ -4,17 +4,20 @@
 #include <SDL.h>
 #include "gameList.h"
 #include <iostream>
+#include "Collision.h"
 
 class SceneObject : public GameObject
 {
-	private:
+	protected:
 		Vector2D<float> position;
 		Vector2D<float> size;
 		Vector2D<float> speed;
 		GameList<SceneObject>::anchor anchor;
 
-		int widht;
-		int height;
+		const float SPEED_LIMIT;
+		const float MOVE_PERIOD;
+
+		float moveDelay;
 
 	public:
 		virtual void hit(SDL_Rect rect, bool isPlayer);
@@ -23,5 +26,7 @@ class SceneObject : public GameObject
 		{
 			this->anchor = std::move(anchor);
 		}
+
+		Collision tryToMove(Vector2D<float> direction, Collision::Target);
 };
 
