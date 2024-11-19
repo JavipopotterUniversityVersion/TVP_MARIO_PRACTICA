@@ -1,7 +1,7 @@
 #include "Pickable.h"
 #include "Collision.h"
 
-Collision Pickable::hit(const SDL_Rect& region, Collision::Target target)
+Collision Pickable::hit(SDL_Rect rect, bool isPlayer)
 {
 	// Comprueba si hay colisión
 	SDL_Rect ownRect = getCollisionRect();

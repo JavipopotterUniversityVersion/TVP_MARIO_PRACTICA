@@ -20,7 +20,7 @@ class SceneObject : public GameObject
 		float moveDelay;
 
 	public:
-		virtual void hit(SDL_Rect rect, bool isPlayer);
+		virtual Collision hit(SDL_Rect rect, bool isPlayer);
 
 		void setListAnchor(GameList<SceneObject>::anchor&& anchor)
 		{
@@ -28,5 +28,6 @@ class SceneObject : public GameObject
 		}
 
 		Collision tryToMove(Vector2D<float> direction, Collision::Target);
+		SDL_Rect getCollisionRect();
 };
 

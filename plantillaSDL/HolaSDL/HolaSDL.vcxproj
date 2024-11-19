@@ -70,15 +70,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Koopa.cpp" />
+    <ClCompile Include="Lift.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Moneda.cpp" />
     <ClCompile Include="Mushroom.cpp" />
+    <ClCompile Include="Pickable.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -88,6 +90,7 @@
   <ItemGroup>
     <ClInclude Include="Block.h" />
     <ClInclude Include="checkML.h" />
+    <ClInclude Include="Coin.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
@@ -95,8 +98,9 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="Koopa.h" />
-    <ClInclude Include="Moneda.h" />
+    <ClInclude Include="Lift.h" />
     <ClInclude Include="Mushroom.h" />
+    <ClInclude Include="Pickable.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="Texture.h" />

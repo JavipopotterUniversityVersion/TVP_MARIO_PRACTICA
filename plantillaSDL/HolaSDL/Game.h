@@ -50,6 +50,7 @@ public:
 	void update();
 	void render() const;
 	void handleEvents();
+	void givePoints(int points);
 	bool checkCollision(SDL_Rect& rect, Collision::Tag tag, bool superMario = false);
 
 	Vector2D<float> ScreenToWorld(Vector2D<float> position) const;
