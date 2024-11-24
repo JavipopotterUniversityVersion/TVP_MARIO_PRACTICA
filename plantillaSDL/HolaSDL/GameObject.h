@@ -6,7 +6,7 @@ class GameObject
 	protected:
 		Game* game;
 	public:
-		virtual void render();
-		virtual void update();
+		virtual void render() = 0;
+		virtual void update() = 0;
 };
 

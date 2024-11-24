@@ -84,7 +84,8 @@ Game::Game() : seguir(true)
 				int vidas;
 				entrada >> vidas;
 
-				gameObjects.push_back(new Player(this, x, y, vidas));
+				player = new Player(this, x, y, vidas);
+				gameObjects.push_back(player);
 				break;
 			case 'K':
 			{
@@ -206,9 +207,9 @@ Game::update()
 	}
 
 	int maxOffset = map->GetMapWidth() * TILE_SIDE - WIN_WIDTH * 1.5f;
-	if ((player->GetRectXPosition() - mapOffset) > (Game::WIN_WIDTH / 2))
+	if ((player->getCollisionRect().x - mapOffset) > (Game::WIN_WIDTH / 2))
 	{
-		mapOffset = player->GetRectXPosition() - (Game::WIN_WIDTH / 2);
+		mapOffset = player->getCollisionRect().x - (Game::WIN_WIDTH / 2);
 		if (mapOffset > maxOffset) mapOffset = maxOffset;
 	}
 }

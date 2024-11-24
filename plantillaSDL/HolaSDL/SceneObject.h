@@ -23,19 +23,20 @@ class SceneObject : public GameObject
 		Vector2D<int> frameRange;
 		int currentFrame = 0;
 
-		float moveDelay;
+		float moveDelay = 0.5f;
 	public:
-		virtual Collision hit(SDL_Rect rect, Collision::Target target);
+		virtual Collision hit(SDL_Rect rect, Collision::Target target) = 0;
 		SceneObject(Game* game, int x, int y);
 
-		void setListAnchor(GameList<SceneObject>::anchor&& anchor)
+		/*void setListAnchor(GameList<SceneObject>::anchor&& anchor)
 		{
 			this->anchor = std::move(anchor);
-		}
+		}*/
 
 		Collision tryToMove(Vector2D<float> direction, Collision::Target target);
 		SDL_Rect getCollisionRect();
 
+		void update() override;
 		void render() override;
 };
 

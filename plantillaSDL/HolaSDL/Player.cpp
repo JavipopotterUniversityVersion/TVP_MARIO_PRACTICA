@@ -3,7 +3,7 @@
 #include "Vector2D.h"
 #include "Collision.h"
 
-Player::Player(Game* game, int x, int y, int vidas) : SceneObject(game, x, y)
+Player::Player(Game* game, int x, int y, int vidas) : SceneObject(game, x, y), vidas(vidas)
 {
 	this->texture = game->getTexture(Game::MARIO);
 	initialPosition.Set(x, y);
@@ -65,7 +65,7 @@ void Player::update()
 {
 	// Acelra la velocidad con la gravedad
 	if (velocity.getY() < SPEED_LIMIT)
-		velocity += {0, Game::GRAVITY};
+		velocity.setY(velocity.getY() + Game::GRAVITY);
 
 	// Velocidad en este ciclo (no siempre avanza lateralmente)
 	Vector2D<float> realSpeed = velocity;

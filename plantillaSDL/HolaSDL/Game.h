@@ -2,7 +2,6 @@
 #include <array>
 #include <SDL.h>
 #include <vector>
-#include "Goomba.h"
 #include "Player.h";
 #include "Texture.h"
 #include "Vector2D.h"

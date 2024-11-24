@@ -30,7 +30,6 @@ class Player : public SceneObject
 
 		void update() override;
 		Collision hit(SDL_Rect rect, Collision::Target target) override;
-		int GetRectXPosition() { return position.getX() * 32; };
 
 		void goSuperMario();
 };

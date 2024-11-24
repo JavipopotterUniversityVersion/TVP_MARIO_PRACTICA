@@ -2,7 +2,6 @@
 #include "Vector2D.h"
 #include "Texture.h"
 #include "Enemy.h"
-class Game;
 
 class Goomba : public Enemy
 {
@@ -14,5 +13,5 @@ class Goomba : public Enemy
 
 	public:
 		bool isActive() { return active; }
-		Goomba(Game* game, int x, int y) : Enemy(game, x, y) { texture = game->getTexture(Game::GOOMBA); }
+		Goomba(Game* game, int x, int y);
 };

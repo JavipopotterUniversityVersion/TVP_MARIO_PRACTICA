@@ -6,7 +6,7 @@ void Enemy::update()
 {
 	// Acelra la velocidad con la gravedad
 	if (velocity.getY() < SPEED_LIMIT)
-		velocity += {0, Game::GRAVITY};
+		velocity.setY(velocity.getY() + Game::GRAVITY);
 
 	// Velocidad en este ciclo (no siempre avanza lateralmente)
 	Vector2D<float> realSpeed = velocity;
@@ -28,4 +28,10 @@ void Enemy::update()
 		velocity.setY(0);
 
 	SceneObject::update();
+}
+
+Collision Enemy::hit(SDL_Rect rect, Collision::Target target)
+{
+	Collision collision;
+	return collision;
 }
