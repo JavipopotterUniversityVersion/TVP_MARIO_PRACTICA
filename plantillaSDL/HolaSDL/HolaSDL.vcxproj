@@ -73,7 +73,10 @@
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FileFormatError.cpp" />
+    <ClCompile Include="FileNotFoundError.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameError.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Koopa.cpp" />
@@ -83,6 +86,7 @@
     <ClCompile Include="Pickable.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneObject.cpp" />
+    <ClCompile Include="SDLError.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="Vector2D.cpp" />
@@ -93,7 +97,10 @@
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="FileFormatError.h" />
+    <ClInclude Include="FileNotFoundError.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameError.h" />
     <ClInclude Include="gameList.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Goomba.h" />
@@ -103,6 +110,7 @@
     <ClInclude Include="Pickable.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneObject.h" />
+    <ClInclude Include="SDLError.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Tilemap.h" />
     <ClInclude Include="Vector2D.h" />
