@@ -198,7 +198,6 @@ Game::render()
 		it->render();
 	}
 
-
 	SDL_RenderPresent(renderer);
 }
 
@@ -246,6 +245,7 @@ Collision Game::checkCollision(SDL_Rect& rect, Collision::Target target)
 		}
 	}
 
+	map->hit(rect);
 	return collision;
 }
 
