@@ -187,13 +187,13 @@ void
 Game::render()
 {
 	SDL_RenderClear(renderer);
+	map->render();
 
 	for (auto it : gameObjects)
 	{
 		it->render();
 	}
 
-	map->render();
 
 	SDL_RenderPresent(renderer);
 }
@@ -227,7 +227,6 @@ Game::handleEvents()
 			player->handleEvent(evento);
 		}
 	}
-	//player->handleEvent();
 }
 
 Collision Game::checkCollision(SDL_Rect& rect, Collision::Target target)

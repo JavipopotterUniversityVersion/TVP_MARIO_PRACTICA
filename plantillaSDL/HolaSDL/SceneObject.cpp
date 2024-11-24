@@ -16,6 +16,8 @@ SDL_Rect SceneObject::getCollisionRect()
 	Vector2D<float> screenPosition = game->WorldToScreen(position);
 	rect.x = screenPosition.getX();
 	rect.y = screenPosition.getY();
+	rect.w = Game::TILE_SIDE;
+	rect.h = Game::TILE_SIDE;
 
 	return rect;
 }
@@ -29,7 +31,8 @@ void SceneObject::render()
 		currentFrame = frameRange.getX();
 	}
 
-	texture->renderFrame(getCollisionRect(), 0, currentFrame);
+	SDL_Rect rect = getCollisionRect();
+	texture->renderFrame(rect, 0, currentFrame);
 }
 
 Collision SceneObject::tryToMove(Vector2D<float> direction, Collision::Target target)
@@ -40,5 +43,5 @@ Collision SceneObject::tryToMove(Vector2D<float> direction, Collision::Target ta
 
 void SceneObject::update()
 {
-
+	position.Set(position.getX() + velocity.getX(), position.getY() + velocity.getY());
 }
