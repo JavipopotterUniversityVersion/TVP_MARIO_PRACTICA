@@ -117,3 +117,73 @@ bool Tilemap::collides(SDL_Rect& rectToCheck)
 
 	return collision;
 }
+
+int TileMap::render() const
+{
+	vector<vector<int>> indices;  // atributo de TileMap
+	Texture* background;  // atributo de TileMap
+
+	constexpr int TILE_SIDE = 32;  // constantes estáticas en Game
+	constexpr int WINDOW_WIDTH = 18;
+	constexpr int WINDOW_HEIGHT = 16;
+
+	int mapOffset;  // atributo de Game
+
+	// Primera columna de la matriz del mapa visible en la ventana
+	int col0 = mapOffset / TILE_SIDE;
+	// Anchura oculta de esa primera columna
+	int d0 = mapOffset % TILE_SIDE;
+
+	// Recuadro donde se pintará la tesela en la ventana
+	SDL_Rect rect;
+	rect.w = TILE_SIDE;
+	rect.h = TILE_SIDE;
+
+	// Pintamos los WINDOW_WIDTH + 1 (aunque se salga) x WINDOW_HEIGHT recuadros del mapa
+	for (int col = 0; col < WINDOW_WIDTH + 1; ++col) {
+		rect.x = -d0 + col * TILE_SIDE;
+
+		for (int row = 0; row < WINDOW_HEIGHT; ++row) {
+			// Índice en el conjunto de patrones de la matriz de índices
+			int indice = indices[row][col0 + col];
+
+			// Si el índice es -1 no se pinta nada
+			if (indice != -1) {
+				// Separa número de fila y de columna
+				int frameCol = indice % texture->getNumColumns();
+				int frameRow = indice / texture->getNumColumns();
+
+				rect.y = row * TILE_SIDE;
+
+				// Usa renderFrame para pintar la tesela
+				background->renderFrame(rect, frameRow, frameCol);
+			}
+		}
+	}
+}
+
+Collision TileMap::hit(const SDL_Rect& rect, bool fromPlayer)
+{
+	vector<vector<int>> matrix; // atributos de TileMap
+	Texture* texture;
+
+	constexpr int OBSTACLE_THRESHOLD = 4; // constante
+
+	// Celda del nivel que contiene la esquina superior izquierda del rectángulo
+	int row0 = rec.y / Game::TILE_SIDE;
+	int col0 = rec.x / Game::TILE_SIDE;
+
+	// Celda del nivel que contiene la esquina inferior derecha del rectángulo
+	int row1 = (rect.y + rect.h - 1) / Game::TILE_SIDE;
+	int col1 = (rect.x + rect.w - 1) / Game::TILE_SIDE;
+
+	for (int row = row0; row <= row1; ++row)
+		for (int col = col0; col <= col1; ++col) {
+			int indice = matriz[row][col];
+
+			if (indice != -1 && indice % texture->getNumColumns() < OBSTACLE_THRESHOLD)
+				return true;
+		}
+
+	return false;
+}
