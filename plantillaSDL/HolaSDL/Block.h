@@ -9,20 +9,13 @@ enum BlockAction { POTENCIADOR, MONEDA };
 class Block : public SceneObject
 {
 	private:
-		Vector2D<int> position;
 		BlockType type;
 		BlockAction action;
-		Game* game;
-		Texture* texture;
-		int currentFrame = 0;
-		Vector2D<int> frameRange;
 		bool active = true;
 
 	public:
-		Block(Game* game, int x, int y, BlockType type, BlockAction action);
-		void render();
-		void hit(bool superMario);
+		Block(Game* game, int x, int y, BlockType type, BlockAction action) : SceneObject(game, x, y), type(type), action(action) { texture = game->getTexture(Game::BLOCKS); };
+		void render() override;
+		Collision hit(SDL_Rect rect, Collision::Target target) override;
 		bool isActive() { return active; }
-
-		SDL_Rect getRect();
 };

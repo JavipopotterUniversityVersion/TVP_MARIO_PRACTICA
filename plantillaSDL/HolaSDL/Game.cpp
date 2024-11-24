@@ -78,8 +78,6 @@ Game::Game() : seguir(true)
 		float x, y;
 		entrada >> x >> y;
 
-		gameObjects.push_back(new Mushroom(x, y, this));
-
 		switch (type)
 		{
 			case 'M':
@@ -90,13 +88,13 @@ Game::Game() : seguir(true)
 				break;
 			case 'K':
 			{
-				Goomba* aux = new Goomba(this, x, y, true);
+				Goomba* aux = new Goomba(this, x, y);
 				gameObjects.push_back(aux);
 				break;
 			}
 			case 'G':
 			{
-				Goomba* aux = new Goomba(this, x, y, false);
+				Goomba* aux = new Goomba(this, x, y);
 				gameObjects.push_back(aux);
 				break;
 			}
@@ -176,12 +174,12 @@ Game::run()
 
 Vector2D<float> Game::ScreenToWorld(Vector2D<float> position) const
 {
-	return Vector2D<float>((position.getX() + mapOffset) / TILE_SIZE, position.getY() / TILE_SIZE);
+	return Vector2D<float>((position.getX() + mapOffset) / TILE_SIDE, position.getY() / TILE_SIDE);
 }
 
 Vector2D<float> Game::WorldToScreen(Vector2D<float> position) const
 {
-	return Vector2D<float>((position.getX() * TILE_SIZE) - mapOffset, position.getY() * TILE_SIZE);
+	return Vector2D<float>((position.getX() * TILE_SIDE) - mapOffset, position.getY() * TILE_SIDE);
 }
 
 void
@@ -207,7 +205,7 @@ Game::update()
 		it->update();
 	}
 
-	int maxOffset = map->GetMapWidth() * TILE_SIZE - WIN_WIDTH * 1.5f;
+	int maxOffset = map->GetMapWidth() * TILE_SIDE - WIN_WIDTH * 1.5f;
 	if ((player->GetRectXPosition() - mapOffset) > (Game::WIN_WIDTH / 2))
 	{
 		mapOffset = player->GetRectXPosition() - (Game::WIN_WIDTH / 2);
@@ -237,7 +235,8 @@ Collision Game::checkCollision(SDL_Rect& rect, Collision::Target target)
 
 	for (auto it : gameObjects)
 	{
-		if (SDL_HasIntersection(&rect, &it->getCollisionRect()))
+		SDL_Rect other = it->getCollisionRect();
+		if (SDL_HasIntersection(&rect, &other))
 		{
 			collision = it->hit(rect, target);
 		}

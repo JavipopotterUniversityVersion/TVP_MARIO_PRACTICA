@@ -13,6 +13,6 @@ class Pickable : public SceneObject
 		virtual void triggerAction();
 
 	public:
-		Collision hit(SDL_Rect rect, bool isPlayer) override;
+		Collision hit(SDL_Rect rect, Collision::Target target) override;
 };
 

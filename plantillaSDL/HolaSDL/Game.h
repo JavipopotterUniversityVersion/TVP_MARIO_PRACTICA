@@ -2,23 +2,20 @@
 #include <array>
 #include <SDL.h>
 #include <vector>
-#include "Texture.h"
-#include "Tilemap.h"
-#include "Vector2D.h"
-#include "Player.h"
 #include "Goomba.h"
-#include "Koopa.h"
+#include "Player.h";
+#include "Texture.h"
+#include "Vector2D.h"
+#include "gameList.h"
 #include "Collision.h"
-#include "Mushroom.h"
-//#include "Block.h"
-class Block;
+#include "Tilemap.h"
 
 using uint = unsigned int;
 
 class Game
 {
 public:
-	static const int TILE_SIZE = 32;
+	static const int TILE_SIDE = 32;
 	static const int GRAVITY = 10;
 	enum TextureName {
 		BACKGROUND,
@@ -48,7 +45,7 @@ public:
 	void update();
 	void render();
 	void handleEvents();
-	void givePoints(int points);
+	void givePoints(int points) {};
 	Collision checkCollision(SDL_Rect& rect, Collision::Target target);
 
 	Vector2D<float> ScreenToWorld(Vector2D<float> position) const;

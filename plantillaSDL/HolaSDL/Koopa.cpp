@@ -11,8 +11,8 @@ void Koopa::render()
     SDL_Rect rect;
     rect.w = 32;
     rect.h = 32;
-    rect.x = (position.getX() * Game::TILE_SIZE) - game->GetMapOffset();
-    rect.y = position.getY() * Game::TILE_SIZE;
+    rect.x = (position.getX() * Game::TILE_SIDE) - game->GetMapOffset();
+    rect.y = position.getY() * Game::TILE_SIDE;
     texture->renderFrame(rect, 0, 0);
 }
 

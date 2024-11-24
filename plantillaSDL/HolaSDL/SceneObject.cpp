@@ -3,6 +3,12 @@
 #include "SDL.h"
 #include "Game.h"
 
+SceneObject::SceneObject(Game* game, int x, int y)
+{
+	this->game = game;
+	position.Set(x, y);
+}
+
 SDL_Rect SceneObject::getCollisionRect()
 {
 	SDL_Rect rect;
@@ -29,5 +35,5 @@ void SceneObject::render()
 Collision SceneObject::tryToMove(Vector2D<float> direction, Collision::Target target)
 {
 	SDL_Rect rect = getCollisionRect();
-	game->checkCollision(rect, target);
+	return game->checkCollision(rect, target);
 }

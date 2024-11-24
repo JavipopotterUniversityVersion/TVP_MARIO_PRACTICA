@@ -6,6 +6,7 @@
 #include <iostream>
 #include "Collision.h"
 #include "Texture.h"
+class Game;
 
 class SceneObject : public GameObject
 {
@@ -15,8 +16,8 @@ class SceneObject : public GameObject
 		Vector2D<float> velocity;
 		GameList<SceneObject>::anchor anchor;
 
-		const float SPEED_LIMIT;
-		const float MOVE_PERIOD;
+		const float SPEED_LIMIT = 3;
+		const float MOVE_PERIOD = 1;
 
 		Texture* texture;
 		Vector2D<int> frameRange;
@@ -24,7 +25,8 @@ class SceneObject : public GameObject
 
 		float moveDelay;
 	public:
-		virtual Collision hit(SDL_Rect rect, Collision::Target);
+		virtual Collision hit(SDL_Rect rect, Collision::Target target);
+		SceneObject(Game* game, int x, int y);
 
 		void setListAnchor(GameList<SceneObject>::anchor&& anchor)
 		{

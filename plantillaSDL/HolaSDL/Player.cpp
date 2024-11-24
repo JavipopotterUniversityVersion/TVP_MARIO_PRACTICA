@@ -3,12 +3,9 @@
 #include "Vector2D.h"
 #include "Collision.h"
 
-Player::Player(Game* game, int x, int y, int vidas) : vidas(vidas)
+Player::Player(Game* game, int x, int y, int vidas) : SceneObject(game, x, y)
 {
-	this->game = game;
 	this->texture = game->getTexture(Game::MARIO);
-
-	position.Set(x, y);
 	initialPosition.Set(x, y);
 }
 
