@@ -64,9 +64,9 @@ Game::Game() : seguir(true)
 		Koopa(this, 300, 300),
 	};*/
 
-	map = new Tilemap("world2.csv", this);
+	map = new Tilemap("world1.csv", this);
 
-	string path = "../Assets/maps/world2.txt";
+	string path = "../Assets/maps/world1.txt";
 
 	ifstream entrada(path);
 	if (!entrada.is_open()) throw new exception("Error leyendo archivo");
