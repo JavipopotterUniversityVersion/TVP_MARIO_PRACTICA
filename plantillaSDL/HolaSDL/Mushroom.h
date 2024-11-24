@@ -1,9 +1,11 @@
 #pragma once
 #include "Vector2D.h"
 #include "Texture.h"
+#include "SceneObject.h"
 class Game;
 
-class Mushroom {
+class Mushroom : public SceneObject
+{
 	private:
 		Vector2D<float> position;
 		static constexpr float SPEED = 0.05f;

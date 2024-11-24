@@ -7,6 +7,7 @@
 #include "Tilemap.h"
 #include "Block.h"
 #include "Collision.h"
+#include "SceneObject.h"
 
 #include <iostream>
 #include <fstream>
@@ -77,7 +78,7 @@ Game::Game() : seguir(true)
 		float x, y;
 		entrada >> x >> y;
 
-		mushroom = new Mushroom(x, y, this);
+		gameObjects.push_back(new Mushroom(x, y, this));
 
 		switch (type)
 		{
@@ -85,18 +86,18 @@ Game::Game() : seguir(true)
 				int vidas;
 				entrada >> vidas;
 
-				player = new Player(this, x, y, vidas);
+				gameObjects.push_back(new Player(this, x, y, vidas));
 				break;
 			case 'K':
 			{
 				Goomba* aux = new Goomba(this, x, y, true);
-				goombas.push_back(aux);
+				gameObjects.push_back(aux);
 				break;
 			}
 			case 'G':
 			{
 				Goomba* aux = new Goomba(this, x, y, false);
-				goombas.push_back(aux);
+				gameObjects.push_back(aux);
 				break;
 			}
 			case 'B':
@@ -125,11 +126,10 @@ Game::Game() : seguir(true)
 						blockType = SORPRESA;
 
 						if (action == 'C') blockAction = MONEDA;
-					break;
+						break;
 				}
 
-				Block* aux = new Block(this, x, y, blockType, blockAction);
-				blocks.push_back(aux);
+				gameObjects.push_back(new Block(this, x, y, blockType, blockAction));
 				break;
 		}
 	}
@@ -143,11 +143,7 @@ Game::~Game()
 	for (Texture* texture : textures)
 		delete texture;
 
-	delete player;
-	for (Goomba* goomba : goombas)
-		delete goomba;
-	for (Block* block : blocks)
-		delete block;
+	//delete gameObjects
 
 	delete map;
 
@@ -189,25 +185,16 @@ Vector2D<float> Game::WorldToScreen(Vector2D<float> position) const
 }
 
 void
-Game::render() const
+Game::render()
 {
 	SDL_RenderClear(renderer);
 
-	// Pinta los objetos del juego
-	//textures[BACKGROUND]->render();
+	for (auto it : gameObjects)
+	{
+		it->render();
+	}
+
 	map->render();
-	player->render();
-	mushroom->render();
-
-	for (Goomba* goomba : goombas)
-	{
-		goomba->render();
-	}
-
-	for (Block* block : blocks)
-	{
-		block->render();
-	}
 
 	SDL_RenderPresent(renderer);
 }
@@ -215,12 +202,9 @@ Game::render() const
 void
 Game::update()
 {
-	player->update();
-	mushroom->update();
-
-	for (Goomba* goomba : goombas)
+	for (auto it : gameObjects)
 	{
-		goomba->update();
+		it->update();
 	}
 
 	int maxOffset = map->GetMapWidth() * TILE_SIZE - WIN_WIDTH * 1.5f;
@@ -247,59 +231,19 @@ Game::handleEvents()
 	//player->handleEvent();
 }
 
-bool Game::checkCollision(SDL_Rect& rect, Collision::Tag tag, bool superMario)
+Collision Game::checkCollision(SDL_Rect& rect, Collision::Target target)
 {
-	bool fixPosition = false;
-	if (tag == Collision::MARIO || tag == Collision::ENEMY)
+	Collision collision;
+
+	for (auto it : gameObjects)
 	{
-		for (Block* block : blocks)
+		if (SDL_HasIntersection(&rect, &it->getCollisionRect()))
 		{
-			SDL_Rect blockRect = block->getRect();
-			if (block->isActive() && SDL_HasIntersection(&rect, &blockRect))
-			{
-				float xDifference = rect.x - blockRect.x;
-				if (xDifference < 0) xDifference *= -1;
-
-				if (rect.y > blockRect.y && xDifference < Game::TILE_SIZE / 2) block->hit(superMario);
-				fixPosition = true;
-			}
-		}
-
-		if (tag == Collision::MARIO)
-		{
-			for (Goomba* goomba : goombas)
-			{
-				SDL_Rect blockRect = goomba->getRect();
-				if (goomba->isActive() && SDL_HasIntersection(&rect, &blockRect))
-				{
-					if (rect.y < blockRect.y)
-					{
-						goomba->hit();
-						player->defeatedEnemy();
-					}
-					else player->hit();
-				}
-			}
-
-			if (mushroom->isActive())
-			{
-				SDL_Rect blockRect = mushroom->getRect();
-				if (SDL_HasIntersection(&rect, &blockRect))
-				{
-					mushroom->hit();
-					player->goSuperMario();
-				}
-			}
-
-			if (rect.x <= 10) fixPosition = true;
-		}
-
-		if (map->collides(rect))
-		{
-			fixPosition = true;
+			collision = it->hit(rect, target);
 		}
 	}
-	return fixPosition;
+
+	return collision;
 }
 
 void Game::reset()

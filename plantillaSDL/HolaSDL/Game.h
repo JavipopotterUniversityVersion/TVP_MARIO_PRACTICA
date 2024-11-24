@@ -38,9 +38,7 @@ private:
 	int mapOffset = 0;
 	bool exit = false;
 	Player* player;
-	Mushroom* mushroom;
-	vector<Goomba*> goombas;
-	vector<Block*> blocks;
+	GameList<SceneObject> gameObjects;
 	Tilemap* map;
 	std::array<Texture*, NUM_TEXTURES> textures;
 
@@ -48,10 +46,10 @@ public:
 	void run();
 	void reset();
 	void update();
-	void render() const;
+	void render();
 	void handleEvents();
 	void givePoints(int points);
-	bool checkCollision(SDL_Rect& rect, Collision::Tag tag, bool superMario = false);
+	Collision checkCollision(SDL_Rect& rect, Collision::Target target);
 
 	Vector2D<float> ScreenToWorld(Vector2D<float> position) const;
 	Vector2D<float> WorldToScreen(Vector2D<float> position) const;
@@ -65,7 +63,6 @@ public:
 	static constexpr uint FRAME_RATE = 50;
 	int GetMapOffset() const { return mapOffset; }
 
-	void placeMushroom(int x, int y) { mushroom->place(x, y); }
 	void endgame() { seguir = false; }
 
 	Game();

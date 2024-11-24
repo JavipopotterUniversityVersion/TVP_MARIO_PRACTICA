@@ -6,7 +6,7 @@
 enum BlockType { SORPRESA = 0, OCULTO, VACIO = 4, LADRILLO = 5};
 enum BlockAction { POTENCIADOR, MONEDA };
 
-class Block
+class Block : public SceneObject
 {
 	private:
 		Vector2D<int> position;

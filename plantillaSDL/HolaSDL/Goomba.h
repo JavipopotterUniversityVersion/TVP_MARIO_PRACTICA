@@ -1,9 +1,10 @@
 #pragma once
 #include "Vector2D.h"
 #include "Texture.h"
+#include "Enemy.h"
 class Game;
 
-class Goomba 
+class Goomba : public Enemy
 {
 	private:
 		Vector2D<float> position;

@@ -19,38 +19,6 @@ void Goomba::render()
 	texture->renderFrame(*rect, 0, currentFrame);
 }
 
-void Goomba::update()
-{
-	if (!active) return;
-
-	SDL_Rect futureRect;
-
-	position.Set(position.getX(), position.getY() + GRAVITY);
-	futureRect.y = rect->y + GRAVITY;
-
-	futureRect.x = rect->x;
-	futureRect.w = rect->w;
-	futureRect.h = rect->h;
-
-	if (game->checkCollision(futureRect, Collision::ENEMY))
-	{
-		position.Set(position.getX(), position.getY() - GRAVITY);
-	}
-
-	futureRect.y = rect->y;
-	position.Set(position.getX() + (direction * SPEED), position.getY());
-	futureRect.x = rect->x + (direction * SPEED);
-
-	if (game->checkCollision(futureRect, Collision::ENEMY))
-	{
-		position.Set(position.getX() - (lastDirection * SPEED), position.getY());
-		direction *= -1;
-	}
-
-	if (direction != 0) lastDirection = direction;
-	updateRect();
-}
-
 Goomba::Goomba(Game* game, int x, int y, bool isKoopa = false) : game(game), texture(game->getTexture(isKoopa ? Game::KOOPA : Game::GOOMBA))
 {
 	frameRange.Set(0, 1);
