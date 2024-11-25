@@ -11,6 +11,7 @@ Collision Block::hit(SDL_Rect rect, Collision::Target target)
 	SDL_IntersectRect(&rect, &thisRect, &intersection);
 
 	Collision collision{ Collision::OBSTACLE, intersection.w, intersection.h };
+	collision.vertical = position.getY();
 
 	return collision;
 }

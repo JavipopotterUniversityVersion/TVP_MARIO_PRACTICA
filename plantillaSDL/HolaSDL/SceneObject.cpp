@@ -13,7 +13,9 @@ SDL_Rect SceneObject::getCollisionRect()
 {
 	SDL_Rect rect;
 
-	Vector2D<float> screenPosition = game->WorldToScreen(position);
+	Vector2D<float> realPos = position;
+	realPos.setY(realPos.getY());
+	Vector2D<float> screenPosition = game->WorldToScreen(realPos);
 	rect.x = screenPosition.getX();
 	rect.y = screenPosition.getY();
 	rect.w = Game::TILE_SIDE;

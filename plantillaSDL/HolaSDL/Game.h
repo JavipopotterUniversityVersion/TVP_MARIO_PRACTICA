@@ -58,6 +58,8 @@ public:
 	static constexpr uint WINDOW_HEIGHT = 16;
 	static constexpr uint FRAME_RATE = 50;
 	int GetMapOffset() const { return mapOffset; }
+	void nextLevel();
+	void loadLevel(string levelIndex);
 
 	void endgame() { seguir = false; }
 

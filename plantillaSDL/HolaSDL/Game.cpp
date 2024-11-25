@@ -64,78 +64,7 @@ Game::Game() : seguir(true)
 		Koopa(this, 300, 300),
 	};*/
 
-	map = new Tilemap("world1.csv", this);
-
-	string path = "../Assets/maps/world1.txt";
-
-	ifstream entrada(path);
-	if (!entrada.is_open()) throw new exception("Error leyendo archivo");
-
-	int R, G, B;
-	entrada >> R >> G >> B;
-	SDL_SetRenderDrawColor(renderer, R, G, B, 0);
-
-	while (entrada) {
-		char type;
-		entrada >> type;
-
-		float x, y;
-		entrada >> x >> y;
-
-		switch (type)
-		{
-			case 'M':
-				int vidas;
-				entrada >> vidas;
-
-				player = new Player(this, x, y, vidas);
-				gameObjects.push_back(player);
-				break;
-			case 'K':
-			{
-				/*Goomba* aux = new Goomba(this, x, y);
-				gameObjects.push_back(aux)*/;
-				break;
-			}
-			case 'G':
-			{
-				/*Goomba* aux = new Goomba(this, x, y);
-				gameObjects.push_back(aux);*/
-				break;
-			}
-			case 'B':
-				char type, action;
-				entrada >> type;
-
-				BlockType blockType;
-				BlockAction blockAction = POTENCIADOR;
-
-				switch(type)
-				{
-					case 'B':
-						blockType = LADRILLO;
-						break;
-					case '0':
-						blockType = VACIO;
-						break;
-					case 'H':
-						blockType = OCULTO;
-						entrada >> action;
-
-						if (action == 'C') blockAction = MONEDA;
-						break;
-					case '?':
-						entrada >> action;
-						blockType = SORPRESA;
-
-						if (action == 'C') blockAction = MONEDA;
-						break;
-				}
-
-				gameObjects.push_back(new Block(this, x, y, blockType, blockAction));
-				break;
-		}
-	}
+	loadLevel("1");
 }
 
 Game::~Game()
@@ -254,4 +183,89 @@ Collision Game::checkCollision(SDL_Rect& rect, Collision::Target target)
 void Game::reset()
 {
 	mapOffset = 0;
+}
+
+void Game::loadLevel(string levelIndex)
+{
+	map = new Tilemap("world" + levelIndex + ".csv", this);
+
+	string path = "../Assets/maps/world" + levelIndex + ".txt";
+
+	ifstream entrada(path);
+	if (!entrada.is_open()) throw new exception("Error leyendo archivo");
+
+	int R, G, B;
+	entrada >> R >> G >> B;
+	SDL_SetRenderDrawColor(renderer, R, G, B, 0);
+
+	while (entrada) {
+		char type;
+		entrada >> type;
+
+		float x, y;
+		entrada >> x >> y;
+
+		switch (type)
+		{
+		case 'M':
+			int vidas;
+			entrada >> vidas;
+
+			player = new Player(this, x, y, vidas);
+			gameObjects.push_back(player);
+			break;
+		case 'K':
+		{
+			/*Goomba* aux = new Goomba(this, x, y);
+			gameObjects.push_back(aux)*/;
+			break;
+		}
+		case 'G':
+		{
+			/*Goomba* aux = new Goomba(this, x, y);
+			gameObjects.push_back(aux);*/
+			break;
+		}
+		case 'B':
+			char type, action;
+			entrada >> type;
+
+			BlockType blockType;
+			BlockAction blockAction = POTENCIADOR;
+
+			switch (type)
+			{
+			case 'B':
+				blockType = LADRILLO;
+				break;
+			case '0':
+				blockType = VACIO;
+				break;
+			case 'H':
+				blockType = OCULTO;
+				entrada >> action;
+
+				if (action == 'C') blockAction = MONEDA;
+				break;
+			case '?':
+				entrada >> action;
+				blockType = SORPRESA;
+
+				if (action == 'C') blockAction = MONEDA;
+				break;
+			}
+
+			gameObjects.push_back(new Block(this, x, y, blockType, blockAction));
+			break;
+		}
+	}
+}
+
+void Game::nextLevel()
+{
+	for (Texture* texture : textures) delete texture;
+	for (auto it : gameObjects) delete it;
+	delete map;
+
+	loadLevel("2");
 }

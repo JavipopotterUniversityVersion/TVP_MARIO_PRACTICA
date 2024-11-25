@@ -69,22 +69,26 @@ void Player::goSuperMario()
 void Player::update()
 {
 	// Acelra la velocidad con la gravedad
-	if (!canJump && (velocity.getY() < SPEED_LIMIT))
+	if (velocity.getY() < SPEED_LIMIT)
 	{
 		velocity.setY(velocity.getY() + Game::GRAVITY);
 	}
 	Vector2D<float> realSpeed = velocity;
+	realSpeed.setY(realSpeed.getY() + 1);
 
 	Collision collision = tryToMove(realSpeed, Collision::ENEMIES);
+	cout << collision.vertical << endl;
 
 	// Si toca un objeto en vertical anula la velocidad (para que no se acumule la gravedad)
 	if (collision.vertical)
 	{
-		position.setY(position.getY() - (float(collision.vertical) / Game::TILE_SIDE));
+		if(collision.vertical > position.getY() - 0.5f) position.setY(collision.vertical - 1);
+		else position.setY(collision.vertical + 1);
+
+		velocity.setY(0);
 		if (canJump == false)
 		{
 			canJump = true;
-			velocity.setY(0);
 		}
 	}
 

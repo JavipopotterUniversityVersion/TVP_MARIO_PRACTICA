@@ -16,7 +16,7 @@ class SceneObject : public GameObject
 		Vector2D<float> velocity;
 		GameList<SceneObject>::anchor anchor;
 
-		const float SPEED_LIMIT = 3;
+		const float SPEED_LIMIT = 1.5f;
 		const float MOVE_PERIOD = 1;
 
 		Texture* texture;

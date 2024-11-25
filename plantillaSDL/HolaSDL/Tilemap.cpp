@@ -90,15 +90,15 @@ Collision Tilemap::hit(const SDL_Rect& rect)
 
 			int indice = map[row][col];
 
+			if (indice == 43) game->nextLevel();
 			if (indice != -1 && indice % texture->getNumColumns() < OBSTACLE_THRESHOLD)
 			{
 				SDL_Rect obstacleRect;
 				collision.result = collision.OBSTACLE;
 
 				Vector2D<float> pos(col, row);
-				Vector2D<float> screenPos = game->WorldToScreen(pos);
-				obstacleRect.x = screenPos.getX();
-				obstacleRect.y = screenPos.getY();
+				obstacleRect.x = pos.getX() * Game::TILE_SIDE - game->GetMapOffset();
+				obstacleRect.y = pos.getY() * Game::TILE_SIDE;
 				obstacleRect.w = Game::TILE_SIDE;
 				obstacleRect.h = Game::TILE_SIDE;
 
@@ -106,7 +106,7 @@ Collision Tilemap::hit(const SDL_Rect& rect)
 				SDL_IntersectRect(&rect, &obstacleRect, &intersection);
 
 				collision.horizontal = intersection.w;
-				collision.vertical = intersection.h;
+				collision.vertical = pos.getY();
 
 				return collision;
 			}
