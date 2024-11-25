@@ -20,9 +20,11 @@ void Player::handleEvent(SDL_Event& evento)
 				{
 				case SDLK_LEFT:
 					velocity.setX(-SPEED);
+					frameRange.Set(2, 4);
 					break;
 				case SDLK_RIGHT:
 					velocity.setX(SPEED);
+					frameRange.Set(2, 4);
 					break;
 				case SDLK_UP:
 					if (canJump)
@@ -43,9 +45,11 @@ void Player::handleEvent(SDL_Event& evento)
 			{
 			case SDLK_LEFT:
 				velocity.setX(0);
+				frameRange.Set(0, 0);
 				break;
 			case SDLK_RIGHT:
 				velocity.setX(0);
+				frameRange.Set(0, 0);
 				break;
 			case SDLK_UP:
 				jumpTimer = Player::JUMP_TIME;
@@ -84,13 +88,18 @@ void Player::update()
 	// Si toca un objeto en horizontal cambia de dirección
 	if (collision.horizontal)
 	{
-		velocity.setX(-velocity.getX());
+		velocity.setX(0);
 	}
 
 	// Si toca un objeto en vertical anula la velocidad (para que no se acumule la gravedad)
 	if (collision.vertical)
 	{
-		velocity.setY(0);
+		position.setY(position.getY() - (collision.vertical / Game::TILE_SIDE));
+		if (canJump == false)
+		{
+			canJump = true;
+			velocity.setY(0);
+		}
 	}
 
 	SceneObject::update();
@@ -102,7 +111,7 @@ Collision Player::hit(SDL_Rect rect, Collision::Target target)
 
 	if (target == Collision::PLAYER)
 	{
-		if (getCollisionRect().y < rect.y) col.result = Collision::DAMAGE;
+		if (getCollisionRect().y > rect.y) delete this;
 	}
 
 	return col;

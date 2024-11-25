@@ -33,5 +33,9 @@ void Enemy::update()
 Collision Enemy::hit(SDL_Rect rect, Collision::Target target)
 {
 	Collision collision;
+	if (target == Collision::ENEMIES)
+	{
+		if (rect.y < getCollisionRect().y) delete this;
+	}
 	return collision;
 }
