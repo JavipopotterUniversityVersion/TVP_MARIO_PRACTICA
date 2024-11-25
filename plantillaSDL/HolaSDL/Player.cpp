@@ -117,7 +117,7 @@ Collision Player::hit(SDL_Rect rect, Collision::Target target)
 
 	if (target == Collision::PLAYER)
 	{
-		if (getCollisionRect().y > rect.y) delete this;
+		if (getCollisionRect().y > rect.y) {}
 	}
 
 	return col;
