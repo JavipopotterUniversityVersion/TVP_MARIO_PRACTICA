@@ -1,10 +1,10 @@
 #pragma once
 #include "Vector2D.h"
 #include "Texture.h"
-#include "SceneObject.h"
+#include "Pickable.h"
 class Game;
 
-class Mushroom : public SceneObject
+class Mushroom : public Pickable
 {
 	
 };

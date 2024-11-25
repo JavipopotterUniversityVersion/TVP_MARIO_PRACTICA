@@ -46,7 +46,6 @@ Game::Game() : seguir(true)
 	                          SDL_WINDOW_SHOWN);
 
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	SDL_SetRenderDrawColor(renderer, 97, 133, 248, 0);
 
 	if (window == nullptr || renderer == nullptr)
 		throw "Error cargando SDL"s;
@@ -71,6 +70,11 @@ Game::Game() : seguir(true)
 
 	ifstream entrada(path);
 	if (!entrada.is_open()) throw new exception("Error leyendo archivo");
+
+	int R, G, B;
+	entrada >> R >> G >> B;
+	SDL_SetRenderDrawColor(renderer, R, G, B, 0);
+
 	while (entrada) {
 		char type;
 		entrada >> type;
