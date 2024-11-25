@@ -38,7 +38,13 @@ void SceneObject::render()
 Collision SceneObject::tryToMove(Vector2D<float> direction, Collision::Target target)
 {
 	SDL_Rect rect = getCollisionRect();
-	return game->checkCollision(rect, target);
+
+	rect.x += direction.getX();
+	rect.y += direction.getY();
+
+	Collision col = game->checkCollision(rect, target);
+
+	return col;
 }
 
 void SceneObject::update()

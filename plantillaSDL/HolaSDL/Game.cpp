@@ -89,14 +89,14 @@ Game::Game() : seguir(true)
 				break;
 			case 'K':
 			{
-				Goomba* aux = new Goomba(this, x, y);
-				gameObjects.push_back(aux);
+				//Goomba* aux = new Goomba(this, x, y);
+				//gameObjects.push_back(aux);
 				break;
 			}
 			case 'G':
 			{
-				Goomba* aux = new Goomba(this, x, y);
-				gameObjects.push_back(aux);
+				//Goomba* aux = new Goomba(this, x, y);
+				//gameObjects.push_back(aux);
 				break;
 			}
 			case 'B':
@@ -206,9 +206,9 @@ Game::update()
 	}
 
 	int maxOffset = map->GetMapWidth() * TILE_SIDE - WIN_WIDTH * 1.5f;
-	if ((player->getCollisionRect().x - mapOffset) > (Game::WIN_WIDTH / 2))
+	if ((player->getCollisionRect().x) > (Game::WIN_WIDTH / 2))
 	{
-		mapOffset = player->getCollisionRect().x - (Game::WIN_WIDTH / 2);
+		mapOffset = player->getCollisionRect().x + mapOffset - (Game::WIN_WIDTH / 2);
 		if (mapOffset > maxOffset) mapOffset = maxOffset;
 	}
 }
@@ -241,7 +241,9 @@ Collision Game::checkCollision(SDL_Rect& rect, Collision::Target target)
 		}
 	}
 
-	map->hit(rect);
+	Collision mapCol = map->hit(rect);
+	if (mapCol.result != Collision::NONE) collision = mapCol;
+
 	return collision;
 }
 

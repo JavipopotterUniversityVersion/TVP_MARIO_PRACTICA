@@ -45,7 +45,12 @@ void Tilemap::render() const
 
 		for (int row = 0; row < Game::WINDOW_HEIGHT; ++row) {
 			// Índice en el conjunto de patrones de la matriz de índices
-			int indice = map[row][col0 + col];
+			int temp = col0 + col;
+
+			if (row >= map.size()) row = map.size() - 1;
+			if (temp >= map[0].size()) temp = map[0].size() - 1;
+
+			int indice = map[row][temp];
 
 			// Si el índice es -1 no se pinta nada
 			if (indice != -1) {
@@ -79,11 +84,30 @@ Collision Tilemap::hit(const SDL_Rect& rect)
 	for (int row = row0; row <= row1; ++row)
 	{
 		for (int col = col0; col <= col1; ++col) {
+
+			if (row >= map.size()) row = map.size() - 1;
+			if (col >= map[0].size()) col = map[0].size() - 1;
+
 			int indice = map[row][col];
 
 			if (indice != -1 && indice % texture->getNumColumns() < OBSTACLE_THRESHOLD)
 			{
-				collision.result = Collision::OBSTACLE;
+				SDL_Rect obstacleRect;
+				collision.result = collision.OBSTACLE;
+
+				Vector2D<float> pos(col, row);
+				Vector2D<float> screenPos = game->WorldToScreen(pos);
+				obstacleRect.x = pos.getX() * Game::TILE_SIDE;
+				obstacleRect.y = pos.getY() * Game::TILE_SIDE;
+				obstacleRect.w = Game::TILE_SIDE;
+				obstacleRect.h = Game::TILE_SIDE;
+
+				SDL_Rect intersection;
+				SDL_IntersectRect(&rect, &obstacleRect, &intersection);
+
+				collision.horizontal = intersection.w;
+				collision.vertical = intersection.h;
+				
 				return collision;
 			}
 		}

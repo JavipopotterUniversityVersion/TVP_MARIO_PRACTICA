@@ -15,7 +15,7 @@ class Game
 {
 public:
 	static const int TILE_SIDE = 32;
-	static const int GRAVITY = 1;
+	static constexpr float GRAVITY = 0.2f;
 	enum TextureName {
 		BACKGROUND,
 		MARIO,

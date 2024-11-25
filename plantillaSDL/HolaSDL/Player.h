@@ -11,7 +11,7 @@ class Player : public SceneObject
 	private:
 		static constexpr float JUMP_TIME = 0.5f;
 		static constexpr float SPEED = 0.35f;
-		static constexpr float JUMP_FORCE = 1;
+		static constexpr float JUMP_FORCE = 1.5f;
 		static constexpr float INMUNE_TIME = 1.5f;
 
 		Vector2D<float> initialPosition;

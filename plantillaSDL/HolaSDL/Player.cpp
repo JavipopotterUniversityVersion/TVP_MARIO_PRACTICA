@@ -19,16 +19,17 @@ void Player::handleEvent(SDL_Event& evento)
 				switch (evento.key.keysym.sym)
 				{
 				case SDLK_LEFT:
-					velocity.setX(-1);
+					velocity.setX(-SPEED);
 					break;
 				case SDLK_RIGHT:
-					velocity.setX(1);
+					velocity.setX(SPEED);
 					break;
 				case SDLK_UP:
 					if (canJump)
 					{
 						canJump = false;
 						jumpTimer = 0;
+						velocity.setY(-JUMP_FORCE);
 					}
 					break;
 				default:
@@ -41,10 +42,10 @@ void Player::handleEvent(SDL_Event& evento)
 			switch (evento.key.keysym.sym)
 			{
 			case SDLK_LEFT:
-				velocity.setX(-SPEED);
+				velocity.setX(0);
 				break;
 			case SDLK_RIGHT:
-				velocity.setX(SPEED);
+				velocity.setX(0);
 				break;
 			case SDLK_UP:
 				jumpTimer = Player::JUMP_TIME;
@@ -64,8 +65,10 @@ void Player::goSuperMario()
 void Player::update()
 {
 	// Acelra la velocidad con la gravedad
-	if (velocity.getY() < SPEED_LIMIT)
+	if (!canJump && (velocity.getY() < SPEED_LIMIT))
+	{
 		velocity.setY(velocity.getY() + Game::GRAVITY);
+	}
 
 	// Velocidad en este ciclo (no siempre avanza lateralmente)
 	Vector2D<float> realSpeed = velocity;
@@ -80,11 +83,15 @@ void Player::update()
 
 	// Si toca un objeto en horizontal cambia de dirección
 	if (collision.horizontal)
+	{
 		velocity.setX(-velocity.getX());
+	}
 
 	// Si toca un objeto en vertical anula la velocidad (para que no se acumule la gravedad)
 	if (collision.vertical)
+	{
 		velocity.setY(0);
+	}
 
 	SceneObject::update();
 }
