@@ -97,8 +97,8 @@ Collision Tilemap::hit(const SDL_Rect& rect)
 
 				Vector2D<float> pos(col, row);
 				Vector2D<float> screenPos = game->WorldToScreen(pos);
-				obstacleRect.x = pos.getX() * Game::TILE_SIDE;
-				obstacleRect.y = pos.getY() * Game::TILE_SIDE;
+				obstacleRect.x = screenPos.getX();
+				obstacleRect.y = screenPos.getY();
 				obstacleRect.w = Game::TILE_SIDE;
 				obstacleRect.h = Game::TILE_SIDE;
 
@@ -107,7 +107,7 @@ Collision Tilemap::hit(const SDL_Rect& rect)
 
 				collision.horizontal = intersection.w;
 				collision.vertical = intersection.h;
-				
+
 				return collision;
 			}
 		}

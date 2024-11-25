@@ -39,5 +39,7 @@ class SceneObject : public GameObject
 
 		void update() override;
 		void render() override;
+
+		Game* getGame() { return game; }
 };
 
