@@ -73,33 +73,35 @@ void Player::update()
 	{
 		velocity.setY(velocity.getY() + Game::GRAVITY);
 	}
-
-	// Velocidad en este ciclo (no siempre avanza lateralmente)
 	Vector2D<float> realSpeed = velocity;
+
+	Collision collision = tryToMove(realSpeed, Collision::ENEMIES);
+
+	// Si toca un objeto en vertical anula la velocidad (para que no se acumule la gravedad)
+	if (collision.vertical)
+	{
+		position.setY(position.getY() - (float(collision.vertical) / Game::TILE_SIDE));
+		if (canJump == false)
+		{
+			canJump = true;
+			velocity.setY(0);
+		}
+	}
 
 	if (moveDelay-- == 0)
 		moveDelay = MOVE_PERIOD;
 	else
 		realSpeed.setX(0);
 
+	realSpeed = velocity;
+
 	// Intenta moverse
-	Collision collision = tryToMove(realSpeed, Collision::ENEMIES);
+	collision = tryToMove(realSpeed, Collision::ENEMIES);
 
 	// Si toca un objeto en horizontal cambia de dirección
 	if (collision.horizontal)
 	{
 		velocity.setX(0);
-	}
-
-	// Si toca un objeto en vertical anula la velocidad (para que no se acumule la gravedad)
-	if (collision.vertical)
-	{
-		position.setY(position.getY() - (collision.vertical / Game::TILE_SIDE));
-		if (canJump == false)
-		{
-			canJump = true;
-			velocity.setY(0);
-		}
 	}
 
 	SceneObject::update();

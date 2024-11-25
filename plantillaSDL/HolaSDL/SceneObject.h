@@ -24,6 +24,7 @@ class SceneObject : public GameObject
 		int currentFrame = 0;
 
 		float moveDelay = 0.5f;
+		bool active = true;
 	public:
 		virtual Collision hit(SDL_Rect rect, Collision::Target target) = 0;
 		SceneObject(Game* game, int x, int y);

@@ -143,10 +143,10 @@ Game::~Game()
 	// Elimina los objetos del juego
 
 	// Elimina las texturas
-	for (Texture* texture : textures)
-		delete texture;
+	for (Texture* texture : textures) delete texture;
 
 	//delete gameObjects
+	for (auto it : gameObjects) delete it;
 
 	delete map;
 
