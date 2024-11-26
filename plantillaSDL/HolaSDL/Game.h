@@ -48,6 +48,7 @@ private:
 	int currentLevel = 1;
 
 	void addVisibleObjects();
+	void loadLevel(int levelIndex);
 
 public:
 	void run();
@@ -70,9 +71,8 @@ public:
 	static constexpr uint FRAME_RATE = 50;
 	int GetMapOffset() const { return mapOffset; }
 	void nextLevel();
-	void loadLevel(int levelIndex);
-	void resetFlag() { resetBool = true; }
 	void setLoadFlag() { loadNext = true; }
+	void resetFlag() { resetBool = true; }
 	void addObject(SceneObject* obj);
 
 	void goSuperMario();
