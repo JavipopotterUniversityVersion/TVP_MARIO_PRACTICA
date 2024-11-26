@@ -12,5 +12,6 @@ class Lift : public SceneObject
 		SceneObject* clone() override;
 		Collision hit(SDL_Rect rect, Collision::Target target) override;
 		void render() override;
+		SDL_Rect getCollisionRect() override;
 };
 
