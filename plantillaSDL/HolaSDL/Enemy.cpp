@@ -17,7 +17,10 @@ void Enemy::update()
 	// Si toca un objeto en vertical anula la velocidad (para que no se acumule la gravedad)
 	if (collision.vertical)
 	{
-		if (collision.vertical > position.getY() - 0.5f) position.setY(collision.vertical - 1);
+		if (collision.vertical > position.getY() - 0.5f)
+		{
+			position.setY(collision.vertical - 1);
+		}
 		else position.setY(collision.vertical + 1);
 
 		velocity.setY(0);

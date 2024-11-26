@@ -4,10 +4,10 @@
 class Lift : public SceneObject
 {
 	private:
-		float speed = 0.15f;
+		float speed = 0.1f;
 
 	public:
-		Lift(Game* game, int x, int y);
+		Lift(Game* game, int x, int y, int direction);
 		void update() override;
 		SceneObject* clone() override;
 		Collision hit(SDL_Rect rect, Collision::Target target) override;

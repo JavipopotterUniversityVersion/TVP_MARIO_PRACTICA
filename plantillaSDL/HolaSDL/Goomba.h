@@ -10,10 +10,11 @@ class Goomba : public Enemy
 		bool active = true;
 		int currentFrame = 0;
 		Vector2D<int> frameRange;
+		bool isKoopa;
 
 	public:
 		bool isActive() { return active; }
-		Goomba(Game* game, int x, int y);
-		Goomba(Goomba& obj) : Goomba(obj.game, obj.position.getX(), obj.position.getY()) {};
+		Goomba(Game* game, int x, int y, bool isKoopa);
+		Goomba(Goomba& obj) : Goomba(obj.game, obj.position.getX(), obj.position.getY(), obj.isKoopa) {};
 		SceneObject* clone() override;
 };

@@ -258,19 +258,21 @@ void Game::loadLevel(int levelIndex)
 			break;
 		case 'K':
 		{
-			Goomba* aux = new Goomba(this, x, y);
+			Goomba* aux = new Goomba(this, x, y, true);
 			objectQueue.push_back(aux);
 			break;
 		}
 		case 'G':
 		{
-			Goomba* aux = new Goomba(this, x, y);
+			Goomba* aux = new Goomba(this, x, y, false);
 			objectQueue.push_back(aux);
 			break;
 		}
 		case 'L':
 		{
-			Lift* aux = new Lift(this, x, y);
+			int speed;
+			entrada >> speed;
+			Lift* aux = new Lift(this, x, y, speed);
 			objectQueue.push_back(aux);
 			break;
 		}

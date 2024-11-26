@@ -5,10 +5,8 @@ void Lift::update()
 {
 	position.setY(position.getY() + speed);
 
-	if (position.getY() < 0) position.setY(12);
-	else if (position.getY() + 4 > Game::WIN_HEIGHT / Game::TILE_SIDE) position.setY(0);
-
-	cout << "LiftPos" << position.getY() << endl;
+	if (position.getY() < 0) position.setY(Game::WIN_HEIGHT / Game::TILE_SIDE);
+	else if (position.getY() > Game::WIN_HEIGHT / Game::TILE_SIDE) position.setY(0);
 }
 
 Collision Lift::hit(SDL_Rect rect, Collision::Target target)
@@ -26,12 +24,13 @@ Collision Lift::hit(SDL_Rect rect, Collision::Target target)
 
 SceneObject* Lift::clone()
 {
-	return new Lift(game, 0, 0);
+	return new Lift(game, position.getX(), position.getY(), velocity.getY() / speed);
 }
 
-Lift::Lift(Game* game, int x, int y) : SceneObject(game, x, y)
+Lift::Lift(Game* game, int x, int y, int direction) : SceneObject(game, x, y)
 {
 	texture = game->getTexture(Game::LIFT);
+	velocity.setY(speed*direction);
 }
 
 void Lift::render()
