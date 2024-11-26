@@ -234,14 +234,14 @@ void Game::loadLevel(int levelIndex)
 			break;
 		case 'K':
 		{
-			/*Goomba* aux = new Goomba(this, x, y);
-			gameObjects.push_back(aux);*/
+			Goomba* aux = new Goomba(this, x, y);
+			objectQueue.push_back(aux);
 			break;
 		}
 		case 'G':
 		{
-			/*Goomba* aux = new Goomba(this, x, y);
-			objectQueue.push_back(aux);*/
+			Goomba* aux = new Goomba(this, x, y);
+			objectQueue.push_back(aux);
 			break;
 		}
 		case 'L':

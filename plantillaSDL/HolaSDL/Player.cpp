@@ -77,6 +77,7 @@ void Player::update()
 	realSpeed.setY(realSpeed.getY() + 1);
 
 	Collision collision = tryToMove(realSpeed, Collision::ENEMIES);
+	if (collision.result == Collision::DAMAGE) velocity.setY(JUMP_FORCE);
 
 	// Si toca un objeto en vertical anula la velocidad (para que no se acumule la gravedad)
 	if (collision.vertical)
