@@ -14,7 +14,6 @@ class Player : public SceneObject
 		static constexpr float JUMP_FORCE = 1.5f;
 		static constexpr float INMUNE_TIME = 1.5f;
 
-		Vector2D<float> initialPosition;
 		bool canJump = false;
 		float jumpTimer = JUMP_TIME;
 		float inmuneTimer = INMUNE_TIME;
@@ -34,4 +33,5 @@ class Player : public SceneObject
 		SceneObject* clone() override;
 
 		void goSuperMario();
+		bool isSuperMario() const { return superMario == true; }
 };

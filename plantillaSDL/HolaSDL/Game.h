@@ -40,6 +40,7 @@ private:
 
 	std::vector<SceneObject*> objectQueue;
 	int nextObject;
+	bool loadNext = false;
 
 	void addVisibleObjects();
 
@@ -61,11 +62,15 @@ public:
 	static constexpr uint WINDOW_WIDTH = 26;
 	static constexpr uint WIN_HEIGHT = 500;
 	static constexpr uint WINDOW_HEIGHT = 16;
-	static constexpr uint FRAME_RATE = 70;
+	static constexpr uint FRAME_RATE = 50;
 	int GetMapOffset() const { return mapOffset; }
 	void nextLevel();
 	void loadLevel(string levelIndex);
+	void setLoadFlag() { loadNext = true; }
 	void addObject(SceneObject* obj);
+
+	void goSuperMario();
+	bool isSuperMario();
 
 	void endgame() { seguir = false; }
 

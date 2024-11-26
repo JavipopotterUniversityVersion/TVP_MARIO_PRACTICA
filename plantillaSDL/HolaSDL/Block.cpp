@@ -1,6 +1,7 @@
 #include "Block.h"
 #include "Game.h"
 #include "Collision.h"
+#include "Mushroom.h"
 
 //Practica 2
 Collision Block::hit(SDL_Rect rect, Collision::Target target)
@@ -10,16 +11,17 @@ Collision Block::hit(SDL_Rect rect, Collision::Target target)
 	SDL_Rect thisRect = getCollisionRect();
 	SDL_IntersectRect(&rect, &thisRect, &intersection);
 
-	Collision collision{ Collision::OBSTACLE, intersection.w, intersection.h };
+	Collision collision{ Collision::OBSTACLE, intersection.w };
 	collision.vertical = position.getY();
 
-	if (rect.y > position.getY())
+	if (rect.y > thisRect.y)
 	{
 		switch (type)
 		{
 		case SORPRESA:
 			if (action == POTENCIADOR)
 			{
+				game->addObject(new Mushroom(game, position.getX(), position.getY() - 1));
 			}
 			else
 			{
@@ -32,6 +34,7 @@ Collision Block::hit(SDL_Rect rect, Collision::Target target)
 			type = VACIO;
 			break;
 		case LADRILLO:
+			if (game->isSuperMario()) delete this;
 			break;
 		default:
 			break;

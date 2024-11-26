@@ -93,6 +93,12 @@ Game::run()
 		// Marca de tiempo del inicio de la iteración
 		uint32_t inicio = SDL_GetTicks();
 
+		if (loadNext)
+		{
+			loadNext = false;
+			nextLevel();
+		}
+
 		update();       // Actualiza el estado de los objetos del juego
 		render();       // Dibuja los objetos en la venta
 		handleEvents(); // Maneja los eventos de la SDL
@@ -218,8 +224,8 @@ void Game::loadLevel(string levelIndex)
 			break;
 		case 'K':
 		{
-			/*Goomba* aux = new Goomba(this, x, y);
-			gameObjects.push_back(aux)*/;
+			Goomba* aux = new Goomba(this, x, y);
+			gameObjects.push_back(aux);
 			break;
 		}
 		case 'G':
@@ -265,9 +271,11 @@ void Game::loadLevel(string levelIndex)
 
 void Game::nextLevel()
 {
-	for (Texture* texture : textures) delete texture;
 	for (auto it : gameObjects) delete it;
 	delete map;
+
+	objectQueue.clear();
+	nextObject = 0;
 
 	loadLevel("2");
 }
@@ -286,4 +294,14 @@ void Game::addVisibleObjects()
 	{
 		addObject(objectQueue[nextObject++]->clone());
 	}
+}
+
+void Game::goSuperMario()
+{
+	player->goSuperMario();
+}
+
+bool Game::isSuperMario()
+{
+	return player->isSuperMario();
 }

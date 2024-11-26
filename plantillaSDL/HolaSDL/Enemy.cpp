@@ -50,6 +50,7 @@ Collision Enemy::hit(SDL_Rect rect, Collision::Target target)
 		if (rect.y > position.getY())
 		{
 			delete this;
+			collision.result = Collision::DAMAGE;
 		}
 	}
 	return collision;

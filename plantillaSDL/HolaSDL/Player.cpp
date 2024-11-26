@@ -6,7 +6,6 @@
 Player::Player(Game* game, int x, int y, int vidas) : SceneObject(game, x, y), vidas(vidas)
 {
 	this->texture = game->getTexture(Game::MARIO);
-	initialPosition.Set(x, y);
 }
 
 void Player::handleEvent(SDL_Event& evento)
@@ -30,6 +29,7 @@ void Player::handleEvent(SDL_Event& evento)
 					if (canJump)
 					{
 						canJump = false;
+						frameRange.Set(6,6);
 						jumpTimer = 0;
 						velocity.setY(-JUMP_FORCE);
 					}
@@ -88,6 +88,7 @@ void Player::update()
 		if (canJump == false)
 		{
 			canJump = true;
+			frameRange.Set(0,0);
 		}
 	}
 

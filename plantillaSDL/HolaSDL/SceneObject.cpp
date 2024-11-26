@@ -39,7 +39,7 @@ void SceneObject::render()
 {
 	currentFrame++;
 
-	if (currentFrame > frameRange.getY())
+	if (currentFrame > frameRange.getY() || currentFrame < frameRange.getX())
 	{
 		currentFrame = frameRange.getX();
 	}
