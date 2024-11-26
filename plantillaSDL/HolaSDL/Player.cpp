@@ -117,7 +117,19 @@ Collision Player::hit(SDL_Rect rect, Collision::Target target)
 
 	if (target == Collision::PLAYER)
 	{
-		if (getRenderRect().y > rect.y) {}
+		if (getCollisionRect().y >= rect.y)
+		{
+			if (superMario)
+			{
+				superMario = false;
+				texture = game->getTexture(Game::MARIO);
+			}
+			else
+			{
+				vidas--;
+				game->reset();
+			}
+		}
 	}
 
 	return col;
@@ -126,4 +138,26 @@ Collision Player::hit(SDL_Rect rect, Collision::Target target)
 SceneObject* Player::clone()
 {
 	return new Player(*this);
+}
+
+SDL_Rect Player::getRenderRect()
+{
+	SDL_Rect rect = SceneObject::getRenderRect();
+	if (superMario)
+	{
+		rect.h *= 2;
+		rect.y -= Game::TILE_SIDE;
+	}
+	return rect;
+}
+
+SDL_Rect Player::getCollisionRect()
+{
+	SDL_Rect rect = SceneObject::getCollisionRect();
+	if (superMario)
+	{
+		rect.h *= 2;
+		rect.y -= Game::TILE_SIDE;
+	}
+	return rect;
 }

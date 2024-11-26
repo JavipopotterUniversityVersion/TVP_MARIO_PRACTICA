@@ -11,6 +11,7 @@ struct Collision
 		ENEMIES = 1,	// afecta a enemigos
 		PLAYER = 2,	// afecta al jugador
 		BOTH = 3,	// afecta a ambos
+		NO = 4,
 	};
 
 	// Tipo de resultado de la colisión

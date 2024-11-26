@@ -31,7 +31,7 @@ void Mushroom::update()
 	Vector2D<float> realSpeed = velocity;
 	realSpeed.setY(realSpeed.getY() + 1);
 
-	Collision collision = tryToMove(realSpeed, Collision::PLAYER);
+	Collision collision = tryToMove(realSpeed, Collision::NO);
 
 	// Si toca un objeto en vertical anula la velocidad (para que no se acumule la gravedad)
 	if (collision.vertical)
@@ -50,7 +50,7 @@ void Mushroom::update()
 	realSpeed = velocity;
 
 	// Intenta moverse
-	collision = tryToMove(realSpeed, Collision::PLAYER);
+	collision = tryToMove(realSpeed, Collision::NO);
 
 	// Si toca un objeto en horizontal cambia de dirección
 	if (collision.horizontal)

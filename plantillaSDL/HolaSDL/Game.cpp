@@ -8,6 +8,7 @@
 #include "Block.h"
 #include "Collision.h"
 #include "SceneObject.h"
+#include "Lift.h"
 
 #include <iostream>
 #include <fstream>
@@ -32,6 +33,8 @@ const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
 	TextureSpec{"goomba.png", 3, 1},
 	TextureSpec{"koopa.png", 4, 1},
 	TextureSpec{"mushroom.png", 1, 1},
+	TextureSpec{"lift.png", 1, 1},
+	TextureSpec{"coin.png", 4, 1}
 };
 
 Game::Game() : seguir(true)
@@ -64,7 +67,7 @@ Game::Game() : seguir(true)
 		Koopa(this, 300, 300),
 	};*/
 
-	loadLevel("1");
+	loadLevel(currentLevel);
 }
 
 Game::~Game()
@@ -190,14 +193,21 @@ Collision Game::checkCollision(SDL_Rect& rect, Collision::Target target)
 
 void Game::reset()
 {
-	mapOffset = 0;
+	for (auto it : gameObjects) delete it;
+	delete map;
+
+	objectQueue.clear();
+	nextObject = 0;
+
+	loadLevel(currentLevel);
 }
 
-void Game::loadLevel(string levelIndex)
+void Game::loadLevel(int levelIndex)
 {
-	map = new Tilemap("world" + levelIndex + ".csv", this);
+	string level = std::to_string(levelIndex);
+	map = new Tilemap("world" + level + ".csv", this);
 
-	string path = "../Assets/maps/world" + levelIndex + ".txt";
+	string path = "../Assets/maps/world" + level + ".txt";
 
 	ifstream entrada(path);
 	if (!entrada.is_open()) throw new exception("Error leyendo archivo");
@@ -224,13 +234,19 @@ void Game::loadLevel(string levelIndex)
 			break;
 		case 'K':
 		{
-			Goomba* aux = new Goomba(this, x, y);
-			gameObjects.push_back(aux);
+			/*Goomba* aux = new Goomba(this, x, y);
+			gameObjects.push_back(aux);*/
 			break;
 		}
 		case 'G':
 		{
-			Goomba* aux = new Goomba(this, x, y);
+			/*Goomba* aux = new Goomba(this, x, y);
+			objectQueue.push_back(aux);*/
+			break;
+		}
+		case 'L':
+		{
+			Lift* aux = new Lift(this, x, y);
 			objectQueue.push_back(aux);
 			break;
 		}
@@ -277,7 +293,9 @@ void Game::nextLevel()
 	objectQueue.clear();
 	nextObject = 0;
 
-	loadLevel("2");
+	currentLevel++;
+
+	loadLevel(currentLevel);
 }
 
 void Game::addObject(SceneObject* obj)

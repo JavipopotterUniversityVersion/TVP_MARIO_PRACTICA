@@ -36,8 +36,8 @@ class SceneObject : public GameObject
 		}
 
 		Collision tryToMove(Vector2D<float> direction, Collision::Target target);
-		SDL_Rect getRenderRect();
-		SDL_Rect getCollisionRect();
+		virtual SDL_Rect getRenderRect();
+		virtual SDL_Rect getCollisionRect();
 
 		virtual SceneObject* clone() = 0;
 		Vector2D<float> getPosition() { return position; }

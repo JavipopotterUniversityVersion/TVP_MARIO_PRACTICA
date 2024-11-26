@@ -24,6 +24,8 @@ public:
 		GOOMBA,
 		KOOPA,
 		MUSHROOM,
+		LIFT,
+		COIN,
 		NUM_TEXTURES,
 	};
 
@@ -40,7 +42,9 @@ private:
 
 	std::vector<SceneObject*> objectQueue;
 	int nextObject;
+
 	bool loadNext = false;
+	int currentLevel = 1;
 
 	void addVisibleObjects();
 
@@ -65,7 +69,7 @@ public:
 	static constexpr uint FRAME_RATE = 50;
 	int GetMapOffset() const { return mapOffset; }
 	void nextLevel();
-	void loadLevel(string levelIndex);
+	void loadLevel(int levelIndex);
 	void setLoadFlag() { loadNext = true; }
 	void addObject(SceneObject* obj);
 

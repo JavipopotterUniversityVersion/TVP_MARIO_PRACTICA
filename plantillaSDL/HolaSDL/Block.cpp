@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Collision.h"
 #include "Mushroom.h"
+#include "Coin.h"
 
 //Practica 2
 Collision Block::hit(SDL_Rect rect, Collision::Target target)
@@ -25,6 +26,7 @@ Collision Block::hit(SDL_Rect rect, Collision::Target target)
 			}
 			else
 			{
+				game->addObject(new Coin(game, position.getX(), position.getY() - 1));
 			}
 			frameRange.Set(4, 4);
 			type = VACIO;
