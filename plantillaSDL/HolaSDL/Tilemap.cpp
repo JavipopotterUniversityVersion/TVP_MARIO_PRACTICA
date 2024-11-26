@@ -85,8 +85,16 @@ Collision Tilemap::hit(const SDL_Rect& rect)
 	{
 		for (int col = col0; col <= col1; ++col) {
 
-			if (row >= map.size()) row = map.size() - 1;
-			if (col >= map[0].size()) col = map[0].size() - 1;
+			if (row >= map.size())
+			{
+				row = map.size() - 1;
+				return collision;
+			}
+			if (col >= map[0].size())
+			{
+				col = map[0].size() - 1;
+				return collision;
+			}
 
 			int indice = map[row][col];
 
@@ -97,8 +105,8 @@ Collision Tilemap::hit(const SDL_Rect& rect)
 				collision.result = collision.OBSTACLE;
 
 				Vector2D<float> pos(col, row);
-				obstacleRect.x = pos.getX() * Game::TILE_SIDE - game->GetMapOffset();
-				obstacleRect.y = pos.getY() * Game::TILE_SIDE;
+				obstacleRect.x = pos.getX();
+				obstacleRect.y = pos.getY();
 				obstacleRect.w = Game::TILE_SIDE;
 				obstacleRect.h = Game::TILE_SIDE;
 

@@ -14,7 +14,9 @@ class Block : public SceneObject
 		bool active = true;
 
 	public:
-		Block(Game* game, int x, int y, BlockType type, BlockAction action) : SceneObject(game, x, y), type(type), action(action) { texture = game->getTexture(Game::BLOCKS); };
+		Block(Game* game, int x, int y, BlockType type, BlockAction action);
+		Block(Block& block) : Block(block.game, block.position.getX(), block.position.getY(), block.type, block.action) {};
+		SceneObject* clone() override;
 		void render() override;
 		Collision hit(SDL_Rect rect, Collision::Target target) override;
 		bool isActive() { return active; }

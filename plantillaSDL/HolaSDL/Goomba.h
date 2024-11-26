@@ -14,4 +14,6 @@ class Goomba : public Enemy
 	public:
 		bool isActive() { return active; }
 		Goomba(Game* game, int x, int y);
+		Goomba(Goomba& obj) : Goomba(obj.game, obj.position.getX(), obj.position.getY()) {};
+		SceneObject* clone() override;
 };

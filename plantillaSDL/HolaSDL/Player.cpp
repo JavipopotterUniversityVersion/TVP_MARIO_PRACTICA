@@ -77,7 +77,6 @@ void Player::update()
 	realSpeed.setY(realSpeed.getY() + 1);
 
 	Collision collision = tryToMove(realSpeed, Collision::ENEMIES);
-	cout << collision.vertical << endl;
 
 	// Si toca un objeto en vertical anula la velocidad (para que no se acumule la gravedad)
 	if (collision.vertical)
@@ -117,8 +116,13 @@ Collision Player::hit(SDL_Rect rect, Collision::Target target)
 
 	if (target == Collision::PLAYER)
 	{
-		if (getCollisionRect().y > rect.y) {}
+		if (getRenderRect().y > rect.y) {}
 	}
 
 	return col;
+}
+
+SceneObject* Player::clone()
+{
+	return new Player(*this);
 }

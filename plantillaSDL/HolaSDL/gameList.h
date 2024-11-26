@@ -201,7 +201,7 @@ public:
 	{
 		// Comprobamos en depuración que no se insertan valores nulos
 		assert(value != nullptr);
-		//value->setListAnchor(anchor(new Node(ghostNode.prev, value)));
+		value->setListAnchor(anchor(new Node(ghostNode.prev, value)));
 		new Node(ghostNode.prev, value);
 	}
 

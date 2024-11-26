@@ -133,15 +133,17 @@ Game::render()
 void
 Game::update()
 {
+	addVisibleObjects();
+
 	for (auto it : gameObjects)
 	{
 		it->update();
 	}
 
 	int maxOffset = map->GetMapWidth() * TILE_SIDE - WIN_WIDTH * 1.5f;
-	if ((player->getCollisionRect().x) > (Game::WIN_WIDTH / 2))
+	if ((player->getRenderRect().x) > (Game::WIN_WIDTH / 2))
 	{
-		mapOffset = player->getCollisionRect().x + mapOffset - (Game::WIN_WIDTH / 2);
+		mapOffset = player->getRenderRect().x + mapOffset - (Game::WIN_WIDTH / 2);
 		if (mapOffset > maxOffset) mapOffset = maxOffset;
 	}
 }
@@ -223,7 +225,7 @@ void Game::loadLevel(string levelIndex)
 		case 'G':
 		{
 			Goomba* aux = new Goomba(this, x, y);
-			gameObjects.push_back(aux);
+			objectQueue.push_back(aux);
 			break;
 		}
 		case 'B':
@@ -255,7 +257,7 @@ void Game::loadLevel(string levelIndex)
 				break;
 			}
 
-			gameObjects.push_back(new Block(this, x, y, blockType, blockAction));
+			objectQueue.push_back(new Block(this, x, y, blockType, blockAction));
 			break;
 		}
 	}
@@ -268,4 +270,20 @@ void Game::nextLevel()
 	delete map;
 
 	loadLevel("2");
+}
+
+void Game::addObject(SceneObject* obj)
+{
+	gameObjects.push_back(obj);
+}
+
+void Game::addVisibleObjects()
+{
+	// Borde derecho del mapa (más una casilla)
+	const int rightThreshold = mapOffset + Game::WINDOW_WIDTH + Game::TILE_SIDE;
+
+	while (nextObject < objectQueue.size() && objectQueue[nextObject]->getPosition().getX() < rightThreshold)
+	{
+		addObject(objectQueue[nextObject++]->clone());
+	}
 }

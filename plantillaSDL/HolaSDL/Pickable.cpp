@@ -4,7 +4,7 @@
 Collision Pickable::hit(SDL_Rect rect, Collision::Target target)
 {
 	// Comprueba si hay colisión
-	SDL_Rect ownRect = getCollisionRect();
+	SDL_Rect ownRect = getRenderRect();
 
 	if (target == Collision::ENEMIES && SDL_HasIntersection(&ownRect, &region)) {
 		triggerAction();  // método protegido que implementará la subclase

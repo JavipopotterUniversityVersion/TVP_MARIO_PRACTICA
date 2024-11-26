@@ -8,5 +8,6 @@ class Enemy : public SceneObject
 		void update() override;
 		Enemy(Game* game, int x, int y) : SceneObject(game, x, y) {};
 		Collision hit(SDL_Rect rect, Collision::Target target) override;
+		SceneObject* clone() override = 0;
 };
 

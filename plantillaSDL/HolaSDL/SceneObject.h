@@ -28,14 +28,19 @@ class SceneObject : public GameObject
 	public:
 		virtual Collision hit(SDL_Rect rect, Collision::Target target) = 0;
 		SceneObject(Game* game, int x, int y);
+		SceneObject(const SceneObject* obj) : SceneObject(obj->game, obj->position.getX(), obj->position.getY()) {};
 
-		/*void setListAnchor(GameList<SceneObject>::anchor&& anchor)
+		void setListAnchor(GameList<SceneObject>::anchor&& anchor)
 		{
 			this->anchor = std::move(anchor);
-		}*/
+		}
 
 		Collision tryToMove(Vector2D<float> direction, Collision::Target target);
+		SDL_Rect getRenderRect();
 		SDL_Rect getCollisionRect();
+
+		virtual SceneObject* clone() = 0;
+		Vector2D<float> getPosition() { return position; }
 
 		void update() override;
 		void render() override;

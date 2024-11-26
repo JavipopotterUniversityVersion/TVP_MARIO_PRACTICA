@@ -9,16 +9,26 @@ SceneObject::SceneObject(Game* game, int x, int y)
 	position.Set(x, y);
 }
 
+SDL_Rect SceneObject::getRenderRect()
+{
+	SDL_Rect rect;
+
+	Vector2D<float> screenPosition = game->WorldToScreen(position);
+
+	rect.x = screenPosition.getX();
+	rect.y = screenPosition.getY();
+	rect.w = Game::TILE_SIDE;
+	rect.h = Game::TILE_SIDE;
+
+	return rect;
+}
+
 SDL_Rect SceneObject::getCollisionRect()
 {
 	SDL_Rect rect;
 
-	Vector2D<float> realPos = position;
-	realPos.setY(realPos.getY());
-	Vector2D<float> screenPosition = Vector2D<float>((position.getX() * Game::TILE_SIDE) - game->GetMapOffset(), position.getY() * Game::TILE_SIDE);
-
-	rect.x = screenPosition.getX();
-	rect.y = screenPosition.getY();
+	rect.x = position.getX() * Game::TILE_SIDE;
+	rect.y = position.getY() * Game::TILE_SIDE;
 	rect.w = Game::TILE_SIDE;
 	rect.h = Game::TILE_SIDE;
 
@@ -34,7 +44,7 @@ void SceneObject::render()
 		currentFrame = frameRange.getX();
 	}
 
-	SDL_Rect rect = getCollisionRect();
+	SDL_Rect rect = getRenderRect();
 	texture->renderFrame(rect, 0, currentFrame);
 }
 

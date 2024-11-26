@@ -38,6 +38,11 @@ private:
 	Tilemap* map;
 	std::array<Texture*, NUM_TEXTURES> textures;
 
+	std::vector<SceneObject*> objectQueue;
+	int nextObject;
+
+	void addVisibleObjects();
+
 public:
 	void run();
 	void reset();
@@ -56,10 +61,11 @@ public:
 	static constexpr uint WINDOW_WIDTH = 26;
 	static constexpr uint WIN_HEIGHT = 500;
 	static constexpr uint WINDOW_HEIGHT = 16;
-	static constexpr uint FRAME_RATE = 50;
+	static constexpr uint FRAME_RATE = 70;
 	int GetMapOffset() const { return mapOffset; }
 	void nextLevel();
 	void loadLevel(string levelIndex);
+	void addObject(SceneObject* obj);
 
 	void endgame() { seguir = false; }
 

@@ -26,10 +26,12 @@ class Player : public SceneObject
 
 	public:
 		Player(Game* game, int x, int y, int vidas);
+		Player(Player& const player) : Player(player.game, player.position.getX(), player.position.getY(), player.vidas) {};
 		void handleEvent(SDL_Event& evento);
 
 		void update() override;
 		Collision hit(SDL_Rect rect, Collision::Target target) override;
+		SceneObject* clone() override;
 
 		void goSuperMario();
 };
