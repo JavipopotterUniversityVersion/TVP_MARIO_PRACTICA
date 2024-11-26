@@ -3,6 +3,9 @@
 #include <string>
 #include "Texture.h"
 #include "Game.h"
+#include "SDLError.h"
+#include "FileNotFoundError.h"
+#include "FileFormatError.h"
 
 Tilemap::Tilemap(const string& mapName, Game* game) : game(game)
 {
@@ -12,16 +15,25 @@ Tilemap::Tilemap(const string& mapName, Game* game) : game(game)
 
 	ifstream entrada(path);
 	if (!entrada.is_open()) throw new exception("Error leyendo archivo");
-	while (entrada) {
-		char cAux = ',';
-		int c = 0;
-		vector<int> aux;
-		while (cAux == ',') {
-			entrada >> c;
-			aux.push_back(c);
-			cAux = entrada.get();
+	try
+	{
+		while (entrada) {
+			char cAux = ',';
+			int c = 0;
+			vector<int> aux;
+			while (cAux == ',') {
+				entrada >> c;
+				if (c < -1 || c > 62) throw FileFormatError(path, map.size());
+				aux.push_back(c);
+				cAux = entrada.get();
+				
+			}
+			map.push_back(aux);
 		}
-		map.push_back(aux);
+	}
+	catch (const FileFormatError &e)
+	{
+		cout << e.what() << endl;
 	}
 }
 

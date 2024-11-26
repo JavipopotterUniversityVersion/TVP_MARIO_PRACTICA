@@ -10,6 +10,8 @@
 #include "SceneObject.h"
 #include "Lift.h"
 #include "SDLError.h"
+#include "FileNotFoundError.h"
+#include "FileFormatError.h"
 
 #include <iostream>
 #include <fstream>
@@ -50,26 +52,22 @@ Game::Game() : seguir(true)
 			WIN_WIDTH,
 			WIN_HEIGHT,
 			SDL_WINDOW_SHOWN);
+		if (window == nullptr) throw SDLError(SDL_GetError());
 	}
 	catch (const SDLError& e)
 	{
-		cout << SDL_GetError() << endl;
 		cout << e.what() << endl;
 	}
 
 	try
 	{
 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-		throw SDLError("saracatunga");
+		if (renderer == nullptr) throw SDLError(SDL_GetError());
 	}
 	catch (const SDLError& e)
 	{
-		cout << SDL_GetError() << endl;
 		cout << e.what() << endl;
 	}
-
-	/*if (window == nullptr || renderer == nullptr)
-		throw "Error cargando SDL"s;*/
 
 	// Carga las texturas
 	for (int i = 0; i < NUM_TEXTURES; ++i)
@@ -229,12 +227,20 @@ void Game::reset()
 void Game::loadLevel(int levelIndex)
 {
 	string level = std::to_string(levelIndex);
+
 	map = new Tilemap("world" + level + ".csv", this);
 
 	string path = "../Assets/maps/world" + level + ".txt";
 
 	ifstream entrada(path);
-	if (!entrada.is_open()) throw new exception("Error leyendo archivo");
+	try
+	{
+		if (!entrada.is_open()) throw FileNotFoundError(path);
+	}
+	catch (const FileNotFoundError &e)
+	{
+		cout << e.what() << endl;
+	}
 
 	int R, G, B;
 	entrada >> R >> G >> B;

@@ -4,6 +4,8 @@ using namespace std;
 
 class FileNotFoundError : public GameError
 {
-	explicit FileNotFoundError(const string& what_arg) : GameError(what_arg) {}
+public:
+	explicit FileNotFoundError(const string& fileName) : GameError(
+		"Error al leer el archivo " + fileName) {}
 };
 

@@ -5,6 +5,7 @@ using namespace std;
 class SDLError : public GameError
 {
 public:
-	explicit SDLError(const string& what_arg): GameError(what_arg) {}
+	explicit SDLError(const string& mensajeEspecificoDeError): GameError("Error de la SDL: "
+		+ mensajeEspecificoDeError) {}
 };
 
