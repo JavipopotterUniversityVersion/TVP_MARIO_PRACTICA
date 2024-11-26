@@ -9,6 +9,7 @@
 #include "Collision.h"
 #include "SceneObject.h"
 #include "Lift.h"
+#include "SDLError.h"
 
 #include <iostream>
 #include <fstream>
@@ -39,19 +40,36 @@ const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
 
 Game::Game() : seguir(true)
 {
-	// Inicializa la SDL
-	SDL_Init(SDL_INIT_EVERYTHING);
-	window = SDL_CreateWindow("First test with SDL",
-	                          SDL_WINDOWPOS_CENTERED,
-	                          SDL_WINDOWPOS_CENTERED,
-	                          WIN_WIDTH,
-	                          WIN_HEIGHT,
-	                          SDL_WINDOW_SHOWN);
+	try
+	{
+		// Inicializa la SDL
+		SDL_Init(SDL_INIT_EVERYTHING);
+		window = SDL_CreateWindow("First test with SDL",
+			SDL_WINDOWPOS_CENTERED,
+			SDL_WINDOWPOS_CENTERED,
+			WIN_WIDTH,
+			WIN_HEIGHT,
+			SDL_WINDOW_SHOWN);
+	}
+	catch (const SDLError& e)
+	{
+		cout << SDL_GetError() << endl;
+		cout << e.what() << endl;
+	}
 
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	try
+	{
+		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+		throw SDLError("saracatunga");
+	}
+	catch (const SDLError& e)
+	{
+		cout << SDL_GetError() << endl;
+		cout << e.what() << endl;
+	}
 
-	if (window == nullptr || renderer == nullptr)
-		throw "Error cargando SDL"s;
+	/*if (window == nullptr || renderer == nullptr)
+		throw "Error cargando SDL"s;*/
 
 	// Carga las texturas
 	for (int i = 0; i < NUM_TEXTURES; ++i)
