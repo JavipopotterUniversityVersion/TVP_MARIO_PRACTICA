@@ -120,6 +120,12 @@ Game::run()
 			nextLevel();
 		}
 
+		if (resetBool)
+		{
+			resetBool = false;
+			reset();
+		}
+
 		update();       // Actualiza el estado de los objetos del juego
 		render();       // Dibuja los objetos en la venta
 		handleEvents(); // Maneja los eventos de la SDL

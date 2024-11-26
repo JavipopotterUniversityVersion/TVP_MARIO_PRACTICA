@@ -44,6 +44,7 @@ private:
 	int nextObject;
 
 	bool loadNext = false;
+	bool resetBool = false;
 	int currentLevel = 1;
 
 	void addVisibleObjects();
@@ -70,6 +71,7 @@ public:
 	int GetMapOffset() const { return mapOffset; }
 	void nextLevel();
 	void loadLevel(int levelIndex);
+	void resetFlag() { resetBool = true; }
 	void setLoadFlag() { loadNext = true; }
 	void addObject(SceneObject* obj);
 

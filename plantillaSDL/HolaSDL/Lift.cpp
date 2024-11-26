@@ -6,7 +6,7 @@ void Lift::update()
 	position.setY(position.getY() + speed);
 
 	if (position.getY() < 0) position.setY(16);
-	else if (position.getY() > 16) position.setY(0);
+	else if (position.getY() > Game::WIN_HEIGHT / Game::TILE_SIDE) position.setY(0);
 
 	cout << "LiftPos" << position.getY() << endl;
 }

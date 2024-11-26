@@ -77,7 +77,7 @@ void Player::update()
 	realSpeed.setY(realSpeed.getY() + 1);
 
 	Collision collision = tryToMove(realSpeed, Collision::ENEMIES);
-	if (collision.result == Collision::DAMAGE) velocity.setY(JUMP_FORCE);
+	if (collision.result == Collision::DAMAGE) velocity.setY(-JUMP_FORCE);
 
 	// Si toca un objeto en vertical anula la velocidad (para que no se acumule la gravedad)
 	if (collision.vertical)
@@ -89,7 +89,8 @@ void Player::update()
 		if (canJump == false)
 		{
 			canJump = true;
-			frameRange.Set(0,0);
+			if(velocity.getX() == 0) frameRange.Set(0,0);
+			else  frameRange.Set(2, 4);
 		}
 	}
 
@@ -109,6 +110,12 @@ void Player::update()
 		velocity.setX(0);
 	}
 
+	if (position.getY() > Game::WIN_HEIGHT / Game::TILE_SIDE)
+	{
+		if (superMario) getDmg();
+		getDmg();
+	}
+
 	SceneObject::update();
 }
 
@@ -118,22 +125,27 @@ Collision Player::hit(SDL_Rect rect, Collision::Target target)
 
 	if (target == Collision::PLAYER)
 	{
-		if (getCollisionRect().y >= rect.y)
+		if (rect.y <= getCollisionRect().y)
 		{
-			if (superMario)
-			{
-				superMario = false;
-				texture = game->getTexture(Game::MARIO);
-			}
-			else
-			{
-				vidas--;
-				game->reset();
-			}
+			getDmg();
 		}
 	}
 
 	return col;
+}
+
+void Player::getDmg()
+{
+	if (superMario)
+	{
+		superMario = false;
+		texture = game->getTexture(Game::MARIO);
+	}
+	else
+	{
+		vidas--;
+		game->resetFlag();
+	}
 }
 
 SceneObject* Player::clone()

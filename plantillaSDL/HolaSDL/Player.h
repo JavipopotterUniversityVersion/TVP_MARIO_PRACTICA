@@ -34,6 +34,8 @@ class Player : public SceneObject
 		Collision hit(SDL_Rect rect, Collision::Target target) override;
 		SceneObject* clone() override;
 
+		void getDmg();
+
 		void goSuperMario();
 		bool isSuperMario() const { return superMario == true; }
 };
