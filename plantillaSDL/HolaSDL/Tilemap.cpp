@@ -60,7 +60,9 @@ void Tilemap::render() const
 			int temp = col0 + col;
 
 			if (row >= map.size()) row = map.size() - 1;
+			if (row < 0) row = 0;
 			if (temp >= map[0].size()) temp = map[0].size() - 1;
+			if (temp < 0) temp = 0;
 
 			int indice = map[row][temp];
 
@@ -102,9 +104,17 @@ Collision Tilemap::hit(const SDL_Rect& rect)
 				row = map.size() - 1;
 				return collision;
 			}
+			if (row < 0) {
+				row = 0;
+				return collision;
+			}
 			if (col >= map[0].size())
 			{
 				col = map[0].size() - 1;
+				return collision;
+			}
+			if (col < 0) {
+				col = 0;
 				return collision;
 			}
 

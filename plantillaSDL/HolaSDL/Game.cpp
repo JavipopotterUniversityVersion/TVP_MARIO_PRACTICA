@@ -226,6 +226,7 @@ void Game::reset()
 
 void Game::loadLevel(int levelIndex)
 {
+	mapOffset = 0;
 	string level = std::to_string(levelIndex);
 
 	map = new Tilemap("world" + level + ".csv", this);
