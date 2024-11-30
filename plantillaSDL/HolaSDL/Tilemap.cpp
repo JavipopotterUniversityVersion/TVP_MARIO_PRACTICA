@@ -136,7 +136,7 @@ Collision Tilemap::hit(const SDL_Rect& rect)
 				SDL_IntersectRect(&rect, &obstacleRect, &intersection);
 
 				collision.horizontal = intersection.w;
-				collision.vertical = pos.getY();
+				collision.vertical = intersection.h;
 
 				return collision;
 			}

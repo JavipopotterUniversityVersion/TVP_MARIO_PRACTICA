@@ -23,7 +23,7 @@ SDL_App::~SDL_App()
 {
 	// Elimina los objetos del juego
 
-	//delete gameObjects
+	 //delete gameObjects
 	for (auto it : gameObjects) delete it;
 
 	delete map;
@@ -56,7 +56,7 @@ SDL_App::run()
 
 		update();       // Actualiza el estado de los objetos del juego
 		render();       // Dibuja los objetos en la venta
-		handleEvents(); // Maneja los eventos de la SDL
+		handleEvent(); // Maneja los eventos de la SDL
 
 		// Tiempo que se ha tardado en ejecutar lo anterior
 		uint32_t elapsed = SDL_GetTicks() - inicio;

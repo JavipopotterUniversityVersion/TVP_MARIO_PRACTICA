@@ -1,6 +1,7 @@
 #pragma once
 #include "gameList.h"
 #include "GameObject.h"
+#include "EventHandler.h"
 #include <list>
 class SDL_App;
 
@@ -16,6 +17,6 @@ public:
 
 	virtual void update();
 	virtual void render() const;
-	virtual void handleEvent(const SDL_Event& event);
+	virtual void handleEvent();
 };
 
