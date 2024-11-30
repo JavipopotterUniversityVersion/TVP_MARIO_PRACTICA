@@ -29,9 +29,9 @@ class Player : public SceneObject
 		void handleEvent(SDL_Event& evento);
 
 		void update() override;
-		SDL_Rect getRenderRect() override;
-		SDL_Rect getCollisionRect() override;
-		Collision hit(SDL_Rect rect, Collision::Target target) override;
+		SDL_Rect getRenderRect() const override;
+		SDL_Rect getCollisionRect() const override;
+		Collision hit(const SDL_Rect& region, Collision::Target target) override;
 		SceneObject* clone() override;
 
 		void getDmg();

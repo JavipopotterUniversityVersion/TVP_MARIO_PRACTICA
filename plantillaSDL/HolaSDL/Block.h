@@ -18,6 +18,6 @@ class Block : public SceneObject
 		Block(Block& block) : Block(block.game, block.position.getX(), block.position.getY(), block.type, block.action) {};
 		SceneObject* clone() override;
 		void render() override;
-		Collision hit(SDL_Rect rect, Collision::Target target) override;
+		Collision hit(const SDL_Rect& rect, Collision::Target target) override;
 		bool isActive() { return active; }
 };

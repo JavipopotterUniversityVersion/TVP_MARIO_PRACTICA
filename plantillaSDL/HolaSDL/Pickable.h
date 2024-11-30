@@ -14,6 +14,6 @@ class Pickable : public SceneObject
 
 	public:
 		Pickable(Game* game, int x, int y) : SceneObject(game, x, y) {};
-		Collision hit(SDL_Rect rect, Collision::Target target) override;
+		Collision hit(const SDL_Rect& rect, Collision::Target target) override;
 };
 

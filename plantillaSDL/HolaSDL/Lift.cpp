@@ -9,12 +9,12 @@ void Lift::update()
 	else if (position.getY() > Game::WIN_HEIGHT / Game::TILE_SIDE) position.setY(0);
 }
 
-Collision Lift::hit(SDL_Rect rect, Collision::Target target)
+Collision Lift::hit(const SDL_Rect& region, Collision::Target target)
 {
 
 	SDL_Rect intersection;
 	SDL_Rect thisRect = getCollisionRect();
-	SDL_IntersectRect(&rect, &thisRect, &intersection);
+	SDL_IntersectRect(&region, &thisRect, &intersection);
 
 	Collision collision{ Collision::OBSTACLE, intersection.w };
 	collision.vertical = position.getY();
@@ -40,7 +40,7 @@ void Lift::render()
 	texture->renderFrame(rect, 0, 0);
 }
 
-SDL_Rect Lift::getCollisionRect()
+SDL_Rect Lift::getCollisionRect() const
 {
 	SDL_Rect rect = SceneObject::getCollisionRect();
 	rect.w *= 3;

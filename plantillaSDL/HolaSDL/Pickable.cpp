@@ -1,16 +1,15 @@
 #include "Pickable.h"
 #include "Collision.h"
 
-Collision Pickable::hit(SDL_Rect rect, Collision::Target target)
+Collision Pickable::hit(const SDL_Rect& region, Collision::Target target)
 {
 	// Comprueba si hay colisión
-	Collision collision;
 	SDL_Rect ownRect = getCollisionRect();
 
-	if (target == Collision::ENEMIES) {
+	if (target == Collision::ENEMIES && SDL_HasIntersection(&ownRect, &region)) {
 		triggerAction();  // método protegido que implementará la subclase
 		delete this;
 	}
 
-	return collision; // constante Collision{}
+	return NO_COLLISION; // constante Collision{}
 }

@@ -19,6 +19,9 @@ class SceneObject : public GameObject
 		const float SPEED_LIMIT = 1.5f;
 		const float MOVE_PERIOD = 1;
 
+		int _width = 32;
+		int _height = 32;
+
 		Texture* texture;
 		Vector2D<int> frameRange;
 		int currentFrame = 0;
@@ -26,7 +29,7 @@ class SceneObject : public GameObject
 		float moveDelay = 0.5f;
 		bool active = true;
 	public:
-		virtual Collision hit(SDL_Rect rect, Collision::Target target) = 0;
+		virtual Collision hit(const SDL_Rect& region, Collision::Target target) = 0;
 		SceneObject(Game* game, int x, int y);
 		SceneObject(const SceneObject* obj) : SceneObject(obj->game, obj->position.getX(), obj->position.getY()) {};
 
@@ -35,9 +38,9 @@ class SceneObject : public GameObject
 			this->anchor = std::move(anchor);
 		}
 
-		Collision tryToMove(Vector2D<float> direction, Collision::Target target);
-		virtual SDL_Rect getRenderRect();
-		virtual SDL_Rect getCollisionRect();
+		Collision tryToMove(const Vector2D<float>& speed, Collision::Target target);
+		virtual SDL_Rect getRenderRect() const;
+		virtual SDL_Rect getCollisionRect() const;
 
 		virtual SceneObject* clone() = 0;
 		Vector2D<float> getPosition() { return position; }

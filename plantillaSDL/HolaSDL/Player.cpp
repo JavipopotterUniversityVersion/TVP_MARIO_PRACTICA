@@ -119,13 +119,13 @@ void Player::update()
 	SceneObject::update();
 }
 
-Collision Player::hit(SDL_Rect rect, Collision::Target target)
+Collision Player::hit(const SDL_Rect& region, Collision::Target target)
 {
 	Collision col;
 
 	if (target == Collision::PLAYER)
 	{
-		if (rect.y <= getCollisionRect().y)
+		if (region.y <= getCollisionRect().y)
 		{
 			getDmg();
 		}
@@ -153,7 +153,7 @@ SceneObject* Player::clone()
 	return new Player(*this);
 }
 
-SDL_Rect Player::getRenderRect()
+SDL_Rect Player::getRenderRect() const
 {
 	SDL_Rect rect = SceneObject::getRenderRect();
 	if (superMario)
@@ -164,7 +164,7 @@ SDL_Rect Player::getRenderRect()
 	return rect;
 }
 
-SDL_Rect Player::getCollisionRect()
+SDL_Rect Player::getCollisionRect() const
 {
 	SDL_Rect rect = SceneObject::getCollisionRect();
 	if (superMario)

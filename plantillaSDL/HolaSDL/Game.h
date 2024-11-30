@@ -8,10 +8,11 @@
 #include "gameList.h"
 #include "Collision.h"
 #include "Tilemap.h"
+#include "GameStateMachine.h"
 
 using uint = unsigned int;
 
-class Game
+class Game : GameStateMachine
 {
 public:
 	static const int TILE_SIDE = 32;

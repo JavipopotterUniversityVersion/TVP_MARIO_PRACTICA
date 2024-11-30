@@ -5,18 +5,17 @@
 #include "Coin.h"
 
 //Practica 2
-Collision Block::hit(SDL_Rect rect, Collision::Target target)
+Collision Block::hit(const SDL_Rect& region, Collision::Target target)
 {
 
+	// Calcula la intersección
 	SDL_Rect intersection;
-	SDL_Rect thisRect = getCollisionRect();
-	SDL_IntersectRect(&rect, &thisRect, &intersection);
+	SDL_Rect ownRect = getCollisionRect();
+	bool hasIntersection = SDL_IntersectRect(&ownRect, &region, &intersection);
 
-	Collision collision{ Collision::OBSTACLE, intersection.w };
-	collision.vertical = position.getY();
-
-	if (rect.y > thisRect.y)
+	if (hasIntersection && region.y > ownRect.y)
 	{
+		Collision collision{ Collision::OBSTACLE, intersection.w, intersection.h };
 		switch (type)
 		{
 		case SORPRESA:
@@ -43,7 +42,7 @@ Collision Block::hit(SDL_Rect rect, Collision::Target target)
 		}
 	}
 
-	return collision;
+	return Collision{};
 }
 
 void Block::render()

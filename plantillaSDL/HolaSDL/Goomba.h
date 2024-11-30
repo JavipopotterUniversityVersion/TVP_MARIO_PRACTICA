@@ -2,6 +2,7 @@
 #include "Vector2D.h"
 #include "Texture.h"
 #include "Enemy.h"
+#include "Collision.h"
 
 class Goomba : public Enemy
 {
