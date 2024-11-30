@@ -13,6 +13,7 @@
 #include <stack>
 
 #include "gameState.h"
+#include <SDL.h>
 
 /**
  * Máquina de estados del juego.
@@ -46,9 +47,9 @@ public:
 
 	// Métodos que delegan en los métodos homónimos de GameState
 	// sobre el estado actual (no hacen nada si la pila es vacía)
-	void update();
-	void render() const;
-	void handleEvent(const SDL_Event& event);
+	virtual void update();
+	virtual void render() const;
+	virtual void handleEvent(const SDL_Event& event);
 };
 
 inline void

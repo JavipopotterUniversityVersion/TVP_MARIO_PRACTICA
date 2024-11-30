@@ -12,29 +12,8 @@
 
 using uint = unsigned int;
 
-class Game : public GameStateMachine
+class PlayState : public GameState
 {
-public:
-	static const int TILE_SIDE = 32;
-	static constexpr float GRAVITY = 0.2f;
-	enum TextureName {
-		BACKGROUND,
-		MARIO,
-		SUPERMARIO,
-		BLOCKS,
-		GOOMBA,
-		KOOPA,
-		MUSHROOM,
-		LIFT,
-		COIN,
-		NUM_TEXTURES,
-	};
-
-private:
-	SDL_Window* window = nullptr;
-	SDL_Renderer* renderer = nullptr;
-	std::array<Texture*, NUM_TEXTURES> textures;
-
 	bool seguir;
 	int mapOffset = 0;
 	bool exit = false;
@@ -64,8 +43,6 @@ public:
 	Vector2D<float> ScreenToWorld(Vector2D<float> position) const;
 	Vector2D<float> WorldToScreen(Vector2D<float> position) const;
 
-	Texture* getTexture(TextureName name) const;
-
 	static constexpr uint WIN_WIDTH = 575;
 	static constexpr uint WINDOW_WIDTH = 26;
 	static constexpr uint WIN_HEIGHT = 500;
@@ -80,13 +57,5 @@ public:
 	bool isSuperMario();
 
 	void endgame() { seguir = false; }
-
-	Game();
-	~Game();
 };
 
-inline Texture*
-Game::getTexture(TextureName name) const
-{
-	return textures[name];
-}
