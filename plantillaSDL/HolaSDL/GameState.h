@@ -2,12 +2,12 @@
 #include "gameList.h"
 #include "GameObject.h"
 #include <list>
-class Game;
+class SDL_App;
 
 class GameState
 {
 private:
-	Game* game;
+	SDL_App* game;
 	GameList<GameObject> objectsList;
 	list<EventHandler*> eventsList;
 public:

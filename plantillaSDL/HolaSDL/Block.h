@@ -1,7 +1,7 @@
 #pragma once
 #include "Vector2D.h"
 #include "Texture.h"
-#include "Game.h"
+#include "SDL_App.h"
 
 enum BlockType { SORPRESA = 0, OCULTO, VACIO = 4, LADRILLO = 5};
 enum BlockAction { POTENCIADOR, MONEDA };
@@ -14,7 +14,7 @@ class Block : public SceneObject
 		bool active = true;
 
 	public:
-		Block(Game* game, int x, int y, BlockType type, BlockAction action);
+		Block(SDL_App* game, int x, int y, BlockType type, BlockAction action);
 		Block(Block& block) : Block(block.game, block.position.getX(), block.position.getY(), block.type, block.action) {};
 		SceneObject* clone() override;
 		void render() override;

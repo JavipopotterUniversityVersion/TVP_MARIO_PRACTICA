@@ -1,6 +1,6 @@
 #include <string>
 
-#include "Game.h"
+#include "SDL_App.h"
 #include "Entity.h"
 #include "Player.h"
 #include "Goomba.h"
@@ -28,7 +28,7 @@ struct TextureSpec
 const string textureRoot = "../Assets/images/";
 
 // Especificaci√≥n de las texturas del juego
-const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
+const array<TextureSpec, SDL_App::NUM_TEXTURES> textureSpec{
 	TextureSpec{"background.png", 9, 7},
 	TextureSpec{"mario.png", 12, 1},
 	TextureSpec{"supermario.png", 22, 1},
@@ -40,7 +40,7 @@ const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
 	TextureSpec{"coin.png", 4, 1}
 };
 
-Game::Game() : seguir(true)
+SDL_App::SDL_App() : seguir(true)
 {
 	try
 	{
@@ -86,7 +86,7 @@ Game::Game() : seguir(true)
 	loadLevel(currentLevel);
 }
 
-Game::~Game()
+SDL_App::~Game()
 {
 	// Elimina los objetos del juego
 
@@ -105,7 +105,7 @@ Game::~Game()
 }
 
 void
-Game::run()
+SDL_App::run()
 {
 	// Bucle principal del juego
 	while (seguir) {
@@ -137,18 +137,18 @@ Game::run()
 	}
 }
 
-Vector2D<float> Game::ScreenToWorld(Vector2D<float> position) const
+Vector2D<float> SDL_App::ScreenToWorld(Vector2D<float> position) const
 {
 	return Vector2D<float>((position.getX() + mapOffset) / TILE_SIDE, position.getY() / TILE_SIDE);
 }
 
-Vector2D<float> Game::WorldToScreen(Vector2D<float> position) const
+Vector2D<float> SDL_App::WorldToScreen(Vector2D<float> position) const
 {
 	return Vector2D<float>((position.getX() * TILE_SIDE) - mapOffset, position.getY() * TILE_SIDE);
 }
 
 void
-Game::render()
+SDL_App::render()
 {
 	SDL_RenderClear(renderer);
 	map->render();
@@ -162,7 +162,7 @@ Game::render()
 }
 
 void
-Game::update()
+SDL_App::update()
 {
 	addVisibleObjects();
 
@@ -172,15 +172,15 @@ Game::update()
 	}
 
 	int maxOffset = map->GetMapWidth() * TILE_SIDE - WIN_WIDTH * 1.5f;
-	if ((player->getRenderRect().x) > (Game::WIN_WIDTH / 2))
+	if ((player->getRenderRect().x) > (SDL_App::WIN_WIDTH / 2))
 	{
-		mapOffset = player->getRenderRect().x + mapOffset - (Game::WIN_WIDTH / 2);
+		mapOffset = player->getRenderRect().x + mapOffset - (SDL_App::WIN_WIDTH / 2);
 		if (mapOffset > maxOffset) mapOffset = maxOffset;
 	}
 }
 
 void
-Game::handleEvents()
+SDL_App::handleEvents()
 {
 	// Procesamiento de eventos
 	SDL_Event evento;
@@ -194,7 +194,7 @@ Game::handleEvents()
 	}
 }
 
-Collision Game::checkCollision(SDL_Rect& rect, Collision::Target target)
+Collision SDL_App::checkCollision(SDL_Rect& rect, Collision::Target target)
 {
 	Collision collision;
 
@@ -213,7 +213,7 @@ Collision Game::checkCollision(SDL_Rect& rect, Collision::Target target)
 	return collision;
 }
 
-void Game::reset()
+void SDL_App::reset()
 {
 	for (auto it : gameObjects) delete it;
 	delete map;
@@ -224,7 +224,7 @@ void Game::reset()
 	loadLevel(currentLevel);
 }
 
-void Game::loadLevel(int levelIndex)
+void SDL_App::loadLevel(int levelIndex)
 {
 	mapOffset = 0;
 	string level = std::to_string(levelIndex);
@@ -318,7 +318,7 @@ void Game::loadLevel(int levelIndex)
 	}
 }
 
-void Game::nextLevel()
+void SDL_App::nextLevel()
 {
 	for (auto it : gameObjects) delete it;
 	delete map;
@@ -331,12 +331,12 @@ void Game::nextLevel()
 	loadLevel(currentLevel);
 }
 
-void Game::addObject(SceneObject* obj)
+void SDL_App::addObject(SceneObject* obj)
 {
 	gameObjects.push_back(obj);
 }
 
-void Game::addVisibleObjects()
+void SDL_App::addVisibleObjects()
 {
 	// Borde derecho del mapa (m·s una casilla)
 	const int rightThreshold = mapOffset + Game::WINDOW_WIDTH + Game::TILE_SIDE;
@@ -347,12 +347,12 @@ void Game::addVisibleObjects()
 	}
 }
 
-void Game::goSuperMario()
+void SDL_App::goSuperMario()
 {
 	player->goSuperMario();
 }
 
-bool Game::isSuperMario()
+bool SDL_App::isSuperMario()
 {
 	return player->isSuperMario();
 }

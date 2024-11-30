@@ -12,7 +12,7 @@
 
 using uint = unsigned int;
 
-class Game : public GameStateMachine
+class SDL_App : public GameStateMachine
 {
 public:
 	static const int TILE_SIDE = 32;
@@ -81,12 +81,12 @@ public:
 
 	void endgame() { seguir = false; }
 
-	Game();
-	~Game();
+	SDL_App();
+	~SDL_App();
 };
 
 inline Texture*
-Game::getTexture(TextureName name) const
+SDL_App::getTexture(TextureName name) const
 {
 	return textures[name];
 }
