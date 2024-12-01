@@ -3,9 +3,9 @@
 #include "Collision.h"
 #include "Vector2D.h"
 
-Goomba::Goomba(Game* game, int x, int y, bool isKoopa) : Enemy(game, x, y), isKoopa(isKoopa)
+Goomba::Goomba(SDL_App* game, int x, int y, bool isKoopa) : Enemy(game, x, y), isKoopa(isKoopa)
 {
-	texture = isKoopa ? game->getTexture(Game::KOOPA) : game->getTexture(Game::GOOMBA);
+	texture = isKoopa ? game->getTexture(SDL_App::KOOPA) : game->getTexture(SDL_App::GOOMBA);
 	velocity.setX(-0.1); 
 }
 

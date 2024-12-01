@@ -11,12 +11,33 @@ class Vector2D
 		T getX() const { return x; }
 		T getY() const { return y; }
 
-		Vector2D<T> operator +(Vector2D<T> other) const;
-		Vector2D<T> operator +=(Vector2D<T> other) const;
-		Vector2D<T> operator -(Vector2D<T> other) const;
+		Vector2D<T> operator +(Vector2D<T> other) const
+		{
+			return Vector2D<T>(x + other.x, y + other.y);
+		}
+
+		Vector2D<T> operator +=(Vector2D<T> other) const
+		{
+			Vector2D temp = Vector2D<T>(x + other.x, y + other.y);
+			x = temp.x;
+			y = temp.y;
+			return temp;
+		}
+
+		Vector2D<T> operator -(Vector2D<T> other) const
+		{
+			return Vector2D<T>(x - other.x, y - other.y);
+		}
 		
-		Vector2D<T> operator *(Vector2D<T> other) const;
-		Vector2D<T> operator *(T scalar) const;
+		Vector2D<T> operator *(Vector2D<T> other) const
+		{
+			return Vector2D<T>(x * other.x, y * other.y);
+		}
+
+		Vector2D<T> operator *(T scalar) const
+		{
+			return Vector2D<T>(x * scalar, y * scalar);
+		}
 
 		void Set(T newX, T newY)
 		{

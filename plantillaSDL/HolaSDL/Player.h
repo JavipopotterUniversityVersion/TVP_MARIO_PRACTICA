@@ -4,7 +4,7 @@
 #include "Texture.h"
 #include "SceneObject.h"
 #include "Collision.h"
-class Game;
+class SDL_App;
 
 class Player : public SceneObject
 {
@@ -24,7 +24,7 @@ class Player : public SceneObject
 		void SetFrameRange(int x, int y) { frameRange.Set(x, y); }
 
 	public:
-		Player(Game* game, int x, int y, int vidas);
+		Player(SDL_App* game, int x, int y, int vidas);
 		Player(Player& const player) : Player(player.game, player.position.getX(), player.position.getY(), player.vidas) {};
 		void handleEvent(SDL_Event& evento);
 

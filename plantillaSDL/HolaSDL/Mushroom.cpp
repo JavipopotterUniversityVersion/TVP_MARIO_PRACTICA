@@ -14,10 +14,10 @@ SceneObject* Mushroom::clone()
 	return new Mushroom(game, 0, 0);
 }
 
-Mushroom::Mushroom(Game* game, int x, int y) : Pickable(game, x, y)
+Mushroom::Mushroom(SDL_App* game, int x, int y) : Pickable(game, x, y)
 {
 	frameRange.Set(0, 0);
-	texture = game->getTexture(Game::MUSHROOM);
+	texture = game->getTexture(SDL_App::MUSHROOM);
 	velocity.setX(SPEED);
 }
 
@@ -26,7 +26,7 @@ void Mushroom::update()
 	// Acelra la velocidad con la gravedad
 	if (velocity.getY() < SPEED_LIMIT)
 	{
-		velocity.setY(velocity.getY() + Game::GRAVITY);
+		velocity.setY(velocity.getY() + SDL_App::GRAVITY);
 	}
 	Vector2D<float> realSpeed = velocity;
 	realSpeed.setY(realSpeed.getY() + 1);

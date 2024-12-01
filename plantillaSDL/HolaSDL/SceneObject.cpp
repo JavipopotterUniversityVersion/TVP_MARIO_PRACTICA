@@ -1,9 +1,10 @@
 #include "SceneObject.h"
 #include "Texture.h"
 #include "SDL.h"
-#include "Game.h"
+#include "SDL_App.h"
+#include "PlayState.h"
 
-SceneObject::SceneObject(Game* game, int x, int y)
+SceneObject::SceneObject(PlayState* game, int x, int y)
 {
 	this->game = game;
 	position.Set(x, y);
@@ -12,7 +13,7 @@ SceneObject::SceneObject(Game* game, int x, int y)
 SDL_Rect SceneObject::getRenderRect() const
 {
 	return SDL_Rect{
-		int(position.getX() - game->GetMapOffset()),  // coordenadas de la ventana
+		int(position.getX() - game->getMapOffset()),  // coordenadas de la ventana
 		int(position.getY() - _height),
 		_width,
 		_height
@@ -30,14 +31,14 @@ SDL_Rect SceneObject::getCollisionRect() const
 }
 
 
-void SceneObject::render()
+void SceneObject::render() const
 {
-	currentFrame++;
+	/*currentFrame++;
 
 	if (currentFrame > frameRange.getY() || currentFrame < frameRange.getX())
 	{
 		currentFrame = frameRange.getX();
-	}
+	}*/
 
 	SDL_Rect rect = getRenderRect();
 	texture->renderFrame(rect, 0, currentFrame);

@@ -9,17 +9,19 @@
 #include "Collision.h"
 #include "Tilemap.h"
 #include "GameStateMachine.h"
+#include "SDL_App.h"
 
 using uint = unsigned int;
 
 class PlayState : public GameState
 {
 	bool seguir;
-	int mapOffset = 0;
 	bool exit = false;
 	Player* player;
 	GameList<SceneObject> gameObjects;
 	Tilemap* map;
+
+	SDL_App* app;
 
 	std::vector<SceneObject*> objectQueue;
 	int nextObject;
@@ -32,6 +34,8 @@ class PlayState : public GameState
 	void loadLevel(int levelIndex);
 
 public:
+	static const int TILE_SIDE = 32;
+
 	void run();
 	void reset();
 	void update() override;
@@ -48,7 +52,7 @@ public:
 	static constexpr uint WIN_HEIGHT = 500;
 	static constexpr uint WINDOW_HEIGHT = 16;
 	static constexpr uint FRAME_RATE = 50;
-	int getMapOffset() const { return mapOffset; }
+
 	void nextLevel();
 	void setLoadFlag() { loadNext = true; }
 	void resetFlag() { resetBool = true; }

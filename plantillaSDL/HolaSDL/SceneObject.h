@@ -6,7 +6,7 @@
 #include <iostream>
 #include "Collision.h"
 #include "Texture.h"
-class Game;
+#include "PlayState.h"
 
 class SceneObject : public GameObject
 {
@@ -30,7 +30,7 @@ class SceneObject : public GameObject
 		bool active = true;
 	public:
 		virtual Collision hit(const SDL_Rect& region, Collision::Target target) = 0;
-		SceneObject(Game* game, int x, int y);
+		SceneObject(PlayState* app, int x, int y);
 		SceneObject(const SceneObject* obj) : SceneObject(obj->game, obj->position.getX(), obj->position.getY()) {};
 
 		void setListAnchor(GameList<SceneObject>::anchor&& anchor)
@@ -46,6 +46,6 @@ class SceneObject : public GameObject
 		Vector2D<float> getPosition() { return position; }
 
 		void update() override;
-		void render() override;
+		void render() const override;
 };
 

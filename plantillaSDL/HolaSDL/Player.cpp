@@ -3,9 +3,9 @@
 #include "Vector2D.h"
 #include "Collision.h"
 
-Player::Player(Game* game, int x, int y, int vidas) : SceneObject(game, x, y), vidas(vidas)
+Player::Player(SDL_App* game, int x, int y, int vidas) : SceneObject(game, x, y), vidas(vidas)
 {
-	this->texture = game->getTexture(Game::MARIO);
+	this->texture = game->getTexture(SDL_App::MARIO);
 }
 
 void Player::handleEvent(SDL_Event& evento)
@@ -63,7 +63,7 @@ void Player::handleEvent(SDL_Event& evento)
 void Player::goSuperMario()
 {
 	superMario = true;
-	texture = game->getTexture(Game::SUPERMARIO);
+	texture = game->getTexture(SDL_App::SUPERMARIO);
 }
 
 void Player::update()
@@ -71,7 +71,7 @@ void Player::update()
 	// Acelra la velocidad con la gravedad
 	if (velocity.getY() < SPEED_LIMIT)
 	{
-		velocity.setY(velocity.getY() + Game::GRAVITY);
+		velocity.setY(velocity.getY() + SDL_App::GRAVITY);
 	}
 	Vector2D<float> realSpeed = velocity;
 	realSpeed.setY(realSpeed.getY() + 1);
@@ -110,7 +110,7 @@ void Player::update()
 		velocity.setX(0);
 	}
 
-	if (position.getY() > Game::WIN_HEIGHT / Game::TILE_SIDE)
+	if (position.getY() > SDL_App::WIN_HEIGHT / SDL_App::TILE_SIDE)
 	{
 		if (superMario) getDmg();
 		getDmg();
@@ -139,7 +139,7 @@ void Player::getDmg()
 	if (superMario)
 	{
 		superMario = false;
-		texture = game->getTexture(Game::MARIO);
+		texture = game->getTexture(SDL_App::MARIO);
 	}
 	else
 	{
@@ -159,7 +159,7 @@ SDL_Rect Player::getRenderRect() const
 	if (superMario)
 	{
 		rect.h *= 2;
-		rect.y -= Game::TILE_SIDE;
+		rect.y -= SDL_App::TILE_SIDE;
 	}
 	return rect;
 }
@@ -170,7 +170,7 @@ SDL_Rect Player::getCollisionRect() const
 	if (superMario)
 	{
 		rect.h *= 2;
-		rect.y -= Game::TILE_SIDE;
+		rect.y -= SDL_App::TILE_SIDE;
 	}
 	return rect;
 }

@@ -19,7 +19,7 @@
 #include <fstream>
 using namespace std;
 
-SDL_App::~SDL_App()
+PlayState::~PlayState()
 {
 	// Elimina los objetos del juego
 
@@ -27,15 +27,10 @@ SDL_App::~SDL_App()
 	for (auto it : gameObjects) delete it;
 
 	delete map;
-
-	// Desactiva la SDL
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
-	SDL_Quit();
 }
 
 void
-SDL_App::run()
+PlayState::run()
 {
 	// Bucle principal del juego
 	while (seguir) {
@@ -67,20 +62,19 @@ SDL_App::run()
 	}
 }
 
-Vector2D<float> SDL_App::ScreenToWorld(Vector2D<float> position) const
+Vector2D<float> PlayState::ScreenToWorld(Vector2D<float> position) const
 {
 	return Vector2D<float>((position.getX() + mapOffset) / TILE_SIDE, position.getY() / TILE_SIDE);
 }
 
-Vector2D<float> SDL_App::WorldToScreen(Vector2D<float> position) const
+Vector2D<float> PlayState::WorldToScreen(Vector2D<float> position) const
 {
 	return Vector2D<float>((position.getX() * TILE_SIDE) - mapOffset, position.getY() * TILE_SIDE);
 }
 
-void
-SDL_App::render()
+void PlayState::render() const
 {
-	SDL_RenderClear(renderer);
+	SDL_RenderClear(app->getRenderer());
 	map->render();
 
 	for (auto it : gameObjects)
@@ -88,11 +82,11 @@ SDL_App::render()
 		it->render();
 	}
 
-	SDL_RenderPresent(renderer);
+	SDL_RenderPresent(app->getRenderer());
 }
 
 void
-SDL_App::update()
+PlayState::update()
 {
 	addVisibleObjects();
 
@@ -110,10 +104,9 @@ SDL_App::update()
 }
 
 void
-SDL_App::handleEvents()
+PlayState::handleEvent(const SDL_Event& event)
 {
-	// Procesamiento de eventos
-	SDL_Event evento;
+	SDL_Event evento = event;
 
 	while (SDL_PollEvent(&evento)) {
 		if (evento.type == SDL_QUIT) seguir = false;
@@ -124,7 +117,7 @@ SDL_App::handleEvents()
 	}
 }
 
-Collision SDL_App::checkCollision(SDL_Rect& rect, Collision::Target target)
+Collision PlayState::checkCollision(SDL_Rect& rect, Collision::Target target)
 {
 	Collision collision;
 
@@ -143,7 +136,7 @@ Collision SDL_App::checkCollision(SDL_Rect& rect, Collision::Target target)
 	return collision;
 }
 
-void SDL_App::reset()
+void PlayState::reset()
 {
 	for (auto it : gameObjects) delete it;
 	delete map;
@@ -154,7 +147,7 @@ void SDL_App::reset()
 	loadLevel(currentLevel);
 }
 
-void SDL_App::loadLevel(int levelIndex)
+void PlayState::loadLevel(int levelIndex)
 {
 	mapOffset = 0;
 	string level = std::to_string(levelIndex);
@@ -248,7 +241,7 @@ void SDL_App::loadLevel(int levelIndex)
 	}
 }
 
-void SDL_App::nextLevel()
+void PlayState::nextLevel()
 {
 	for (auto it : gameObjects) delete it;
 	delete map;
@@ -261,12 +254,12 @@ void SDL_App::nextLevel()
 	loadLevel(currentLevel);
 }
 
-void SDL_App::addObject(SceneObject* obj)
+void PlayState::addObject(SceneObject* obj)
 {
 	gameObjects.push_back(obj);
 }
 
-void SDL_App::addVisibleObjects()
+void PlayState::addVisibleObjects()
 {
 	// Borde derecho del mapa (más una casilla)
 	const int rightThreshold = mapOffset + Game::WINDOW_WIDTH + Game::TILE_SIDE;
@@ -277,12 +270,12 @@ void SDL_App::addVisibleObjects()
 	}
 }
 
-void SDL_App::goSuperMario()
+void PlayState::goSuperMario()
 {
 	player->goSuperMario();
 }
 
-bool SDL_App::isSuperMario()
+bool PlayState::isSuperMario()
 {
 	return player->isSuperMario();
 }

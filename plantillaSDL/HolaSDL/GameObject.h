@@ -1,12 +1,12 @@
 #pragma once
-class Game;
+#include "GameState.h"
 
 class GameObject
-{
+{ 
 	protected:
-		Game* game;
+		GameState* game;
 	public:
-		virtual void render() = 0;
+		virtual void render() const = 0;
 		virtual void update() = 0;
 };
 

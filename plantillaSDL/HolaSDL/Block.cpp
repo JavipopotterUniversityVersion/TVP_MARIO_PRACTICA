@@ -1,5 +1,5 @@
 #include "Block.h"
-#include "Game.h"
+#include "GameState.h"
 #include "Collision.h"
 #include "Mushroom.h"
 #include "Coin.h"
@@ -58,9 +58,9 @@ SceneObject* Block::clone()
 	return new Block(*this);
 }
 
-Block::Block(Game* game, int x, int y, BlockType type, BlockAction action) : SceneObject(game, x, y), type(type), action(action) 
+Block::Block(GameState* game, int x, int y, BlockType type, BlockAction action) : SceneObject(game, x, y), type(type), action(action) 
 { 
-	texture = game->getTexture(Game::BLOCKS);
+	texture = game->getApp()->getTexture(SDL_App::BLOCKS);
 
 	switch (type)
 	{

@@ -13,114 +13,237 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Archivos de encabezado\GameManagement">
+      <UniqueIdentifier>{6e0af732-bcdd-46b3-8032-675fbb26d89c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\GameObjects">
+      <UniqueIdentifier>{58dcc8be-f268-40d5-acbe-06b5049a5884}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Components">
+      <UniqueIdentifier>{fa620507-291f-459e-9afe-e28a06d008a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\ErrorChecking">
+      <UniqueIdentifier>{28b59a02-75cf-4763-85f5-a6b086f88d91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\GameObjects\Enemies">
+      <UniqueIdentifier>{0388c841-9d0f-41d9-9139-5f8b07d72bdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\GameObjects\Pickables">
+      <UniqueIdentifier>{dba191f0-e8eb-4f45-8a7f-ed2f9532d136}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\GameObjects\MapElements">
+      <UniqueIdentifier>{146d9750-0e24-493c-a1b8-d501e038e772}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\ErrorChecking">
+      <UniqueIdentifier>{21166f10-7141-4658-ba22-45ccbe0f10b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Components">
+      <UniqueIdentifier>{427cab4b-bc6e-488c-a44a-824375d3f5ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\GameObjects">
+      <UniqueIdentifier>{8fa23dd6-3807-46fa-9fe4-11ef29ff36c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\GameObjects\MapElements">
+      <UniqueIdentifier>{30a0b16f-4c31-47f1-99b7-bcd5ed26fb81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\GameObjects\Enemies">
+      <UniqueIdentifier>{e8f5e7aa-3da6-4c4c-923c-8dc72695ea71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\GameManagement">
+      <UniqueIdentifier>{3a43ff99-74c4-4c66-a605-e419d1e366ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\GameManagement\GameStates">
+      <UniqueIdentifier>{ad9d7eb1-68c1-47c9-89de-beed4362bed2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\GameManagement\GameStates">
+      <UniqueIdentifier>{dd6e85eb-11ee-4d96-9dd8-87ffeb6984f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Archivos de código fuente</Filter>
+    <ClCompile Include="FileFormatError.cpp">
+      <Filter>Archivos de código fuente\ErrorChecking</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Archivos de código fuente</Filter>
+    <ClCompile Include="FileNotFoundError.cpp">
+      <Filter>Archivos de código fuente\ErrorChecking</Filter>
     </ClCompile>
-    <ClCompile Include="Tilemap.cpp">
-      <Filter>Archivos de código fuente</Filter>
+    <ClCompile Include="GameError.cpp">
+      <Filter>Archivos de código fuente\ErrorChecking</Filter>
     </ClCompile>
     <ClCompile Include="Vector2D.cpp">
-      <Filter>Archivos de código fuente</Filter>
+      <Filter>Archivos de código fuente\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Block.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="Goomba.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="Koopa.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="Mushroom.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Archivos de código fuente</Filter>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Archivos de código fuente\Components</Filter>
     </ClCompile>
     <ClCompile Include="Collision.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneObject.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Archivos de código fuente</Filter>
+      <Filter>Archivos de código fuente\Components</Filter>
     </ClCompile>
     <ClCompile Include="Coin.cpp">
-      <Filter>Archivos de código fuente</Filter>
+      <Filter>Archivos de código fuente\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Lift.cpp">
-      <Filter>Archivos de código fuente</Filter>
+    <ClCompile Include="Mushroom.cpp">
+      <Filter>Archivos de código fuente\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="Pickable.cpp">
+      <Filter>Archivos de código fuente\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Archivos de código fuente\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneObject.cpp">
+      <Filter>Archivos de código fuente\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Archivos de código fuente\GameObjects\MapElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Lift.cpp">
+      <Filter>Archivos de código fuente\GameObjects\MapElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Tilemap.cpp">
+      <Filter>Archivos de código fuente\GameObjects\MapElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Archivos de código fuente\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Koopa.cpp">
+      <Filter>Archivos de código fuente\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>Archivos de código fuente\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="SDLError.cpp">
+      <Filter>Archivos de código fuente\ErrorChecking</Filter>
+    </ClCompile>
+    <ClCompile Include="SDL_App.cpp">
+      <Filter>Archivos de código fuente\GameManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Archivos de código fuente\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="gameStateMachine.cpp">
+      <Filter>Archivos de código fuente\GameManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Archivos de código fuente\GameManagement\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayState.cpp">
+      <Filter>Archivos de código fuente\GameManagement\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="EndState.cpp">
+      <Filter>Archivos de código fuente\GameManagement\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuState.cpp">
+      <Filter>Archivos de código fuente\GameManagement\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseState.cpp">
+      <Filter>Archivos de código fuente\GameManagement\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationState.cpp">
+      <Filter>Archivos de código fuente\GameManagement\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="EventHandler.cpp">
       <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Archivos de código fuente\GameManagement</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="checkML.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Tilemap.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2D.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Block.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Koopa.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Mushroom.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="SceneObject.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Archivos de encabezado\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL_App.h">
+      <Filter>Archivos de encabezado\GameManagement</Filter>
     </ClInclude>
     <ClInclude Include="gameList.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\GameManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="gameStateMachine.h">
+      <Filter>Archivos de encabezado\GameManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2D.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLError.h">
+      <Filter>Archivos de encabezado\ErrorChecking</Filter>
+    </ClInclude>
+    <ClInclude Include="checkML.h">
+      <Filter>Archivos de encabezado\ErrorChecking</Filter>
+    </ClInclude>
+    <ClInclude Include="FileFormatError.h">
+      <Filter>Archivos de encabezado\ErrorChecking</Filter>
+    </ClInclude>
+    <ClInclude Include="FileNotFoundError.h">
+      <Filter>Archivos de encabezado\ErrorChecking</Filter>
+    </ClInclude>
+    <ClInclude Include="GameError.h">
+      <Filter>Archivos de encabezado\ErrorChecking</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\GameObjects\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="Goomba.h">
+      <Filter>Archivos de encabezado\GameObjects\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="Lift.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="Koopa.h">
+      <Filter>Archivos de encabezado\GameObjects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Pickable.h">
+      <Filter>Archivos de encabezado\GameObjects\Pickables</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Archivos de encabezado\GameObjects\Pickables</Filter>
+    </ClInclude>
+    <ClInclude Include="Mushroom.h">
+      <Filter>Archivos de encabezado\GameObjects\Pickables</Filter>
+    </ClInclude>
+    <ClInclude Include="Lift.h">
+      <Filter>Archivos de encabezado\GameObjects\MapElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Tilemap.h">
+      <Filter>Archivos de encabezado\GameObjects\MapElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>Archivos de encabezado\GameObjects\MapElements</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Archivos de encabezado\GameManagement\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayState.h">
+      <Filter>Archivos de encabezado\GameManagement\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="EndState.h">
+      <Filter>Archivos de encabezado\GameManagement\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuState.h">
+      <Filter>Archivos de encabezado\GameManagement\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseState.h">
+      <Filter>Archivos de encabezado\GameManagement\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationState.h">
+      <Filter>Archivos de encabezado\GameManagement\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="EventHandler.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Archivos de encabezado\GameManagement</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

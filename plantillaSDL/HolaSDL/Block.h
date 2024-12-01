@@ -1,4 +1,5 @@
 #pragma once
+#include "SceneObject.h"
 #include "Vector2D.h"
 #include "Texture.h"
 #include "SDL_App.h"
@@ -14,7 +15,7 @@ class Block : public SceneObject
 		bool active = true;
 
 	public:
-		Block(SDL_App* game, int x, int y, BlockType type, BlockAction action);
+		Block(GameState* game, int x, int y, BlockType type, BlockAction action);
 		Block(Block& block) : Block(block.game, block.position.getX(), block.position.getY(), block.type, block.action) {};
 		SceneObject* clone() override;
 		void render() override;

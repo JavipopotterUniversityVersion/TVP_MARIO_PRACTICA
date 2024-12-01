@@ -6,7 +6,7 @@ void Enemy::update()
 {
 	// Acelra la velocidad con la gravedad
 	if (velocity.getY() < SPEED_LIMIT)
-		velocity += {0, Game::GRAVITY};
+		velocity += {0, SDL_App::GRAVITY};
 
 	// Velocidad en este ciclo (no siempre avanza lateralmente)
 	Vector2D<float> realSpeed = velocity;

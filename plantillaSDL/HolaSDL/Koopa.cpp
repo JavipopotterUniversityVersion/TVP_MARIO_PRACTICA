@@ -1,7 +1,7 @@
 #include "Koopa.h"
 #include "Game.h"
 
-Koopa::Koopa(Game* game, int x, int y) : game(game), texture(game->getTexture(Game::KOOPA))
+Koopa::Koopa(SDL_App* game, int x, int y) : game(game), texture(game->getTexture(SDL_App::KOOPA))
 {
     position.Set(x, y);
 }
@@ -11,8 +11,8 @@ void Koopa::render()
     SDL_Rect rect;
     rect.w = 32;
     rect.h = 32;
-    rect.x = (position.getX() * Game::TILE_SIDE) - game->GetMapOffset();
-    rect.y = position.getY() * Game::TILE_SIDE;
+    rect.x = (position.getX() * SDL_App::TILE_SIDE) - game->getMapOffset();
+    rect.y = position.getY() * SDL_App::TILE_SIDE;
     texture->renderFrame(rect, 0, 0);
 }
 

@@ -1,5 +1,5 @@
 #pragma once
-class Game;
+class SDL_App;
 
 class Entity
 {
