@@ -1,10 +1,9 @@
 #pragma once
-//class Entity;
+#include "SceneObject.h"
 #include "Vector2D.h"
 #include "Texture.h"
-#include "SceneObject.h"
 #include "Collision.h"
-class SDL_App;
+class PlayState;
 
 class Player : public SceneObject
 {
@@ -24,8 +23,8 @@ class Player : public SceneObject
 		void SetFrameRange(int x, int y) { frameRange.Set(x, y); }
 
 	public:
-		Player(SDL_App* game, int x, int y, int vidas);
-		Player(Player& const player) : Player(player.game, player.position.getX(), player.position.getY(), player.vidas) {};
+		Player(PlayState* game, int x, int y, int vidas);
+		Player(Player& const player) : Player(player.playState, player.position.getX(), player.position.getY(), player.vidas) {};
 		void handleEvent(SDL_Event& evento);
 
 		void update() override;

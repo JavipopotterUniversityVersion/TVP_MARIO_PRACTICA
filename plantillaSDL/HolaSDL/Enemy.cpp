@@ -1,6 +1,6 @@
 #include "Enemy.h"
 #include "Collision.h"
-#include "Game.h"
+#include "SDL_App.h"
 
 void Enemy::update()
 {

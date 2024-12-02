@@ -3,7 +3,7 @@
 #include "EventHandler.h"
 #include <functional>
 
-using Callback = std::function<void>;
+using Callback = std::function<void(void)>;
 
 class Button : public GameObject, public EventHandler
 {

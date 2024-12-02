@@ -1,11 +1,11 @@
 #include "Player.h"
-#include "Game.h"
+#include "PlayState.h"
 #include "Vector2D.h"
 #include "Collision.h"
 
-Player::Player(SDL_App* game, int x, int y, int vidas) : SceneObject(game, x, y), vidas(vidas)
+Player::Player(PlayState* game, int x, int y, int vidas) : SceneObject(game, x, y), vidas(vidas)
 {
-	this->texture = game->getTexture(SDL_App::MARIO);
+	this->texture = game->getApp()->getTexture(SDL_App::MARIO);
 }
 
 void Player::handleEvent(SDL_Event& evento)
@@ -63,7 +63,7 @@ void Player::handleEvent(SDL_Event& evento)
 void Player::goSuperMario()
 {
 	superMario = true;
-	texture = game->getTexture(SDL_App::SUPERMARIO);
+	texture = playState->getApp()->getTexture(SDL_App::SUPERMARIO);
 }
 
 void Player::update()
@@ -139,12 +139,12 @@ void Player::getDmg()
 	if (superMario)
 	{
 		superMario = false;
-		texture = game->getTexture(SDL_App::MARIO);
+		texture = game->getApp()->getTexture(SDL_App::MARIO);
 	}
 	else
 	{
 		vidas--;
-		game->resetFlag();
+		playState->reset();
 	}
 }
 

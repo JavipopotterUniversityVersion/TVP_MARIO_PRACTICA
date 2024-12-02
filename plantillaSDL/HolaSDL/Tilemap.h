@@ -14,13 +14,13 @@ class Tilemap : public SceneObject
 		vector<vector<int>> map;
 		Texture* texture;
 		const int MAP_HEIGHT = 16;
-		SDL_App* game;
 
 	public:
-		Tilemap(const string& mapName, SDL_App* game);
+		Tilemap(const string& mapName, PlayState* game);
 
 		void render() const override;
-		Collision hit(const SDL_Rect& rect);
+		Collision hit(const SDL_Rect& region, Collision::Target target) override;
+		SceneObject* clone() override { return NULL; };
 
 		int GetMapWidth() { return map[0].size(); };
 };

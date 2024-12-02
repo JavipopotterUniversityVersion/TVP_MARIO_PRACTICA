@@ -3,15 +3,16 @@
 #include <string>
 #include "Texture.h"
 #include "SDL_App.h"
+#include "PlayState.h"
 #include "SDLError.h"
 #include "FileNotFoundError.h"
 #include "FileFormatError.h"
 
-Tilemap::Tilemap(const string& mapName, SDL_App* game) : game(game)
+Tilemap::Tilemap(const string& mapName, PlayState* game) : SceneObject(game, 0, 0)
 {
 	string path = "../Assets/maps/" + mapName;
 
-	texture = game->getTexture(SDL_App::BACKGROUND);
+	texture = game->getApp()->getTexture(SDL_App::BACKGROUND);
 
 	ifstream entrada(path);
 	if (!entrada.is_open()) throw new exception("Error leyendo archivo");
@@ -39,7 +40,7 @@ Tilemap::Tilemap(const string& mapName, SDL_App* game) : game(game)
 
 void Tilemap::render() const
 {
-	int mapOffset = game->getMapOffset();
+	int mapOffset = playState->getMapOffset();
 
 	// Primera columna de la matriz del mapa visible en la ventana
 	int col0 = mapOffset / SDL_App::TILE_SIDE;
@@ -81,19 +82,19 @@ void Tilemap::render() const
 	}
 }
 
-Collision Tilemap::hit(const SDL_Rect& rect)
+Collision Tilemap::hit(const SDL_Rect& region, Collision::Target target)
 {
 	Collision collision;
 
 	constexpr int OBSTACLE_THRESHOLD = 4; // constante
 
 	// Celda del nivel que contiene la esquina superior izquierda del rectángulo
-	int row0 = rect.y / SDL_App::TILE_SIDE;
-	int col0 = rect.x / SDL_App::TILE_SIDE;
+	int row0 = region.y / SDL_App::TILE_SIDE;
+	int col0 = region.x / SDL_App::TILE_SIDE;
 
 	// Celda del nivel que contiene la esquina inferior derecha del rectángulo
-	int row1 = (rect.y + rect.h - 1) / SDL_App::TILE_SIDE;
-	int col1 = (rect.x + rect.w - 1) / SDL_App::TILE_SIDE;
+	int row1 = (region.y + region.h - 1) / SDL_App::TILE_SIDE;
+	int col1 = (region.x + region.w - 1) / SDL_App::TILE_SIDE;
 
 	for (int row = row0; row <= row1; ++row)
 	{
@@ -120,7 +121,7 @@ Collision Tilemap::hit(const SDL_Rect& rect)
 
 			int indice = map[row][col];
 
-			if (indice == 43) game->setLoadFlag();
+			if (indice == 43) /*game->setLoadFlag()*/;
 			if (indice != -1 && indice % texture->getNumColumns() < OBSTACLE_THRESHOLD)
 			{
 				SDL_Rect obstacleRect;
@@ -133,7 +134,7 @@ Collision Tilemap::hit(const SDL_Rect& rect)
 				obstacleRect.h = SDL_App::TILE_SIDE;
 
 				SDL_Rect intersection;
-				SDL_IntersectRect(&rect, &obstacleRect, &intersection);
+				SDL_IntersectRect(&region, &obstacleRect, &intersection);
 
 				collision.horizontal = intersection.w;
 				collision.vertical = intersection.h;

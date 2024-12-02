@@ -1,5 +1,6 @@
 #include "Lift.h"
-#include "Game.h"
+#include "PlayState.h"
+#include "SDL_App.h"
 
 void Lift::update()
 {
@@ -24,16 +25,16 @@ Collision Lift::hit(const SDL_Rect& region, Collision::Target target)
 
 SceneObject* Lift::clone()
 {
-	return new Lift(game, position.getX(), position.getY(), velocity.getY() / speed);
+	return new Lift(playState, position.getX(), position.getY(), velocity.getY() / speed);
 }
 
-Lift::Lift(SDL_App* game, int x, int y, int direction) : SceneObject(game, x, y)
+Lift::Lift(PlayState* game, int x, int y, int direction) : SceneObject(game, x, y)
 {
-	texture = game->getTexture(SDL_App::LIFT);
+	texture = game->getApp()->getTexture(SDL_App::LIFT);
 	velocity.setY(speed*direction);
 }
 
-void Lift::render()
+void Lift::render() const
 {
 	SDL_Rect rect = getRenderRect();
 	rect.w *= 3;

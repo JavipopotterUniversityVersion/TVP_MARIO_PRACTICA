@@ -15,7 +15,7 @@ class Goomba : public Enemy
 
 	public:
 		bool isActive() { return active; }
-		Goomba(SDL_App* game, int x, int y, bool isKoopa);
-		Goomba(Goomba& obj) : Goomba(obj.game, obj.position.getX(), obj.position.getY(), obj.isKoopa) {};
+		Goomba(PlayState* game, int x, int y, bool isKoopa);
+		Goomba(Goomba& obj) : Goomba(obj.playState, obj.position.getX(), obj.position.getY(), obj.isKoopa) {};
 		SceneObject* clone() override;
 };

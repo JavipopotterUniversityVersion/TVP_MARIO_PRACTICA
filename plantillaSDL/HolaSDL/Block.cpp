@@ -21,11 +21,11 @@ Collision Block::hit(const SDL_Rect& region, Collision::Target target)
 		case SORPRESA:
 			if (action == POTENCIADOR)
 			{
-				game->addObject(new Mushroom(game, position.getX(), position.getY() - 1));
+				//game->addObject(new Mushroom(playState, position.getX(), position.getY() - 1));
 			}
 			else
 			{
-				game->addObject(new Coin(game, position.getX(), position.getY() - 1));
+				//game->addObject(new Coin(playState, position.getX(), position.getY() - 1));
 			}
 			frameRange.Set(4, 4);
 			type = VACIO;
@@ -35,7 +35,7 @@ Collision Block::hit(const SDL_Rect& region, Collision::Target target)
 			type = VACIO;
 			break;
 		case LADRILLO:
-			if (game->isSuperMario()) delete this;
+			//if (game->isSuperMario()) delete this;
 			break;
 		default:
 			break;
@@ -45,7 +45,7 @@ Collision Block::hit(const SDL_Rect& region, Collision::Target target)
 	return Collision{};
 }
 
-void Block::render()
+void Block::render() const
 {
 	if (type != OCULTO)
 	{
@@ -58,7 +58,7 @@ SceneObject* Block::clone()
 	return new Block(*this);
 }
 
-Block::Block(GameState* game, int x, int y, BlockType type, BlockAction action) : SceneObject(game, x, y), type(type), action(action) 
+Block::Block(GameState* game, int x, int y, BlockType type, BlockAction action) : SceneObject(playState, x, y), type(type), action(action) 
 { 
 	texture = game->getApp()->getTexture(SDL_App::BLOCKS);
 

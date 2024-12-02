@@ -6,7 +6,7 @@
 #include <iostream>
 #include "Collision.h"
 #include "Texture.h"
-#include "PlayState.h"
+class PlayState;
 
 class SceneObject : public GameObject
 {
@@ -15,6 +15,7 @@ class SceneObject : public GameObject
 		Vector2D<float> size;
 		Vector2D<float> velocity;
 		GameList<SceneObject>::anchor anchor;
+		PlayState* playState;
 
 		const float SPEED_LIMIT = 1.5f;
 		const float MOVE_PERIOD = 1;
@@ -31,7 +32,7 @@ class SceneObject : public GameObject
 	public:
 		virtual Collision hit(const SDL_Rect& region, Collision::Target target) = 0;
 		SceneObject(PlayState* app, int x, int y);
-		SceneObject(const SceneObject* obj) : SceneObject(obj->game, obj->position.getX(), obj->position.getY()) {};
+		SceneObject(const SceneObject* obj) : SceneObject(obj->playState, obj->position.getX(), obj->position.getY()) {};
 
 		void setListAnchor(GameList<SceneObject>::anchor&& anchor)
 		{

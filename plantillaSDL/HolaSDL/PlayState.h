@@ -30,10 +30,13 @@ class PlayState : public GameState
 	bool resetBool = false;
 	int currentLevel = 1;
 
+	int _mapOffset;
+
 	void addVisibleObjects();
 	void loadLevel(int levelIndex);
 
 public:
+	~PlayState();
 	static const int TILE_SIDE = 32;
 
 	void run();
@@ -41,8 +44,12 @@ public:
 	void update() override;
 	void render() const override;
 	void handleEvent(const SDL_Event& event) override;
+
 	void givePoints(int points) {};
+
 	Collision checkCollision(SDL_Rect& rect, Collision::Target target);
+
+	void addObject(SceneObject* object);
 
 	Vector2D<float> ScreenToWorld(Vector2D<float> position) const;
 	Vector2D<float> WorldToScreen(Vector2D<float> position) const;
@@ -61,5 +68,7 @@ public:
 	bool isSuperMario();
 
 	void endgame() { seguir = false; }
+
+	int getMapOffset() { return _mapOffset; }
 };
 

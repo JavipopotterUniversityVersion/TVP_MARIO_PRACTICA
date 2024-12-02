@@ -85,7 +85,6 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="gameStateMachine.cpp" />
     <ClCompile Include="Goomba.cpp" />
-    <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="Lift.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
@@ -119,7 +118,6 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="gameStateMachine.h" />
     <ClInclude Include="Goomba.h" />
-    <ClInclude Include="Koopa.h" />
     <ClInclude Include="Lift.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="Mushroom.h" />

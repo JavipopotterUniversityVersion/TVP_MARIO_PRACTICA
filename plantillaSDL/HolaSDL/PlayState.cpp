@@ -51,7 +51,7 @@ PlayState::run()
 
 		update();       // Actualiza el estado de los objetos del juego
 		render();       // Dibuja los objetos en la venta
-		handleEvent(); // Maneja los eventos de la SDL
+		//handleEvent(); // Maneja los eventos de la SDL
 
 		// Tiempo que se ha tardado en ejecutar lo anterior
 		uint32_t elapsed = SDL_GetTicks() - inicio;
@@ -64,12 +64,12 @@ PlayState::run()
 
 Vector2D<float> PlayState::ScreenToWorld(Vector2D<float> position) const
 {
-	return Vector2D<float>((position.getX() + mapOffset) / TILE_SIDE, position.getY() / TILE_SIDE);
+	return Vector2D<float>((position.getX() + _mapOffset) / TILE_SIDE, position.getY() / TILE_SIDE);
 }
 
 Vector2D<float> PlayState::WorldToScreen(Vector2D<float> position) const
 {
-	return Vector2D<float>((position.getX() * TILE_SIDE) - mapOffset, position.getY() * TILE_SIDE);
+	return Vector2D<float>((position.getX() * TILE_SIDE) - _mapOffset, position.getY() * TILE_SIDE);
 }
 
 void PlayState::render() const
@@ -98,8 +98,8 @@ PlayState::update()
 	int maxOffset = map->GetMapWidth() * TILE_SIDE - WIN_WIDTH * 1.5f;
 	if ((player->getRenderRect().x) > (SDL_App::WIN_WIDTH / 2))
 	{
-		mapOffset = player->getRenderRect().x + mapOffset - (SDL_App::WIN_WIDTH / 2);
-		if (mapOffset > maxOffset) mapOffset = maxOffset;
+		_mapOffset = player->getRenderRect().x + _mapOffset - (SDL_App::WIN_WIDTH / 2);
+		if (_mapOffset > maxOffset) _mapOffset = maxOffset;
 	}
 }
 
@@ -130,9 +130,6 @@ Collision PlayState::checkCollision(SDL_Rect& rect, Collision::Target target)
 		}
 	}
 
-	Collision mapCol = map->hit(rect);
-	if (mapCol.result != Collision::NONE) collision = mapCol;
-
 	return collision;
 }
 
@@ -149,7 +146,7 @@ void PlayState::reset()
 
 void PlayState::loadLevel(int levelIndex)
 {
-	mapOffset = 0;
+	_mapOffset = 0;
 	string level = std::to_string(levelIndex);
 
 	map = new Tilemap("world" + level + ".csv", this);
@@ -168,7 +165,7 @@ void PlayState::loadLevel(int levelIndex)
 
 	int R, G, B;
 	entrada >> R >> G >> B;
-	SDL_SetRenderDrawColor(renderer, R, G, B, 0);
+	SDL_SetRenderDrawColor(app->getRenderer(), R, G, B, 0);
 
 	while (entrada) {
 		char type;
@@ -262,7 +259,7 @@ void PlayState::addObject(SceneObject* obj)
 void PlayState::addVisibleObjects()
 {
 	// Borde derecho del mapa (más una casilla)
-	const int rightThreshold = mapOffset + Game::WINDOW_WIDTH + Game::TILE_SIDE;
+	const int rightThreshold = _mapOffset + SDL_App::WINDOW_WIDTH + SDL_App::TILE_SIDE;
 
 	while (nextObject < objectQueue.size() && objectQueue[nextObject]->getPosition().getX() < rightThreshold)
 	{

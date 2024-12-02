@@ -1,7 +1,6 @@
 #pragma once
 #include "SceneObject.h"
 #include "Collision.h"
-class SDL_App;
 
 class Pickable : public SceneObject
 {
@@ -13,7 +12,7 @@ class Pickable : public SceneObject
 		virtual void triggerAction() = 0;
 
 	public:
-		Pickable(SDL_App* game, int x, int y) : SceneObject(game, x, y) {};
+		Pickable(PlayState* game, int x, int y) : SceneObject(game, x, y) {};
 		Collision hit(const SDL_Rect& rect, Collision::Target target) override;
 };
 

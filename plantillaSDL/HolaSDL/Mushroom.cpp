@@ -1,23 +1,23 @@
 #include "Mushroom.h"
-#include "Game.h"
+#include "PlayState.h"
 #include "Texture.h"
 #include "Collision.h"
 #include "Vector2D.h"
 
 void Mushroom::triggerAction()
 {
-	game->goSuperMario();
+	//game->goSuperMario();
 }
 
 SceneObject* Mushroom::clone()
 {
-	return new Mushroom(game, 0, 0);
+	return new Mushroom(playState, 0, 0);
 }
 
-Mushroom::Mushroom(SDL_App* game, int x, int y) : Pickable(game, x, y)
+Mushroom::Mushroom(PlayState* game, int x, int y) : Pickable(game, x, y)
 {
 	frameRange.Set(0, 0);
-	texture = game->getTexture(SDL_App::MUSHROOM);
+	texture = game->getApp()->getTexture(SDL_App::MUSHROOM);
 	velocity.setX(SPEED);
 }
 

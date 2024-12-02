@@ -3,17 +3,17 @@
 #include "SDL.h"
 #include "SDL_App.h"
 #include "PlayState.h"
+#include "SceneObject.h"
 
-SceneObject::SceneObject(PlayState* game, int x, int y)
+SceneObject::SceneObject(PlayState* game, int x, int y) : playState(game)
 {
-	this->game = game;
 	position.Set(x, y);
 }
 
 SDL_Rect SceneObject::getRenderRect() const
 {
 	return SDL_Rect{
-		int(position.getX() - game->getMapOffset()),  // coordenadas de la ventana
+		int(position.getX() - playState->getMapOffset()),  // coordenadas de la ventana
 		int(position.getY() - _height),
 		_width,
 		_height
@@ -44,7 +44,6 @@ void SceneObject::render() const
 	texture->renderFrame(rect, 0, currentFrame);
 }
 
-
 Collision SceneObject::tryToMove(const Vector2D<float>&speed, Collision::Target target)
 {
 		Collision collision;
@@ -54,7 +53,7 @@ Collision SceneObject::tryToMove(const Vector2D<float>&speed, Collision::Target 
 		if (speed.getY() != 0) {
 			rect.y += speed.getY();
 
-			collision = game->checkCollision(rect, target);
+			collision = playState->checkCollision(rect, target);
 
 			// Cantidad que se ha entrado en el obstáculo (lo que hay que deshacer)
 			int fix = collision.vertical * (speed.getY() > 0 ? 1 : -1);
@@ -72,7 +71,7 @@ Collision SceneObject::tryToMove(const Vector2D<float>&speed, Collision::Target 
 		if (speed.getX() != 0) {
 			rect.x += speed.getX();
 
-			Collision partial = game->checkCollision(rect, target);
+			Collision partial = playState->checkCollision(rect, target);
 
 			// Copia la información de esta colisión a la que se devolverá
 			collision.horizontal = partial.horizontal;

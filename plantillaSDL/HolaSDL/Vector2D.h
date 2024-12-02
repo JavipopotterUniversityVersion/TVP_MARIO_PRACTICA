@@ -16,11 +16,10 @@ class Vector2D
 			return Vector2D<T>(x + other.x, y + other.y);
 		}
 
-		Vector2D<T> operator +=(Vector2D<T> other) const
+		Vector2D<T> operator +=(Vector2D<T> other)
 		{
 			Vector2D temp = Vector2D<T>(x + other.x, y + other.y);
-			x = temp.x;
-			y = temp.y;
+			this->Set(temp.getX(), temp.getY());
 			return temp;
 		}
 

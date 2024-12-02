@@ -87,5 +87,5 @@ void SDL_App::run()
 {
 	update();
 	render();
-	handleEvent();
+	//handleEvent();
 }

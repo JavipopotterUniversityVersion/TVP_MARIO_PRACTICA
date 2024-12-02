@@ -108,9 +108,6 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Archivos de código fuente\GameObjects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="Koopa.cpp">
-      <Filter>Archivos de código fuente\GameObjects\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="Goomba.cpp">
       <Filter>Archivos de código fuente\GameObjects\Enemies</Filter>
     </ClCompile>
@@ -198,9 +195,6 @@
       <Filter>Archivos de encabezado\GameObjects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Goomba.h">
-      <Filter>Archivos de encabezado\GameObjects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="Koopa.h">
       <Filter>Archivos de encabezado\GameObjects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Pickable.h">
