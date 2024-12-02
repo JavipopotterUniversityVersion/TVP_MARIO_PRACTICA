@@ -5,7 +5,7 @@
 #include "PlayState.h"
 #include "SceneObject.h"
 
-SceneObject::SceneObject(PlayState* game, int x, int y) : playState(game)
+SceneObject::SceneObject(PlayState* game, int x, int y) : GameObject(game), playState(game)
 {
 	position.Set(x, y);
 }

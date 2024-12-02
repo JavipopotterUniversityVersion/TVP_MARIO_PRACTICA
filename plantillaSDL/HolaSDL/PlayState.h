@@ -36,6 +36,7 @@ class PlayState : public GameState
 	void loadLevel(int levelIndex);
 
 public:
+	PlayState(SDL_App* app);
 	~PlayState();
 	static const int TILE_SIDE = 32;
 

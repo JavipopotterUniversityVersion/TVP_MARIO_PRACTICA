@@ -3,6 +3,7 @@
 #include "Collision.h"
 #include "Mushroom.h"
 #include "Coin.h"
+#include "PlayState.h"
 
 //Practica 2
 Collision Block::hit(const SDL_Rect& region, Collision::Target target)
@@ -58,7 +59,7 @@ SceneObject* Block::clone()
 	return new Block(*this);
 }
 
-Block::Block(GameState* game, int x, int y, BlockType type, BlockAction action) : SceneObject(playState, x, y), type(type), action(action) 
+Block::Block(PlayState* game, int x, int y, BlockType type, BlockAction action) : SceneObject(game, x, y), type(type), action(action) 
 { 
 	texture = game->getApp()->getTexture(SDL_App::BLOCKS);
 

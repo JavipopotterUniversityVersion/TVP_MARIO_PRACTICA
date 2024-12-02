@@ -15,8 +15,8 @@ class Block : public SceneObject
 		bool active = true;
 
 	public:
-		Block(GameState* game, int x, int y, BlockType type, BlockAction action);
-		Block(Block& block) : Block(block.game, block.position.getX(), block.position.getY(), block.type, block.action) {};
+		Block(PlayState* game, int x, int y, BlockType type, BlockAction action);
+		Block(Block& block) : Block(block.playState, block.position.getX(), block.position.getY(), block.type, block.action) {};
 		SceneObject* clone() override;
 		void render() const override;
 		Collision hit(const SDL_Rect& rect, Collision::Target target) override;

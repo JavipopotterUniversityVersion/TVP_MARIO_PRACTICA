@@ -27,7 +27,6 @@ Tilemap::Tilemap(const string& mapName, PlayState* game) : SceneObject(game, 0, 
 				if (c < -1 || c > 62) throw FileFormatError(path, map.size());
 				aux.push_back(c);
 				cAux = entrada.get();
-				
 			}
 			map.push_back(aux);
 		}

@@ -2,14 +2,16 @@
 
 #include "Tilemap.h"
 #include "SDL_App.h"
-#include "GameState.h"
+#include "PlayState.h"
 
 using namespace std;
 int main(int argc, char* argv[])
 {
 	try {
-		SDL_App game;
-		game.run();
+		SDL_App* app = new SDL_App();
+		PlayState* playState = new PlayState(app);
+		app->pushState(playState);
+		app->run();
 	}
 	catch (const std::string& msg) {
 		cerr << "Error: " << msg << endl;

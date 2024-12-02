@@ -10,6 +10,7 @@
 #include "SDLError.h"
 #include "FileNotFoundError.h"
 #include "FileFormatError.h"
+#include "PlayState.h"
 
 #include <iostream>
 #include <fstream>

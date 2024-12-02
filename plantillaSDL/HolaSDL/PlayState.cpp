@@ -19,6 +19,12 @@
 #include <fstream>
 using namespace std;
 
+PlayState::PlayState(SDL_App* app) : GameState(app)
+{
+	this->app = app;
+	loadLevel(1);
+}
+
 PlayState::~PlayState()
 {
 	// Elimina los objetos del juego
@@ -85,8 +91,7 @@ void PlayState::render() const
 	SDL_RenderPresent(app->getRenderer());
 }
 
-void
-PlayState::update()
+void PlayState::update()
 {
 	addVisibleObjects();
 
