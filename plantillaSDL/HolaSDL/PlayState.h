@@ -40,7 +40,6 @@ public:
 	~PlayState();
 	static const int TILE_SIDE = 32;
 
-	void run();
 	void reset();
 	void update() override;
 	void render() const override;

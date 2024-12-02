@@ -86,7 +86,21 @@ SDL_App::SDL_App()
 
 void SDL_App::run()
 {
-	update();
-	render();
-	//handleEvent();
+	while (true) {
+
+		// Marca de tiempo del inicio de la iteraciÃ³n
+		uint32_t inicio = SDL_GetTicks();
+
+		update();
+		render();
+		SDL_Event evento;
+		handleEvent(evento);
+
+		// Tiempo que se ha tardado en ejecutar lo anterior
+		uint32_t elapsed = SDL_GetTicks() - inicio;
+
+		// Duerme el resto de la duración del frame
+		if (elapsed < FRAME_RATE)
+			SDL_Delay(FRAME_RATE - elapsed);
+	}
 }

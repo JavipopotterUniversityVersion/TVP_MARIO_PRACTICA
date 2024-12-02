@@ -35,39 +35,6 @@ PlayState::~PlayState()
 	delete map;
 }
 
-void
-PlayState::run()
-{
-	// Bucle principal del juego
-	while (seguir) {
-		// Marca de tiempo del inicio de la iteraciÃ³n
-		uint32_t inicio = SDL_GetTicks();
-
-		if (loadNext)
-		{
-			loadNext = false;
-			nextLevel();
-		}
-
-		if (resetBool)
-		{
-			resetBool = false;
-			reset();
-		}
-
-		update();       // Actualiza el estado de los objetos del juego
-		render();       // Dibuja los objetos en la venta
-		//handleEvent(); // Maneja los eventos de la SDL
-
-		// Tiempo que se ha tardado en ejecutar lo anterior
-		uint32_t elapsed = SDL_GetTicks() - inicio;
-
-		// Duerme el resto de la duración del frame
-		if (elapsed < FRAME_RATE)
-			SDL_Delay(FRAME_RATE - elapsed);
-	}
-}
-
 Vector2D<float> PlayState::ScreenToWorld(Vector2D<float> position) const
 {
 	return Vector2D<float>((position.getX() + _mapOffset) / TILE_SIDE, position.getY() / TILE_SIDE);
