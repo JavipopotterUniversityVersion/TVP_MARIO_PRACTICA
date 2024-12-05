@@ -7,7 +7,9 @@ using Callback = std::function<void(void)>;
 
 class Button : public GameObject, public EventHandler
 {
+	Callback callback;
 public:
 	void connect(Callback callback) {}
+	void handleEvent(const SDL_Event& event) override;
 };
 

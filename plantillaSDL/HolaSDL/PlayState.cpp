@@ -96,10 +96,9 @@ Collision PlayState::checkCollision(SDL_Rect& rect, Collision::Target target)
 	for (auto it : gameObjects)
 	{
 		SDL_Rect other = it->getCollisionRect();
-		if (SDL_HasIntersection(&rect, &other))
-		{
-			collision = it->hit(rect, target);
-		}
+		collision = it->hit(rect, target);
+
+		if (collision.result != Collision::NONE) return collision;
 	}
 
 	return collision;
@@ -122,6 +121,7 @@ void PlayState::loadLevel(int levelIndex)
 	string level = std::to_string(levelIndex);
 
 	map = new Tilemap("world" + level + ".csv", this);
+	gameObjects.push_back(map);
 
 	string path = "../Assets/maps/world" + level + ".txt";
 
@@ -145,6 +145,9 @@ void PlayState::loadLevel(int levelIndex)
 
 		float x, y;
 		entrada >> x >> y;
+
+		x *= TILE_SIDE;
+		y *= TILE_SIDE;
 
 		switch (type)
 		{
@@ -231,7 +234,7 @@ void PlayState::addObject(SceneObject* obj)
 void PlayState::addVisibleObjects()
 {
 	// Borde derecho del mapa (más una casilla)
-	const int rightThreshold = _mapOffset + SDL_App::WINDOW_WIDTH + SDL_App::TILE_SIDE;
+	const int rightThreshold = (_mapOffset * SDL_App::TILE_SIDE) + SDL_App::WINDOW_WIDTH + SDL_App::TILE_SIDE;
 
 	while (nextObject < objectQueue.size() && objectQueue[nextObject]->getPosition().getX() < rightThreshold)
 	{

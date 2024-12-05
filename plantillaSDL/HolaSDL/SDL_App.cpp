@@ -82,6 +82,9 @@ SDL_App::SDL_App()
 			(textureRoot + textureSpec[i].name).c_str(),
 			textureSpec[i].numRows, textureSpec[i].numColumns);
 	}
+
+	PlayState* playState = new PlayState(this);
+	pushState(playState);
 }
 
 void SDL_App::run()

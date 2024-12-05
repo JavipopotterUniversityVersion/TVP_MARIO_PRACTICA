@@ -70,53 +70,31 @@ void Player::update()
 {
 	// Acelra la velocidad con la gravedad
 	if (velocity.getY() < SPEED_LIMIT)
-	{
-		velocity.setY(velocity.getY() + SDL_App::GRAVITY);
-	}
-	Vector2D<float> realSpeed = velocity;
-	realSpeed.setY(realSpeed.getY() + 1);
+		velocity += {0, SDL_App::GRAVITY};
 
-	Collision collision = tryToMove(realSpeed, Collision::ENEMIES);
-	if (collision.result == Collision::DAMAGE) velocity.setY(-JUMP_FORCE);
+	// Velocidad en este ciclo (no siempre avanza lateralmente)
+	Vector2D<float> realSpeed = velocity;
+
+	if (moveDelay-- == 0)
+		moveDelay = MOVE_PERIOD;
+	//else
+		//realSpeed.setX(0);
+
+	// Intenta moverse
+	Collision collision = tryToMove(realSpeed, Collision::PLAYER);
+
+	// Si toca un objeto en horizontal cambia de dirección
+	if (collision.horizontal)
+		velocity.setX(-velocity.getX());
 
 	// Si toca un objeto en vertical anula la velocidad (para que no se acumule la gravedad)
 	if (collision.vertical)
 	{
-		if(collision.vertical > position.getY() - 0.5f) position.setY(collision.vertical - 1);
-		else position.setY(collision.vertical + 1);
-
+		canJump = true;
 		velocity.setY(0);
-		if (canJump == false)
-		{
-			canJump = true;
-			if(velocity.getX() == 0) frameRange.Set(0,0);
-			else  frameRange.Set(2, 4);
-		}
 	}
 
-	if (moveDelay-- == 0)
-		moveDelay = MOVE_PERIOD;
-	else
-		realSpeed.setX(0);
-
-	realSpeed = velocity;
-
-	// Intenta moverse
-	collision = tryToMove(realSpeed, Collision::ENEMIES);
-
-	// Si toca un objeto en horizontal cambia de dirección
-	if (collision.horizontal)
-	{
-		velocity.setX(0);
-	}
-
-	if (position.getY() > SDL_App::WIN_HEIGHT / SDL_App::TILE_SIDE)
-	{
-		if (superMario) getDmg();
-		getDmg();
-	}
-
-	SceneObject::update();
+	// SceneObject::update(); // si hiciera falta
 }
 
 Collision Player::hit(const SDL_Rect& region, Collision::Target target)
@@ -144,7 +122,7 @@ void Player::getDmg()
 	else
 	{
 		vidas--;
-		playState->reset();
+		//playState->reset();
 	}
 }
 

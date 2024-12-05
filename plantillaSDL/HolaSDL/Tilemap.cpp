@@ -127,8 +127,8 @@ Collision Tilemap::hit(const SDL_Rect& region, Collision::Target target)
 				collision.result = collision.OBSTACLE;
 
 				Vector2D<float> pos(col, row);
-				obstacleRect.x = pos.getX();
-				obstacleRect.y = pos.getY();
+				obstacleRect.x = pos.getX() * SDL_App::TILE_SIDE;
+				obstacleRect.y = pos.getY() * SDL_App::TILE_SIDE;
 				obstacleRect.w = SDL_App::TILE_SIDE;
 				obstacleRect.h = SDL_App::TILE_SIDE;
 
@@ -137,6 +137,8 @@ Collision Tilemap::hit(const SDL_Rect& region, Collision::Target target)
 
 				collision.horizontal = intersection.w;
 				collision.vertical = intersection.h;
+
+				collision.result = Collision::OBSTACLE;
 
 				return collision;
 			}

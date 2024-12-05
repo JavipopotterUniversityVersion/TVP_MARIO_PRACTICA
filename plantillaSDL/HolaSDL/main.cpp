@@ -9,8 +9,6 @@ int main(int argc, char* argv[])
 {
 	try {
 		SDL_App* app = new SDL_App();
-		PlayState* playState = new PlayState(app);
-		app->pushState(playState);
 		app->run();
 	}
 	catch (const std::string& msg) {

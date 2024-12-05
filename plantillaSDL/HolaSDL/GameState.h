@@ -11,8 +11,8 @@ private:
 	SDL_App* app;
 	GameList<GameObject> objectsList;
 protected:
-	//list<EventHandler*>eventsList;
-public:
+	std::list<EventHandler*>eventsList;
+public:		
 	GameState(SDL_App* app) : app(app) {};
 
 	virtual void render() const = 0;

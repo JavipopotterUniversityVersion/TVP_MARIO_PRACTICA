@@ -11,7 +11,7 @@ class SDL_App : public GameStateMachine
 {
 public:
 	static const int TILE_SIDE = 32;
-	static constexpr float GRAVITY = 0.2f;
+	static constexpr float GRAVITY = 30.0f;
 	enum TextureName {
 		BACKGROUND,
 		MARIO,
