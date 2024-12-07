@@ -12,15 +12,16 @@ void Lift::update()
 
 Collision Lift::hit(const SDL_Rect& region, Collision::Target target)
 {
-
 	SDL_Rect intersection;
-	SDL_Rect thisRect = getCollisionRect();
-	SDL_IntersectRect(&region, &thisRect, &intersection);
+	SDL_Rect ownRect = getCollisionRect();
 
-	Collision collision{ Collision::OBSTACLE, intersection.w };
-	collision.vertical = position.getY();
+	if (SDL_IntersectRect(&ownRect, &region, &intersection))
+	{
+		Collision collision{ Collision::OBSTACLE, intersection.w, intersection.h };
+		return collision;
+	}
 
-	return collision;
+	return Collision{};
 }
 
 SceneObject* Lift::clone()
