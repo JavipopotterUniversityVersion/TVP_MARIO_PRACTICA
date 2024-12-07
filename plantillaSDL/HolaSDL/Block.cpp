@@ -16,7 +16,7 @@ Collision Block::hit(const SDL_Rect& region, Collision::Target target)
 	if (SDL_IntersectRect(&ownRect, &region, &intersection))
 	{
 		Collision collision{ Collision::OBSTACLE, intersection.w, intersection.h };
-		if (region.y > ownRect.y)
+		if (region.y >= ownRect.y)
 		{
 			switch (type)
 			{
@@ -27,7 +27,7 @@ Collision Block::hit(const SDL_Rect& region, Collision::Target target)
 				}
 				else
 				{
-					//game->addObject(new Coin(playState, position.getX(), position.getY() - 1));
+					game->addObject(new Coin(playState, position.getX(), position.getY() - SDL_App::TILE_SIDE));
 				}
 				frameRange.Set(4, 4);
 				type = VACIO;
@@ -37,7 +37,7 @@ Collision Block::hit(const SDL_Rect& region, Collision::Target target)
 				type = VACIO;
 				break;
 			case LADRILLO:
-				//if (game->isSuperMario()) delete this;
+				if (playState->isSuperMario()) delete this;
 				break;
 			default:
 				break;

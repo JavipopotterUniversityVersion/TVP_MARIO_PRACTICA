@@ -13,6 +13,7 @@ class Block : public SceneObject
 		BlockType type;
 		BlockAction action;
 		bool active = true;
+		static constexpr float MARGIN = 5.0f;
 
 	public:
 		Block(PlayState* game, int x, int y, BlockType type, BlockAction action);

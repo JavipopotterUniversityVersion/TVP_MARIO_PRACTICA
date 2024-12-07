@@ -59,7 +59,7 @@ void Player::handleEvent(SDL_Event& evento)
 				frameRange.Set(0, 0);
 				break;
 			case SDLK_UP:
-				jumpTimer = Player::JUMP_TIME;
+				velocity.setY(0);
 				break;
 			default:
 				break;
@@ -89,10 +89,7 @@ void Player::update()
 
 	// Intenta moverse
 	Collision collision = tryToMove(realSpeed, Collision::ENEMIES);
-
-	// Si toca un objeto en horizontal cambia de dirección
-	if (collision.horizontal)
-		velocity.setX(-velocity.getX());
+	if(collision.result == Collision::DAMAGE) velocity.setY(-JUMP_FORCE);
 
 	// Si toca un objeto en vertical anula la velocidad (para que no se acumule la gravedad)
 	if (collision.vertical)
@@ -108,7 +105,19 @@ void Player::update()
 		getDmg();
 	}
 
+	if (inmuneTimer > 0)
+	{
+		inmuneTimer -= 0.1f;
+		_visible = !_visible;
+		if (inmuneTimer <= 0) _visible = true;
+	}
+
 	SceneObject::update(); // si hiciera falta
+}
+
+void Player::render() const
+{
+	if (isVisible()) SceneObject::render();
 }
 
 Collision Player::hit(const SDL_Rect& region, Collision::Target target)
@@ -129,6 +138,9 @@ Collision Player::hit(const SDL_Rect& region, Collision::Target target)
 
 void Player::getDmg()
 {
+	if (inmuneTimer > 0) return;
+
+	inmuneTimer = INMUNE_TIME;
 	if (superMario)
 	{
 		superMario = false;

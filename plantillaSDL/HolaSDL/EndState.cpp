@@ -23,4 +23,20 @@ EndState::EndState(SDL_App* app) : UI_State(app, SDL_App::FONDO_NEGRO)
 
 	gameObjects.push_back(menu);
 	gameObjects.push_back(exit);
+
+	gameOverTexture = app->getTexture(SDL_App::GAME_OVER);
+}
+
+void EndState::render() const
+{
+	UI_State::render();
+
+	SDL_Rect rect{
+		SDL_App::WIN_WIDTH / 2,
+		SDL_App::WINDOW_HEIGHT / 3,
+		SDL_App::TILE_SIDE * 3,
+		SDL_App::TILE_SIDE
+	};
+
+	gameOverTexture->renderFrame(rect, 0, 0);
 }
