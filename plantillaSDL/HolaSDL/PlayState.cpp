@@ -56,7 +56,11 @@ void PlayState::update()
 	if ((player->getRenderRect().x) > (SDL_App::WIN_WIDTH / 2))
 	{
 		_mapOffset = player->getRenderRect().x + _mapOffset - (SDL_App::WIN_WIDTH / 2);
+
 		if (_mapOffset > maxOffset) _mapOffset = maxOffset;
+		else if (_mapOffset < _lastOffset) _mapOffset = _lastOffset;
+
+		_lastOffset = _mapOffset;
 	}
 }
 
@@ -93,18 +97,18 @@ Collision PlayState::checkCollision(SDL_Rect& rect, Collision::Target target)
 
 void PlayState::reset()
 {
-	for (auto it : gameObjects) delete it;
-	delete map;
+	for (auto it : gameObjects)
+	{
+		if(it != player && it != map) delete it;
+	}
 
-	objectQueue.clear();
+	player->reset();
 	nextObject = 0;
-
-	loadLevel(currentLevel);
 }
 
 void PlayState::loadLevel(int levelIndex)
 {
-	_mapOffset = 0;
+	_mapOffset = _lastOffset = 0;
 	string level = std::to_string(levelIndex);
 
 	map = new Tilemap("world" + level + ".csv", this);

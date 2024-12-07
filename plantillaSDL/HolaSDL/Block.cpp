@@ -12,35 +12,38 @@ Collision Block::hit(const SDL_Rect& region, Collision::Target target)
 	// Calcula la intersección
 	SDL_Rect intersection;
 	SDL_Rect ownRect = getCollisionRect();
-	bool hasIntersection = SDL_IntersectRect(&ownRect, &region, &intersection);
 
-	if (hasIntersection && region.y > ownRect.y)
+	if (SDL_IntersectRect(&ownRect, &region, &intersection))
 	{
 		Collision collision{ Collision::OBSTACLE, intersection.w, intersection.h };
-		switch (type)
+		if (region.y > ownRect.y)
 		{
-		case SORPRESA:
-			if (action == POTENCIADOR)
+			switch (type)
 			{
-				//game->addObject(new Mushroom(playState, position.getX(), position.getY() - 1));
+			case SORPRESA:
+				if (action == POTENCIADOR)
+				{
+					//game->addObject(new Mushroom(playState, position.getX(), position.getY() - 1));
+				}
+				else
+				{
+					//game->addObject(new Coin(playState, position.getX(), position.getY() - 1));
+				}
+				frameRange.Set(4, 4);
+				type = VACIO;
+				break;
+			case OCULTO:
+				frameRange.Set(4, 4);
+				type = VACIO;
+				break;
+			case LADRILLO:
+				//if (game->isSuperMario()) delete this;
+				break;
+			default:
+				break;
 			}
-			else
-			{
-				//game->addObject(new Coin(playState, position.getX(), position.getY() - 1));
-			}
-			frameRange.Set(4, 4);
-			type = VACIO;
-			break;
-		case OCULTO:
-			frameRange.Set(4, 4);
-			type = VACIO;
-			break;
-		case LADRILLO:
-			//if (game->isSuperMario()) delete this;
-			break;
-		default:
-			break;
 		}
+		return collision;
 	}
 
 	return Collision{};

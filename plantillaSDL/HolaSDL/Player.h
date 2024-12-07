@@ -20,6 +20,8 @@ class Player : public SceneObject
 		bool flipped = false;
 		bool superMario = false;
 
+		Vector2D<float> initialPos;
+
 		void SetFrameRange(int x, int y) { frameRange.Set(x, y); }
 
 	public:
@@ -32,8 +34,10 @@ class Player : public SceneObject
 		SDL_Rect getCollisionRect() const override;
 		Collision hit(const SDL_Rect& region, Collision::Target target) override;
 		SceneObject* clone() override;
+		bool deathAnimation();
 
 		void getDmg();
+		void reset() { position.Set(initialPos.getX(), initialPos.getY()); }
 
 		void goSuperMario();
 		bool isSuperMario() const { return superMario == true; }

@@ -3,10 +3,12 @@
 #include "Vector2D.h"
 #include "Collision.h"
 #include "PauseState.h"
+#include "AnimationState.h"
 
 Player::Player(PlayState* game, int x, int y, int vidas) : SceneObject(game, x, y), vidas(vidas)
 {
 	this->texture = game->getApp()->getTexture(SDL_App::MARIO);
+	initialPos.Set(x, y);
 }
 
 void Player::handleEvent(SDL_Event& evento)
@@ -85,7 +87,7 @@ void Player::update()
 		//realSpeed.setX(0);
 
 	// Intenta moverse
-	Collision collision = tryToMove(realSpeed, Collision::PLAYER);
+	Collision collision = tryToMove(realSpeed, Collision::ENEMIES);
 
 	// Si toca un objeto en horizontal cambia de dirección
 	if (collision.horizontal)
@@ -98,16 +100,23 @@ void Player::update()
 		velocity.setY(0);
 	}
 
+	if (position.getY() >= SDL_App::WIN_HEIGHT)
+	{
+		if (superMario) getDmg();
+		getDmg();
+	}
+
 	// SceneObject::update(); // si hiciera falta
 }
 
 Collision Player::hit(const SDL_Rect& region, Collision::Target target)
 {
 	Collision col;
+	SDL_Rect rect = getCollisionRect();
 
-	if (target == Collision::PLAYER)
+	if (SDL_HasIntersection(&region, &rect) && target == Collision::PLAYER)
 	{
-		if (region.y <= getCollisionRect().y)
+		if (region.y >= getCollisionRect().y)
 		{
 			getDmg();
 		}
@@ -126,7 +135,11 @@ void Player::getDmg()
 	else
 	{
 		vidas--;
-		//playState->reset();
+		velocity.Set(0, -JUMP_FORCE);
+		currentFrame = 1;
+		game->getApp()->pushState(new AnimationState(playState, [this]() {
+			return deathAnimation();
+			}));
 	}
 }
 
@@ -155,4 +168,11 @@ SDL_Rect Player::getCollisionRect() const
 		rect.y -= SDL_App::TILE_SIDE;
 	}
 	return rect;
+}
+
+bool Player::deathAnimation()
+{
+	position += velocity;
+	if (velocity.getY() < SPEED_LIMIT) velocity += {0, SDL_App::GRAVITY};
+	return position.getY() < SDL_App::WIN_HEIGHT;
 }

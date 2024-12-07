@@ -6,7 +6,7 @@
 Goomba::Goomba(PlayState* game, int x, int y, bool isKoopa) : Enemy(game, x, y), isKoopa(isKoopa)
 {
 	texture = isKoopa ? game->getApp()->getTexture(SDL_App::KOOPA) : game->getApp()->getTexture(SDL_App::GOOMBA);
-	velocity.setX(-0.1); 
+	velocity.setX(-SPEED); 
 }
 
 SceneObject* Goomba::clone()

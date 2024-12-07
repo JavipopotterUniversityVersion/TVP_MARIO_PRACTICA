@@ -7,7 +7,7 @@
 class Goomba : public Enemy
 {
 	private:
-		static constexpr float SPEED = 0.05f;
+		static constexpr float SPEED = 1.6f;
 		bool active = true;
 		int currentFrame = 0;
 		Vector2D<int> frameRange;

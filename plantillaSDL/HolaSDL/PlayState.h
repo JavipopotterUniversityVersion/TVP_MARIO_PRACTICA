@@ -30,16 +30,17 @@ class PlayState : public GameState
 	int currentLevel = 1;
 
 	int _mapOffset;
+	int _lastOffset;
 
 	void addVisibleObjects();
 	void loadLevel(int levelIndex);
 
 public:
+	void reset();
 	PlayState(SDL_App* app, int level);
 	~PlayState();
 	static const int TILE_SIDE = 32;
 
-	void reset();
 	void update() override;
 	void handleEvent(const SDL_Event& event) override;
 

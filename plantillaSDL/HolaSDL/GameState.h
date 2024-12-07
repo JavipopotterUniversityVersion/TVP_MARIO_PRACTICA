@@ -17,7 +17,7 @@ public:
 
 	virtual void render() const;
 	virtual void update();
-	virtual void handleEvent(const SDL_Event&) = 0;
+	virtual void handleEvent(const SDL_Event&) {}
 
 	void addEventListener(EventHandler* handler);
 	void addObject(GameObject* obj);

@@ -33,13 +33,6 @@ SDL_Rect SceneObject::getCollisionRect() const
 
 void SceneObject::render() const
 {
-	/*currentFrame++;
-
-	if (currentFrame > frameRange.getY() || currentFrame < frameRange.getX())
-	{
-		currentFrame = frameRange.getX();
-	}*/
-
 	SDL_Rect rect = getRenderRect();
 	texture->renderFrame(rect, 0, currentFrame);
 }
@@ -88,4 +81,5 @@ Collision SceneObject::tryToMove(const Vector2D<float>&speed, Collision::Target 
 void SceneObject::update()
 {
 	position.Set(position.getX() + velocity.getX(), position.getY() + velocity.getY());
+	sumToCurrentFrame();
 }

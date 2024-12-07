@@ -99,24 +99,7 @@ Collision Tilemap::hit(const SDL_Rect& region, Collision::Target target)
 	{
 		for (int col = col0; col <= col1; ++col) {
 
-			if (row >= map.size())
-			{
-				row = map.size() - 1;
-				return collision;
-			}
-			if (row < 0) {
-				row = 0;
-				return collision;
-			}
-			if (col >= map[0].size())
-			{
-				col = map[0].size() - 1;
-				return collision;
-			}
-			if (col < 0) {
-				col = 0;
-				return collision;
-			}
+			if (row >= map.size() || row < 0 || col >= map[row].size() || col < 0) return collision;
 
 			int indice = map[row][col];
 

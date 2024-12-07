@@ -24,6 +24,13 @@ class SceneObject : public GameObject
 		Vector2D<int> frameRange;
 		int currentFrame = 0;
 
+		void sumToCurrentFrame()
+		{
+			currentFrame++;
+			if (currentFrame > frameRange.getY() || currentFrame < frameRange.getX()) currentFrame = frameRange.getX();
+		}
+		int getCurrentFram() { return currentFrame; }
+
 		float moveDelay = 0.5f;
 		bool active = true;
 	public:

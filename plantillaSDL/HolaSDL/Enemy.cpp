@@ -13,8 +13,8 @@ void Enemy::update()
 
 	if (moveDelay-- == 0)
 		moveDelay = MOVE_PERIOD;
-	else
-		realSpeed.setX(0);
+	//else
+	//	realSpeed.setX(0);
 
 	// Intenta moverse
 	Collision collision = tryToMove(realSpeed, Collision::PLAYER);
@@ -32,8 +32,10 @@ void Enemy::update()
 
 Collision Enemy::hit(const SDL_Rect& region, Collision::Target target)
 {
+	SDL_Rect rect = getCollisionRect();
 	Collision collision;
-	if (target == Collision::ENEMIES)
+
+	if (SDL_HasIntersection(&region, &rect) && target == Collision::ENEMIES)
 	{
 		if (region.y < getCollisionRect().y)
 		{
@@ -41,5 +43,6 @@ Collision Enemy::hit(const SDL_Rect& region, Collision::Target target)
 			collision.result = Collision::DAMAGE;
 		}
 	}
+
 	return collision;
 }
