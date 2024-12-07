@@ -6,7 +6,7 @@ class SDL_App;
 
 class Mushroom : public Pickable
 {
-	static float constexpr SPEED = 0.2f;
+	static float constexpr SPEED = 2.0f;
 	public:
 		Mushroom(PlayState* game, int x, int y);
 		SceneObject* clone() override;

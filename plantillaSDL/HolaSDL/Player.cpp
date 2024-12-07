@@ -99,6 +99,7 @@ void Player::update()
 	{
 		canJump = true;
 		velocity.setY(0);
+		velocity.getX() != 0 ? frameRange.Set(2, 4) : frameRange.Set(0, 0);
 	}
 
 	if (position.getY() >= SDL_App::WIN_HEIGHT)
