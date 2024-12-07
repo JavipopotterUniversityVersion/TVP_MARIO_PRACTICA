@@ -4,6 +4,7 @@
 Collision Pickable::hit(const SDL_Rect& region, Collision::Target target)
 {
 	// Comprueba si hay colisión
+	Collision col;
 	SDL_Rect ownRect = getCollisionRect();
 
 	if (target == Collision::ENEMIES && SDL_HasIntersection(&ownRect, &region)) {
@@ -11,5 +12,5 @@ Collision Pickable::hit(const SDL_Rect& region, Collision::Target target)
 		delete this;
 	}
 
-	return NO_COLLISION; // constante Collision{}
+	return col; // constante Collision{}
 }

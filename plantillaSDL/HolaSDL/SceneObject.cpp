@@ -80,6 +80,6 @@ Collision SceneObject::tryToMove(const Vector2D<float>&speed, Collision::Target 
 
 void SceneObject::update()
 {
-	position.Set(position.getX() + velocity.getX(), position.getY() + velocity.getY());
+	//position.Set(position.getX() + velocity.getX(), position.getY() + velocity.getY());
 	sumToCurrentFrame();
 }

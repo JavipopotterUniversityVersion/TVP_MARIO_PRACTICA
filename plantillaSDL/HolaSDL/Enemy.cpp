@@ -27,7 +27,7 @@ void Enemy::update()
 	if (collision.vertical)
 		velocity.setY(0);
 
-	// SceneObject::update(); // si hiciera falta
+	SceneObject::update(); // si hiciera falta
 }
 
 Collision Enemy::hit(const SDL_Rect& region, Collision::Target target)

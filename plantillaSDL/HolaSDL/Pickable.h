@@ -5,7 +5,6 @@
 class Pickable : public SceneObject
 {
 	private:
-		const Collision NO_COLLISION = {};
 		Collision::Target target;
 
 	protected:

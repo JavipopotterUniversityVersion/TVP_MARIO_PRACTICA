@@ -107,7 +107,7 @@ void Player::update()
 		getDmg();
 	}
 
-	// SceneObject::update(); // si hiciera falta
+	SceneObject::update(); // si hiciera falta
 }
 
 Collision Player::hit(const SDL_Rect& region, Collision::Target target)

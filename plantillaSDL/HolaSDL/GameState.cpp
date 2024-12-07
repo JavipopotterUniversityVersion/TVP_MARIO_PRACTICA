@@ -8,6 +8,7 @@ void GameState::addEventListener(EventHandler* handler)
 
 void GameState::addObject(GameObject* obj)
 {
+	gameObjects.push_back(obj);
 }
 
 void GameState::render() const
