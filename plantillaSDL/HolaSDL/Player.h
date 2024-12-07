@@ -3,13 +3,14 @@
 #include "Vector2D.h"
 #include "Texture.h"
 #include "Collision.h"
+#include "Weapon.h"
 class PlayState;
 
 class Player : public SceneObject
 {
 	private:
 		static constexpr float JUMP_TIME = 0.5f;
-		static constexpr float SPEED = 10.0f;
+		static constexpr float SPEED = 15.0f;
 		static constexpr float JUMP_FORCE = 120.0f;
 		static constexpr float INMUNE_TIME = 1.5f;
 
@@ -26,6 +27,7 @@ class Player : public SceneObject
 		Vector2D<float> initialPos;
 
 		void SetFrameRange(int x, int y) { frameRange.Set(x, y); }
+		Weapon* _currentWeapon;
 
 	public:
 		Player(PlayState* game, int x, int y, int vidas);
@@ -40,8 +42,15 @@ class Player : public SceneObject
 		SceneObject* clone() override;
 		bool deathAnimation();
 
+		void setWeapon(Weapon* weapon)
+		{
+			if (_currentWeapon != nullptr) delete _currentWeapon;
+			_currentWeapon = weapon;
+			_currentWeapon->setFather(this);
+		}
+
 		void getDmg();
-		void reset() { position.Set(initialPos.getX(), initialPos.getY()); }
+		void reset() { position.Set(initialPos.getX(), initialPos.getY()); _currentWeapon = nullptr; }
 
 		void goSuperMario();
 		bool isSuperMario() const { return superMario == true; }

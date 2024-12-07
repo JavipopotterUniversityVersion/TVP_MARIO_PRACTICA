@@ -12,6 +12,7 @@ struct Collision
 		PLAYER = 2,	// afecta al jugador
 		BOTH = 3,	// afecta a ambos
 		NO = 4,
+		Bullet = 5
 	};
 
 	// Tipo de resultado de la colisión

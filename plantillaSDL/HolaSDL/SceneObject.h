@@ -19,6 +19,9 @@ class SceneObject : public GameObject
 
 		int _width = 32;
 		int _height = 32;
+		SDL_RendererFlip flip = SDL_FLIP_NONE;
+
+		int _rotation = 0;
 
 		Texture* texture;
 		Vector2D<int> frameRange;
@@ -44,8 +47,12 @@ class SceneObject : public GameObject
 
 		virtual SceneObject* clone() = 0;
 		Vector2D<float> getPosition() { return position; }
+		void setRotation(int rot) { _rotation = rot; }
 
 		void update() override;
 		void render() const override;
+		void setVelocity(Vector2D<float> vel) { velocity = vel; }
+
+		void setFlip(SDL_RendererFlip newFlip) { flip = newFlip; }
 };
 

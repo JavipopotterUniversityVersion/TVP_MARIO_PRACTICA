@@ -34,6 +34,8 @@ public:
 		VOLVER_AL_MENU,
 		PORTADA,
 		FONDO_NEGRO,
+		SHOTGUN,
+		BULLET,
 		NUM_TEXTURES,
 	};
 

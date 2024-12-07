@@ -5,6 +5,7 @@
 #include "PauseState.h"
 #include "AnimationState.h"
 #include "EndState.h"
+#include "Shotgun.h"
 
 Player::Player(PlayState* game, int x, int y, int vidas) : SceneObject(game, x, y), vidas(vidas)
 {
@@ -21,18 +22,21 @@ void Player::handleEvent(SDL_Event& evento)
 			case SDL_KEYDOWN:
 				switch (evento.key.keysym.sym)
 				{
+				case SDLK_SPACE:
+					if(_currentWeapon != nullptr) _currentWeapon->Use();
+					break;
 				case SDLK_ESCAPE:
 					game->getApp()->pushState(new PauseState(game->getApp()));
 					break;
-				case SDLK_LEFT:
+				case SDLK_a:
 					velocity.setX(-SPEED);
 					frameRange.Set(2, 4);
 					break;
-				case SDLK_RIGHT:
+				case SDLK_d:
 					velocity.setX(SPEED);
 					frameRange.Set(2, 4);
 					break;
-				case SDLK_UP:
+				case SDLK_w:
 					if (canJump)
 					{
 						canJump = false;
@@ -50,15 +54,15 @@ void Player::handleEvent(SDL_Event& evento)
 		{
 			switch (evento.key.keysym.sym)
 			{
-			case SDLK_LEFT:
+			case SDLK_a:
 				velocity.setX(0);
 				frameRange.Set(0, 0);
 				break;
-			case SDLK_RIGHT:
+			case SDLK_d:
 				velocity.setX(0);
 				frameRange.Set(0, 0);
 				break;
-			case SDLK_UP:
+			case SDLK_w:
 				velocity.setY(0);
 				break;
 			default:
@@ -112,12 +116,35 @@ void Player::update()
 		if (inmuneTimer <= 0) _visible = true;
 	}
 
+	if (_currentWeapon != nullptr)
+	{
+		int x;
+		int y;
+
+		SDL_GetMouseState(&x, &y);
+		Vector2D<float> direction{ Vector2D<float>(x, y) - Vector2D<float>(position.getX() - playState->getMapOffset(), position.getY())};
+
+		double rot = direction.getY() / direction.getX();
+		rot = atan(rot);
+
+		rot *= 180;
+		rot /= M_PI;
+
+		if (direction.getX() < 0) _currentWeapon->setFlip(SDL_FLIP_HORIZONTAL);
+		else _currentWeapon->setFlip(SDL_FLIP_NONE);
+
+		_currentWeapon->setRotation(rot);
+	}
+
 	SceneObject::update(); // si hiciera falta
 }
 
 void Player::render() const
 {
-	if (isVisible()) SceneObject::render();
+	if (isVisible())
+	{
+		SceneObject::render();
+	}
 }
 
 Collision Player::hit(const SDL_Rect& region, Collision::Target target)

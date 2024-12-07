@@ -35,13 +35,14 @@ Collision Enemy::hit(const SDL_Rect& region, Collision::Target target)
 	SDL_Rect rect = getCollisionRect();
 	Collision collision;
 
-	if (SDL_HasIntersection(&region, &rect) && target == Collision::ENEMIES)
+	if (SDL_HasIntersection(&region, &rect))
 	{
-		if (region.y < getCollisionRect().y)
+		if (target == Collision::ENEMIES && region.y < getCollisionRect().y)
 		{
 			delete this;
 			collision.result = Collision::DAMAGE;
 		}
+		else if(target == Collision::Bullet) delete this;
 	}
 
 	return collision;

@@ -34,7 +34,7 @@ SDL_Rect SceneObject::getCollisionRect() const
 void SceneObject::render() const
 {
 	SDL_Rect rect = getRenderRect();
-	texture->renderFrame(rect, 0, currentFrame);
+	texture->renderFrame(rect, 0, currentFrame, flip, _rotation);
 }
 
 Collision SceneObject::tryToMove(const Vector2D<float>&speed, Collision::Target target)

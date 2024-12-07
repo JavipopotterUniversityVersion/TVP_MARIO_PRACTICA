@@ -12,6 +12,7 @@ class GameObject
 
 	public:
 		GameObject(GameState* game) : game(game) {};
+		~GameObject() {};
 		virtual void render() const = 0;
 		virtual void update() = 0;
 

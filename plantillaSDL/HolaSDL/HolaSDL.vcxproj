@@ -71,6 +71,7 @@
   <ItemGroup>
     <ClCompile Include="AnimationState.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -95,14 +96,18 @@
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="SDLError.cpp" />
+    <ClCompile Include="Shotgun.cpp" />
+    <ClCompile Include="WeaponPickable.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="UI_State.cpp" />
     <ClCompile Include="Vector2D.cpp" />
+    <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationState.h" />
     <ClInclude Include="Block.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Coin.h" />
@@ -128,10 +133,13 @@
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="SDLError.h" />
+    <ClInclude Include="Shotgun.h" />
+    <ClInclude Include="WeaponPickable.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Tilemap.h" />
     <ClInclude Include="UI_State.h" />
     <ClInclude Include="Vector2D.h" />
+    <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

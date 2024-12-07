@@ -15,10 +15,17 @@
 #include "FileNotFoundError.h"
 #include "FileFormatError.h"
 #include "PauseState.h"
+#include "Shotgun.h"
 
 #include <iostream>
 #include <fstream>
 using namespace std;
+
+void PlayState::equipPlayer(Weapon* weapon)
+{
+	gameObjects.push_back(weapon);
+	player->setWeapon(weapon);
+}
 
 PlayState::PlayState(SDL_App* app, int level) : GameState(app)
 {

@@ -80,10 +80,10 @@ Texture::renderFrame(const SDL_Rect& rect, int row, int col) const
 }
 
 void
-Texture::renderFrame(const SDL_Rect& rect, int row, int col, SDL_RendererFlip flip) const
+Texture::renderFrame(const SDL_Rect& rect, int row, int col, SDL_RendererFlip flip, double angle = 0) const
 {
 	SDL_Rect origin{col * frameWidth, row * frameHeight, frameWidth, frameHeight};
-	SDL_RenderCopyEx(renderer, texture, &origin, &rect, 0, nullptr, flip);
+	SDL_RenderCopyEx(renderer, texture, &origin, &rect, angle, nullptr, flip);
 }
 
 void

@@ -122,6 +122,7 @@ Collision Tilemap::hit(const SDL_Rect& region, Collision::Target target)
 				collision.vertical = intersection.h;
 
 				collision.result = Collision::OBSTACLE;
+				if (target == Collision::Bullet)  map[row][col] = -1;
 
 				return collision;
 			}

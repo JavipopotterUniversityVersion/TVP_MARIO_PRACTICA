@@ -10,6 +10,7 @@
 #include "Tilemap.h"
 #include "GameStateMachine.h"
 #include "SDL_App.h"
+#include "Weapon.h"
 
 using uint = unsigned int;
 
@@ -67,6 +68,7 @@ public:
 	bool isSuperMario();
 
 	void endgame() { seguir = false; }
+	void equipPlayer(Weapon* weapon);
 
 	int getMapOffset() { return _mapOffset; }
 };
