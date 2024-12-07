@@ -97,6 +97,7 @@
     <ClCompile Include="SDLError.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tilemap.cpp" />
+    <ClCompile Include="UI_State.cpp" />
     <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +130,7 @@
     <ClInclude Include="SDLError.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Tilemap.h" />
+    <ClInclude Include="UI_State.h" />
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

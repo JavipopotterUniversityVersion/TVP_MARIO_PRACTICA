@@ -11,6 +11,9 @@
 #include "FileNotFoundError.h"
 #include "FileFormatError.h"
 #include "PlayState.h"
+#include "PauseState.h"
+#include "MainMenuState.h"
+#include "EndState.h"
 
 #include <iostream>
 #include <fstream>
@@ -26,6 +29,16 @@ struct TextureSpec
 // Directorio raíz de los archivos de textura
 const string textureRoot = "../Assets/images/";
 
+//CONTINUAR,
+//GAME_OVER,
+//HAS_GANADO,
+//NIVEL1,
+//NIVEL2,
+//NOMBRE_MARIO,
+//NUMBERS,
+//SALIR,
+//VOLVER_AL_MENU,
+
 // Especificación de las texturas del juego
 const array<TextureSpec, SDL_App::NUM_TEXTURES> textureSpec{
 	TextureSpec{"background.png", 9, 7},
@@ -36,7 +49,17 @@ const array<TextureSpec, SDL_App::NUM_TEXTURES> textureSpec{
 	TextureSpec{"koopa.png", 4, 1},
 	TextureSpec{"mushroom.png", 1, 1},
 	TextureSpec{"lift.png", 1, 1},
-	TextureSpec{"coin.png", 4, 1}
+	TextureSpec{"coin.png", 4, 1},
+	TextureSpec{"continuar.png", 1, 1},
+	TextureSpec{"gameOver.png", 1, 1},
+	TextureSpec{"hasGanado.png", 1, 1},
+	TextureSpec{"nivel1.png", 1, 1},
+	TextureSpec{"nivel2.png", 1, 1},
+	TextureSpec{"nombreMario.png", 1, 1},
+	TextureSpec{"numbers.png", 10, 1},
+	TextureSpec{"salir.png", 1, 1},
+	TextureSpec{"volverAlMenú.png", 1, 1},
+	TextureSpec{"portada.png", 1, 1}
 };
 
 SDL_App::~SDL_App()
@@ -83,13 +106,14 @@ SDL_App::SDL_App()
 			textureSpec[i].numRows, textureSpec[i].numColumns);
 	}
 
-	PlayState* playState = new PlayState(this);
-	pushState(playState);
+
+	MainMenuState* mainMenu = new MainMenuState(this);
+	pushState(mainMenu);
 }
 
 void SDL_App::run()
 {
-	while (true) {
+	while (seguir) {
 
 		// Marca de tiempo del inicio de la iteraciÃ³n
 		uint32_t inicio = SDL_GetTicks();
@@ -106,4 +130,11 @@ void SDL_App::run()
 		if (elapsed < FRAME_RATE)
 			SDL_Delay(FRAME_RATE - elapsed);
 	}
+}
+
+void SDL_App::render() const
+{
+	SDL_RenderClear(renderer);
+	GameStateMachine::render();
+	SDL_RenderPresent(renderer);
 }

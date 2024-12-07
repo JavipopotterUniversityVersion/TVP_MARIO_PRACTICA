@@ -9,6 +9,7 @@ using uint = unsigned int;
 
 class SDL_App : public GameStateMachine
 {
+	bool seguir = true;
 public:
 	static const int TILE_SIDE = 32;
 	static constexpr float GRAVITY = 30.0f;
@@ -22,6 +23,16 @@ public:
 		MUSHROOM,
 		LIFT,
 		COIN,
+		CONTINUAR,
+		GAME_OVER,
+		HAS_GANADO,
+		NIVEL1,
+		NIVEL2,
+		NOMBRE_MARIO,
+		NUMBERS,
+		SALIR,
+		VOLVER_AL_MENU,
+		PORTADA,
 		NUM_TEXTURES,
 	};
 
@@ -40,11 +51,13 @@ public:
 	static constexpr uint FRAME_RATE = 50;
 
 	void run();
+	void render() const override;
 
 	SDL_App();
 	~SDL_App();
 
 	SDL_Renderer* getRenderer() { return renderer; }
+	void exit() { seguir = false; }
 };
 
 inline Texture*

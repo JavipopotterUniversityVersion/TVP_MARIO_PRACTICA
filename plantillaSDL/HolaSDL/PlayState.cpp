@@ -14,15 +14,16 @@
 #include "SDLError.h"
 #include "FileNotFoundError.h"
 #include "FileFormatError.h"
+#include "PauseState.h"
 
 #include <iostream>
 #include <fstream>
 using namespace std;
 
-PlayState::PlayState(SDL_App* app) : GameState(app)
+PlayState::PlayState(SDL_App* app, int level) : GameState(app)
 {
 	this->app = app;
-	loadLevel(1);
+	loadLevel(level);
 }
 
 PlayState::~PlayState()
@@ -45,27 +46,11 @@ Vector2D<float> PlayState::WorldToScreen(Vector2D<float> position) const
 	return Vector2D<float>((position.getX() * TILE_SIDE) - _mapOffset, position.getY() * TILE_SIDE);
 }
 
-void PlayState::render() const
-{
-	SDL_RenderClear(app->getRenderer());
-	map->render();
-
-	for (auto it : gameObjects)
-	{
-		it->render();
-	}
-
-	SDL_RenderPresent(app->getRenderer());
-}
-
 void PlayState::update()
 {
 	addVisibleObjects();
 
-	for (auto it : gameObjects)
-	{
-		it->update();
-	}
+	GameState::update();
 
 	int maxOffset = map->GetMapWidth() * TILE_SIDE - WIN_WIDTH * 1.5f;
 	if ((player->getRenderRect().x) > (SDL_App::WIN_WIDTH / 2))
@@ -95,8 +80,10 @@ Collision PlayState::checkCollision(SDL_Rect& rect, Collision::Target target)
 
 	for (auto it : gameObjects)
 	{
-		SDL_Rect other = it->getCollisionRect();
-		collision = it->hit(rect, target);
+		SceneObject* object = static_cast<SceneObject*>(it);
+
+		SDL_Rect other = object->getCollisionRect();
+		collision = object->hit(rect, target);
 
 		if (collision.result != Collision::NONE) return collision;
 	}

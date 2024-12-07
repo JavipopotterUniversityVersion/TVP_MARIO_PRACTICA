@@ -18,7 +18,6 @@ class PlayState : public GameState
 	bool seguir;
 	bool exit = false;
 	Player* player;
-	GameList<SceneObject> gameObjects;
 	Tilemap* map;
 
 	SDL_App* app;
@@ -36,13 +35,12 @@ class PlayState : public GameState
 	void loadLevel(int levelIndex);
 
 public:
-	PlayState(SDL_App* app);
+	PlayState(SDL_App* app, int level);
 	~PlayState();
 	static const int TILE_SIDE = 32;
 
 	void reset();
 	void update() override;
-	void render() const override;
 	void handleEvent(const SDL_Event& event) override;
 
 	void givePoints(int points) {};

@@ -147,6 +147,9 @@
     <ClCompile Include="Button.cpp">
       <Filter>Archivos de código fuente\GameManagement</Filter>
     </ClCompile>
+    <ClCompile Include="UI_State.cpp">
+      <Filter>Archivos de código fuente\GameManagement\GameStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -238,6 +241,9 @@
     </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>Archivos de encabezado\GameManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_State.h">
+      <Filter>Archivos de encabezado\GameManagement\GameStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

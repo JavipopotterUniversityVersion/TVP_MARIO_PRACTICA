@@ -2,6 +2,7 @@
 #include "PlayState.h"
 #include "Vector2D.h"
 #include "Collision.h"
+#include "PauseState.h"
 
 Player::Player(PlayState* game, int x, int y, int vidas) : SceneObject(game, x, y), vidas(vidas)
 {
@@ -17,6 +18,9 @@ void Player::handleEvent(SDL_Event& evento)
 			case SDL_KEYDOWN:
 				switch (evento.key.keysym.sym)
 				{
+				case SDLK_ESCAPE:
+					game->getApp()->pushState(new PauseState(game->getApp()));
+					break;
 				case SDLK_LEFT:
 					velocity.setX(-SPEED);
 					frameRange.Set(2, 4);

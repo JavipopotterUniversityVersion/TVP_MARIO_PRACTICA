@@ -2,7 +2,6 @@
 #include "GameObject.h"
 #include "Vector2D.h"
 #include <SDL.h>
-#include "gameList.h"
 #include <iostream>
 #include "Collision.h"
 #include "Texture.h"
@@ -11,10 +10,8 @@ class PlayState;
 class SceneObject : public GameObject
 {
 	protected:
-		Vector2D<float> position;
 		Vector2D<float> size;
 		Vector2D<float> velocity;
-		GameList<SceneObject>::anchor anchor;
 		PlayState* playState;
 
 		const float SPEED_LIMIT = 1.5f;
@@ -33,11 +30,6 @@ class SceneObject : public GameObject
 		virtual Collision hit(const SDL_Rect& region, Collision::Target target) = 0;
 		SceneObject(PlayState* app, int x, int y);
 		SceneObject(const SceneObject* obj) : SceneObject(obj->playState, obj->position.getX(), obj->position.getY()) {};
-
-		void setListAnchor(GameList<SceneObject>::anchor&& anchor)
-		{
-			this->anchor = std::move(anchor);
-		}
 
 		Collision tryToMove(const Vector2D<float>& speed, Collision::Target target);
 		virtual SDL_Rect getRenderRect() const;
