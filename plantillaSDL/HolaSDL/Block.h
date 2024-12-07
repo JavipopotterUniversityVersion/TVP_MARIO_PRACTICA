@@ -5,7 +5,7 @@
 #include "SDL_App.h"
 
 enum BlockType { SORPRESA = 0, OCULTO, VACIO = 4, LADRILLO = 5};
-enum BlockAction { POTENCIADOR, MONEDA };
+enum BlockAction { POTENCIADOR, MONEDA, ESCOPETA };
 
 class Block : public SceneObject
 {

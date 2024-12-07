@@ -20,5 +20,5 @@ void Shotgun::Use()
 		game->addObject(new Bullet(playState, spawnPoint.getX(), spawnPoint.getY(), up(offsets[i])));
 	}
 
-	father->setVelocity(up() * -60);
+	father->addVelocity(up() * -60);
 }

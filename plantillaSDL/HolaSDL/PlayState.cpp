@@ -203,6 +203,7 @@ void PlayState::loadLevel(int levelIndex)
 				blockType = SORPRESA;
 
 				if (action == 'C') blockAction = MONEDA;
+				else if (action == 'E') blockAction = ESCOPETA;
 				break;
 			}
 

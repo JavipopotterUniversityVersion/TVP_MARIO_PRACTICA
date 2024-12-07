@@ -51,7 +51,7 @@ class SceneObject : public GameObject
 
 		void update() override;
 		void render() const override;
-		void setVelocity(Vector2D<float> vel) { velocity = vel; }
+		void addVelocity(Vector2D<float> vel) { velocity += vel; }
 
 		void setFlip(SDL_RendererFlip newFlip) { flip = newFlip; }
 };

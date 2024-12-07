@@ -25,7 +25,10 @@ Collision Block::hit(const SDL_Rect& region, Collision::Target target)
 			case SORPRESA:
 				if (action == POTENCIADOR)
 				{
-					//game->addObject(new Mushroom(playState, position.getX(), position.getY() - SDL_App::TILE_SIDE));
+					game->addObject(new Mushroom(playState, position.getX(), position.getY() - SDL_App::TILE_SIDE));
+				}
+				else if (action == ESCOPETA)
+				{
 					game->addObject(new WeaponPickable(playState, position.getX(), position.getY() - SDL_App::TILE_SIDE, new Shotgun(playState)));
 				}
 				else
