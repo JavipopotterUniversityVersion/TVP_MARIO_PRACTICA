@@ -59,7 +59,8 @@ const array<TextureSpec, SDL_App::NUM_TEXTURES> textureSpec{
 	TextureSpec{"numbers.png", 10, 1},
 	TextureSpec{"salir.png", 1, 1},
 	TextureSpec{"volverAlMenú.png", 1, 1},
-	TextureSpec{"portada.png", 1, 1}
+	TextureSpec{"portada.png", 1, 1},
+	TextureSpec{"FondoNegro.png", 1, 1}
 };
 
 SDL_App::~SDL_App()

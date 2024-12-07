@@ -102,6 +102,7 @@ void PlayState::reset()
 		if(it != player && it != map) delete it;
 	}
 
+	_mapOffset = _lastOffset = 0;
 	player->reset();
 	nextObject = 0;
 }

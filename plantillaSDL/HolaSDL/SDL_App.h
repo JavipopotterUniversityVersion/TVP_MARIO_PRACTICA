@@ -33,6 +33,7 @@ public:
 		SALIR,
 		VOLVER_AL_MENU,
 		PORTADA,
+		FONDO_NEGRO,
 		NUM_TEXTURES,
 	};
 

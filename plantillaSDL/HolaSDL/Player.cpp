@@ -4,6 +4,7 @@
 #include "Collision.h"
 #include "PauseState.h"
 #include "AnimationState.h"
+#include "EndState.h"
 
 Player::Player(PlayState* game, int x, int y, int vidas) : SceneObject(game, x, y), vidas(vidas)
 {
@@ -137,9 +138,17 @@ void Player::getDmg()
 		vidas--;
 		velocity.Set(0, -JUMP_FORCE);
 		currentFrame = 1;
-		game->getApp()->pushState(new AnimationState(playState, [this]() {
-			return deathAnimation();
-			}));
+
+		if (vidas <= 0)
+		{
+			game->getApp()->replaceState(new EndState(game->getApp()));
+		}
+		else
+		{
+			game->getApp()->pushState(new AnimationState(playState, [this]() {
+				return deathAnimation();
+				}));
+		}
 	}
 }
 

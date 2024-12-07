@@ -1,6 +1,8 @@
 #pragma once
-#include "GameState.h"
-class EndState : public GameState
+#include "UI_State.h"
+class EndState : public UI_State
 {
+public:
+	EndState(SDL_App* app);
 };
 

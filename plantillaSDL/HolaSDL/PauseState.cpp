@@ -2,7 +2,7 @@
 #include "Button.h"
 #include "MainMenuState.h"
 
-PauseState::PauseState(SDL_App* app) : UI_State(app, SDL_App::BACKGROUND)
+PauseState::PauseState(SDL_App* app) : UI_State(app, SDL_App::FONDO_NEGRO)
 {
 	Button* continuar = new Button(this, SDL_App::WIN_WIDTH / 2, SDL_App::WIN_HEIGHT / 2 - 50, SDL_App::CONTINUAR);
 	Button* mainMenu = new Button(this, SDL_App::WIN_WIDTH / 2, SDL_App::WIN_HEIGHT / 2 - 150, SDL_App::VOLVER_AL_MENU);

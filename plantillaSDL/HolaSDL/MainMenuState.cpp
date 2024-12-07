@@ -34,6 +34,4 @@ MainMenuState::MainMenuState(SDL_App* app) : UI_State(app, SDL_App::PORTADA)
 	gameObjects.push_back(level1);
 	gameObjects.push_back(level2);
 	gameObjects.push_back(exit);
-
-	pointerPosition.Set(0, 0);
 }
