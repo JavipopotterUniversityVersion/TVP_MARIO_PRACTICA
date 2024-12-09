@@ -69,6 +69,8 @@ void PlayState::update()
 
 		_lastOffset = _mapOffset;
 	}
+
+	if (loadNext) nextLevel();
 }
 
 void
@@ -215,15 +217,22 @@ void PlayState::loadLevel(int levelIndex)
 
 void PlayState::nextLevel()
 {
-	for (auto it : gameObjects) delete it;
-	delete map;
+	for (auto it : gameObjects)
+	{
+		delete it;
+	}
+
+	for (auto it : objectQueue)
+	{
+		delete it;
+	}
 
 	objectQueue.clear();
 	nextObject = 0;
 
-	currentLevel++;
+	//currentLevel++;
 
-	loadLevel(currentLevel);
+	loadLevel(2);
 }
 
 void PlayState::addObject(SceneObject* obj)

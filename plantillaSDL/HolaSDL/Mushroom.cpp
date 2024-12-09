@@ -36,7 +36,7 @@ void Mushroom::update()
 	//	realSpeed.setX(0);
 
 	// Intenta moverse
-	Collision collision = tryToMove(realSpeed, Collision::PLAYER);
+	Collision collision = tryToMove(realSpeed, Collision::NO);
 
 	// Si toca un objeto en horizontal cambia de dirección
 	if (collision.horizontal)

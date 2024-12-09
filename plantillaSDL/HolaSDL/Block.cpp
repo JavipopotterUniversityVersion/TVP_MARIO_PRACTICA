@@ -18,7 +18,8 @@ Collision Block::hit(const SDL_Rect& region, Collision::Target target)
 	if (SDL_IntersectRect(&ownRect, &region, &intersection))
 	{
 		Collision collision{ Collision::OBSTACLE, intersection.w, intersection.h };
-		if (region.y >= ownRect.y)
+		int margin = playState->isSuperMario() ? SDL_App::TILE_SIDE : 0;
+		if (region.y + margin >= ownRect.y)
 		{
 			switch (type)
 			{

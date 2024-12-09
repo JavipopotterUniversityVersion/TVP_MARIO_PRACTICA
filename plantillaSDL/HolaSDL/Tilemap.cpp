@@ -103,7 +103,7 @@ Collision Tilemap::hit(const SDL_Rect& region, Collision::Target target)
 
 			int indice = map[row][col];
 
-			if (indice == 43) /*game->setLoadFlag()*/;
+			if (indice == 43) playState->setLoadFlag();
 			if (indice != -1 && indice % texture->getNumColumns() < OBSTACLE_THRESHOLD)
 			{
 				SDL_Rect obstacleRect;

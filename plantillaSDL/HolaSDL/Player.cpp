@@ -15,6 +15,7 @@ Player::Player(PlayState* game, int x, int y, int vidas) : SceneObject(game, x, 
 
 void Player::handleEvent(SDL_Event& evento)
 {
+		if(evento.type == SDL_MOUSEBUTTONDOWN) if (_currentWeapon != nullptr) _currentWeapon->Use();
 		if (evento.type == SDL_KEYDOWN)
 		{
 			switch (evento.type)
@@ -22,9 +23,6 @@ void Player::handleEvent(SDL_Event& evento)
 			case SDL_KEYDOWN:
 				switch (evento.key.keysym.sym)
 				{
-				case SDLK_SPACE:
-					if(_currentWeapon != nullptr) _currentWeapon->Use();
-					break;
 				case SDLK_ESCAPE:
 					game->getApp()->pushState(new PauseState(game->getApp()));
 					break;
@@ -167,9 +165,9 @@ void Player::getDmg()
 {
 	if (inmuneTimer > 0) return;
 
-	inmuneTimer = INMUNE_TIME;
 	if (superMario)
 	{
+		inmuneTimer = INMUNE_TIME;
 		superMario = false;
 		texture = game->getApp()->getTexture(SDL_App::MARIO);
 	}
